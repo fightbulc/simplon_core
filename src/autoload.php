@@ -1,6 +1,6 @@
 <?php
 
-$appRootPath = __DIR__ . '/../../vendor';
+$appRootPath = __DIR__ . '/../../..';
 
 if (getenv('APP_ENV') !== 'dev')
 {
