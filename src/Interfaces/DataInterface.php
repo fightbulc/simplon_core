@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Interfaces;
+namespace Simplon\Core\Interfaces;
 
 /**
  * Interface DataInterface
- * @package Core\Interfaces
+ * @package Simplon\Core\Interfaces
  */
 interface DataInterface
 {

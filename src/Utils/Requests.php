@@ -1,13 +1,13 @@
 <?php
 
-namespace Core\Utils;
+namespace Simplon\Core\Utils;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Requests
- * @package Core\Utils
+ * @package Simplon\Core\Utils
  */
 abstract class Requests
 {

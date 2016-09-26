@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Interfaces;
+namespace Simplon\Core\Interfaces;
 
 use App\AppContext;
 use Psr\Http\Message\ResponseInterface;
@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Interface ControllerInterface
- * @package Core\Interfaces
+ * @package Simplon\Core\Interfaces
  */
 interface ControllerInterface
 {

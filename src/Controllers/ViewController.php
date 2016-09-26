@@ -1,17 +1,17 @@
 <?php
 
-namespace Core\Controllers;
+namespace Simplon\Core\Controllers;
 
 use App\AppContext;
-use Core\Data\ResponseViewData;
-use Core\Interfaces\ViewInterface;
-use Core\Middleware\LocaleMiddleware;
-use Core\Views\FlashMessage;
+use Simplon\Core\Data\ResponseViewData;
+use Simplon\Core\Interfaces\ViewInterface;
+use Simplon\Core\Middleware\LocaleMiddleware;
+use Simplon\Core\Views\FlashMessage;
 use Simplon\Locale\Locale;
 
 /**
  * Class ViewController
- * @package Core\Controllers
+ * @package Simplon\Core\Controllers
  */
 abstract class ViewController extends Controller
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Interfaces;
+namespace Simplon\Core\Interfaces;
 
 /**
  * Interface ViewInterface
- * @package Core\Interfaces
+ * @package Simplon\Core\Interfaces
  */
 interface ViewInterface
 {

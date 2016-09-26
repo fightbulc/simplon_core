@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Utils;
+namespace Simplon\Core\Utils;
 
 /**
  * Class EventsHandler
- * @package Core\Utils
+ * @package Simplon\Core\Utils
  */
 class EventsHandler
 {

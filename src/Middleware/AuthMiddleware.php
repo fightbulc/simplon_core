@@ -1,14 +1,14 @@
 <?php
 
-namespace Core\Middleware;
+namespace Simplon\Core\Middleware;
 
-use Core\Store\SessionStorage;
+use Simplon\Core\Store\SessionStorage;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class AuthMiddleware
- * @package Core\Middleware
+ * @package Simplon\Core\Middleware
  */
 class AuthMiddleware
 {

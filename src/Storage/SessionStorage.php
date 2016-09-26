@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Storage;
+namespace Simplon\Core\Storage;
 
-use Core\Interfaces\SessionStorageInterface;
+use Simplon\Core\Interfaces\SessionStorageInterface;
 
 /**
  * Class SessionStorage
- * @package Core\Storage
+ * @package Simplon\Core\Storage
  */
 class SessionStorage implements SessionStorageInterface
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Utils;
+namespace Simplon\Core\Utils;
 
-use Core\Data\RouteData;
+use Simplon\Core\Data\RouteData;
 
 /**
  * Class RoutesCollection
- * @package Core\Utils
+ * @package Simplon\Core\Utils
  */
 class RoutesCollection
 {

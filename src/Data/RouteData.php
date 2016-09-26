@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Data;
+namespace Simplon\Core\Data;
 
 /**
  * Class RouteData
- * @package Core\Data
+ * @package Simplon\Core\Data
  */
 class RouteData
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Core\Utils;
+namespace Simplon\Core\Utils;
 
 use App\AppContext;
-use Core\Interfaces\EventsInterface;
+use Simplon\Core\Interfaces\EventsInterface;
 
 /**
  * Class Events
- * @package Core\Utils
+ * @package Simplon\Core\Utils
  */
 abstract class Events implements EventsInterface
 {

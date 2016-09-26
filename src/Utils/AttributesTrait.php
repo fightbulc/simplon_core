@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Utils;
+namespace Simplon\Core\Utils;
 
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class AttributesTrait
- * @package Core\Utils
+ * @package Simplon\Core\Utils
  */
 trait AttributesTrait
 {

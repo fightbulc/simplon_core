@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Data;
+namespace Simplon\Core\Data;
 
-use Core\Interfaces\DataInterface;
+use Simplon\Core\Interfaces\DataInterface;
 
 /**
  * Class Data
- * @package Core\Data
+ * @package Simplon\Core\Data
  */
 abstract class Data implements DataInterface
 {

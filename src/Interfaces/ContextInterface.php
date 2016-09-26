@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Interfaces;
+namespace Simplon\Core\Interfaces;
 
 /**
  * Interface ContextInterface

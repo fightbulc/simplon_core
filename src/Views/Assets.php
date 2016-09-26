@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Views;
+namespace Simplon\Core\Views;
 
 use Simplon\Template\Template;
 
 /**
  * Class Assets
- * @package Core\Views
+ * @package Simplon\Core\Views
  */
 class Assets
 {

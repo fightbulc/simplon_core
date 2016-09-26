@@ -1,13 +1,13 @@
 <?php
 
-namespace Core\Middleware;
+namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class LocaleMiddleware
- * @package Core\Middleware
+ * @package Simplon\Core\Middleware
  */
 class LocaleMiddleware
 {

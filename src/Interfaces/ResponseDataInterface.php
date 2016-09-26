@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Interfaces;
+namespace Simplon\Core\Interfaces;
 
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Interface ResponseDataInterface
- * @package Core\Interfaces
+ * @package Simplon\Core\Interfaces
  */
 interface ResponseDataInterface
 {

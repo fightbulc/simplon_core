@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Utils;
+namespace Simplon\Core\Utils;
 
 /**
  * Class Config
- * @package Core\Utils
+ * @package Simplon\Core\Utils
  */
 class Config
 {

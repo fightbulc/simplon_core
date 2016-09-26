@@ -1,0 +1,995 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "80cdec679d85107b67ed9b61ebd2e197",
+    "content-hash": "34f5966fa1b91e06b7f671e940f0678b",
+    "packages": [
+        {
+            "name": "filp/whoops",
+            "version": "2.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "8828aaa2178e0a19325522e2a45282ff0a14649b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/8828aaa2178e0a19325522e2a45282ff0a14649b",
+                "reference": "8828aaa2178e0a19325522e2a45282ff0a14649b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "^4.8 || ^5.0",
+                "symfony/var-dumper": "~3.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+                "whoops/soap": "Formats errors as SOAP responses"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whoops\\": "src/Whoops/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php error handling for cool kids",
+            "homepage": "https://github.com/filp/whoops",
+            "keywords": [
+                "error",
+                "exception",
+                "handling",
+                "library",
+                "whoops",
+                "zf2"
+            ],
+            "time": "2016-05-06 18:25:35"
+        },
+        {
+            "name": "guzzlehttp/guzzle",
+            "version": "6.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "3f808fba627f2c5b69e2501217bf31af349c1427"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/3f808fba627f2c5b69e2501217bf31af349c1427",
+                "reference": "3f808fba627f2c5b69e2501217bf31af349c1427",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/promises": "^1.0",
+                "guzzlehttp/psr7": "^1.3.1",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "^4.0",
+                "psr/log": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.2-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions_include.php"
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2016-07-15 17:22:37"
+        },
+        {
+            "name": "guzzlehttp/promises",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/promises.git",
+                "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/c10d860e2a9595f8883527fa0021c7da9e65f579",
+                "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle promises library",
+            "keywords": [
+                "promise"
+            ],
+            "time": "2016-05-18 16:56:05"
+        },
+        {
+            "name": "guzzlehttp/psr7",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/psr7.git",
+                "reference": "5c6447c9df362e8f8093bda8f5d8873fe5c7f65b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/5c6447c9df362e8f8093bda8f5d8873fe5c7f65b",
+                "reference": "5c6447c9df362e8f8093bda8f5d8873fe5c7f65b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "psr/http-message": "~1.0"
+            },
+            "provide": {
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "PSR-7 message implementation",
+            "keywords": [
+                "http",
+                "message",
+                "stream",
+                "uri"
+            ],
+            "time": "2016-06-24 23:00:38"
+        },
+        {
+            "name": "kriswallsmith/assetic",
+            "version": "v1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/assetic.git",
+                "reference": "9928f7c4ad98b234e3559d1049abd13387f86db5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/9928f7c4ad98b234e3559d1049abd13387f86db5",
+                "reference": "9928f7c4ad98b234e3559d1049abd13387f86db5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1",
+                "symfony/process": "~2.1|~3.0"
+            },
+            "conflict": {
+                "twig/twig": "<1.23"
+            },
+            "require-dev": {
+                "cssmin/cssmin": "3.0.1",
+                "joliclic/javascript-packer": "1.1",
+                "kamicane/packager": "1.0",
+                "leafo/lessphp": "^0.3.7",
+                "leafo/scssphp": "~0.1",
+                "mrclay/minify": "~2.2",
+                "patchwork/jsqueeze": "~1.0|~2.0",
+                "phpunit/phpunit": "~4.8",
+                "psr/log": "~1.0",
+                "ptachoire/cssembed": "~1.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0",
+                "twig/twig": "~1.8|~2.0"
+            },
+            "suggest": {
+                "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
+                "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler",
+                "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin",
+                "patchwork/jsqueeze": "Assetic provides the integration with the JSqueeze JavaScript compressor",
+                "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
+                "twig/twig": "Assetic provides the integration with the Twig templating engine"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assetic": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Asset Management for PHP",
+            "homepage": "https://github.com/kriswallsmith/assetic",
+            "keywords": [
+                "assets",
+                "compression",
+                "minification"
+            ],
+            "time": "2015-11-12 13:51:40"
+        },
+        {
+            "name": "psr/http-message",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "homepage": "https://github.com/php-fig/http-message",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2016-08-06 14:39:51"
+        },
+        {
+            "name": "relay/relay",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/relayphp/Relay.Relay.git",
+                "reference": "e835fc45351b7a92a6fdf2a36be7bd59ef56c8ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/relayphp/Relay.Relay/zipball/e835fc45351b7a92a6fdf2a36be7bd59ef56c8ae",
+                "reference": "e835fc45351b7a92a6fdf2a36be7bd59ef56c8ae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "psr/http-message": "~1.0"
+            },
+            "require-dev": {
+                "zendframework/zend-diactoros": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Relay\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Relay.Relay Contributors",
+                    "homepage": "https://github.com/relayphp/Relay.Relay/contributors"
+                }
+            ],
+            "description": "A PSR-7 middleware dispatcher.",
+            "homepage": "https://github.com/relayphp/Relay.Relay",
+            "keywords": [
+                "middleware",
+                "psr-7"
+            ],
+            "time": "2015-12-17 18:18:30"
+        },
+        {
+            "name": "simplon/component_semanticui",
+            "version": "0.0.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_component_semanticui.git",
+                "reference": "865df1bb3b86c4e643c235610961bf96f8f805fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_component_semanticui/zipball/865df1bb3b86c4e643c235610961bf96f8f805fd",
+                "reference": "865df1bb3b86c4e643c235610961bf96f8f805fd",
+                "shasum": ""
+            },
+            "require": {
+                "simplon/components": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "files": [
+                        "jquery/3.1.x/jquery.min.js",
+                        "semantic-ui/2.2.x/themes/basic/assets/fonts/icons.eot",
+                        "semantic-ui/2.2.x/themes/basic/assets/fonts/icons.svg",
+                        "semantic-ui/2.2.x/themes/basic/assets/fonts/icons.ttf",
+                        "semantic-ui/2.2.x/themes/basic/assets/fonts/icons.woff",
+                        "semantic-ui/2.2.x/themes/default/assets/fonts/icons.eot",
+                        "semantic-ui/2.2.x/themes/default/assets/fonts/icons.otf",
+                        "semantic-ui/2.2.x/themes/default/assets/fonts/icons.svg",
+                        "semantic-ui/2.2.x/themes/default/assets/fonts/icons.ttf",
+                        "semantic-ui/2.2.x/themes/default/assets/fonts/icons.woff",
+                        "semantic-ui/2.2.x/themes/default/assets/fonts/icons.woff2",
+                        "semantic-ui/2.2.x/themes/default/assets/images/flags.png",
+                        "semantic-ui/2.2.x/themes/github/assets/fonts/icons.eot",
+                        "semantic-ui/2.2.x/themes/github/assets/fonts/icons.svg",
+                        "semantic-ui/2.2.x/themes/github/assets/fonts/icons.ttf",
+                        "semantic-ui/2.2.x/themes/github/assets/fonts/icons.woff",
+                        "semantic-ui/2.2.x/components/accordion.css",
+                        "semantic-ui/2.2.x/components/accordion.js",
+                        "semantic-ui/2.2.x/components/accordion.min.css",
+                        "semantic-ui/2.2.x/components/accordion.min.js",
+                        "semantic-ui/2.2.x/components/ad.css",
+                        "semantic-ui/2.2.x/components/ad.min.css",
+                        "semantic-ui/2.2.x/components/api.js",
+                        "semantic-ui/2.2.x/components/api.min.js",
+                        "semantic-ui/2.2.x/components/breadcrumb.css",
+                        "semantic-ui/2.2.x/components/breadcrumb.min.css",
+                        "semantic-ui/2.2.x/components/button.css",
+                        "semantic-ui/2.2.x/components/button.min.css",
+                        "semantic-ui/2.2.x/components/card.css",
+                        "semantic-ui/2.2.x/components/card.min.css",
+                        "semantic-ui/2.2.x/components/checkbox.css",
+                        "semantic-ui/2.2.x/components/checkbox.js",
+                        "semantic-ui/2.2.x/components/checkbox.min.css",
+                        "semantic-ui/2.2.x/components/checkbox.min.js",
+                        "semantic-ui/2.2.x/components/colorize.js",
+                        "semantic-ui/2.2.x/components/colorize.min.js",
+                        "semantic-ui/2.2.x/components/comment.css",
+                        "semantic-ui/2.2.x/components/comment.min.css",
+                        "semantic-ui/2.2.x/components/container.css",
+                        "semantic-ui/2.2.x/components/container.min.css",
+                        "semantic-ui/2.2.x/components/dimmer.css",
+                        "semantic-ui/2.2.x/components/dimmer.js",
+                        "semantic-ui/2.2.x/components/dimmer.min.css",
+                        "semantic-ui/2.2.x/components/dimmer.min.js",
+                        "semantic-ui/2.2.x/components/divider.css",
+                        "semantic-ui/2.2.x/components/divider.min.css",
+                        "semantic-ui/2.2.x/components/dropdown.css",
+                        "semantic-ui/2.2.x/components/dropdown.js",
+                        "semantic-ui/2.2.x/components/dropdown.min.css",
+                        "semantic-ui/2.2.x/components/dropdown.min.js",
+                        "semantic-ui/2.2.x/components/embed.css",
+                        "semantic-ui/2.2.x/components/embed.js",
+                        "semantic-ui/2.2.x/components/embed.min.css",
+                        "semantic-ui/2.2.x/components/embed.min.js",
+                        "semantic-ui/2.2.x/components/feed.css",
+                        "semantic-ui/2.2.x/components/feed.min.css",
+                        "semantic-ui/2.2.x/components/flag.css",
+                        "semantic-ui/2.2.x/components/flag.min.css",
+                        "semantic-ui/2.2.x/components/form.css",
+                        "semantic-ui/2.2.x/components/form.js",
+                        "semantic-ui/2.2.x/components/form.min.css",
+                        "semantic-ui/2.2.x/components/form.min.js",
+                        "semantic-ui/2.2.x/components/grid.css",
+                        "semantic-ui/2.2.x/components/grid.min.css",
+                        "semantic-ui/2.2.x/components/header.css",
+                        "semantic-ui/2.2.x/components/header.min.css",
+                        "semantic-ui/2.2.x/components/icon.css",
+                        "semantic-ui/2.2.x/components/icon.min.css",
+                        "semantic-ui/2.2.x/components/image.css",
+                        "semantic-ui/2.2.x/components/image.min.css",
+                        "semantic-ui/2.2.x/components/input.css",
+                        "semantic-ui/2.2.x/components/input.min.css",
+                        "semantic-ui/2.2.x/components/item.css",
+                        "semantic-ui/2.2.x/components/item.min.css",
+                        "semantic-ui/2.2.x/components/label.css",
+                        "semantic-ui/2.2.x/components/label.min.css",
+                        "semantic-ui/2.2.x/components/list.css",
+                        "semantic-ui/2.2.x/components/list.min.css",
+                        "semantic-ui/2.2.x/components/loader.css",
+                        "semantic-ui/2.2.x/components/loader.min.css",
+                        "semantic-ui/2.2.x/components/menu.css",
+                        "semantic-ui/2.2.x/components/menu.min.css",
+                        "semantic-ui/2.2.x/components/message.css",
+                        "semantic-ui/2.2.x/components/message.min.css",
+                        "semantic-ui/2.2.x/components/modal.css",
+                        "semantic-ui/2.2.x/components/modal.js",
+                        "semantic-ui/2.2.x/components/modal.min.css",
+                        "semantic-ui/2.2.x/components/modal.min.js",
+                        "semantic-ui/2.2.x/components/nag.css",
+                        "semantic-ui/2.2.x/components/nag.js",
+                        "semantic-ui/2.2.x/components/nag.min.css",
+                        "semantic-ui/2.2.x/components/nag.min.js",
+                        "semantic-ui/2.2.x/components/popup.css",
+                        "semantic-ui/2.2.x/components/popup.js",
+                        "semantic-ui/2.2.x/components/popup.min.css",
+                        "semantic-ui/2.2.x/components/popup.min.js",
+                        "semantic-ui/2.2.x/components/progress.css",
+                        "semantic-ui/2.2.x/components/progress.js",
+                        "semantic-ui/2.2.x/components/progress.min.css",
+                        "semantic-ui/2.2.x/components/progress.min.js",
+                        "semantic-ui/2.2.x/components/rail.css",
+                        "semantic-ui/2.2.x/components/rail.min.css",
+                        "semantic-ui/2.2.x/components/rating.css",
+                        "semantic-ui/2.2.x/components/rating.js",
+                        "semantic-ui/2.2.x/components/rating.min.css",
+                        "semantic-ui/2.2.x/components/rating.min.js",
+                        "semantic-ui/2.2.x/components/reset.css",
+                        "semantic-ui/2.2.x/components/reset.min.css",
+                        "semantic-ui/2.2.x/components/reveal.css",
+                        "semantic-ui/2.2.x/components/reveal.min.css",
+                        "semantic-ui/2.2.x/components/search.css",
+                        "semantic-ui/2.2.x/components/search.js",
+                        "semantic-ui/2.2.x/components/search.min.css",
+                        "semantic-ui/2.2.x/components/search.min.js",
+                        "semantic-ui/2.2.x/components/segment.css",
+                        "semantic-ui/2.2.x/components/segment.min.css",
+                        "semantic-ui/2.2.x/components/shape.css",
+                        "semantic-ui/2.2.x/components/shape.js",
+                        "semantic-ui/2.2.x/components/shape.min.css",
+                        "semantic-ui/2.2.x/components/shape.min.js",
+                        "semantic-ui/2.2.x/components/sidebar.css",
+                        "semantic-ui/2.2.x/components/sidebar.js",
+                        "semantic-ui/2.2.x/components/sidebar.min.css",
+                        "semantic-ui/2.2.x/components/sidebar.min.js",
+                        "semantic-ui/2.2.x/components/site.css",
+                        "semantic-ui/2.2.x/components/site.js",
+                        "semantic-ui/2.2.x/components/site.min.css",
+                        "semantic-ui/2.2.x/components/site.min.js",
+                        "semantic-ui/2.2.x/components/state.js",
+                        "semantic-ui/2.2.x/components/state.min.js",
+                        "semantic-ui/2.2.x/components/statistic.css",
+                        "semantic-ui/2.2.x/components/statistic.min.css",
+                        "semantic-ui/2.2.x/components/step.css",
+                        "semantic-ui/2.2.x/components/step.min.css",
+                        "semantic-ui/2.2.x/components/sticky.css",
+                        "semantic-ui/2.2.x/components/sticky.js",
+                        "semantic-ui/2.2.x/components/sticky.min.css",
+                        "semantic-ui/2.2.x/components/sticky.min.js",
+                        "semantic-ui/2.2.x/components/tab.css",
+                        "semantic-ui/2.2.x/components/tab.js",
+                        "semantic-ui/2.2.x/components/tab.min.css",
+                        "semantic-ui/2.2.x/components/tab.min.js",
+                        "semantic-ui/2.2.x/components/table.css",
+                        "semantic-ui/2.2.x/components/table.min.css",
+                        "semantic-ui/2.2.x/components/transition.css",
+                        "semantic-ui/2.2.x/components/transition.js",
+                        "semantic-ui/2.2.x/components/transition.min.css",
+                        "semantic-ui/2.2.x/components/transition.min.js",
+                        "semantic-ui/2.2.x/components/video.css",
+                        "semantic-ui/2.2.x/components/video.js",
+                        "semantic-ui/2.2.x/components/video.min.css",
+                        "semantic-ui/2.2.x/components/video.min.js",
+                        "semantic-ui/2.2.x/components/visibility.js",
+                        "semantic-ui/2.2.x/components/visibility.min.js",
+                        "semantic-ui/2.2.x/components/visit.js",
+                        "semantic-ui/2.2.x/components/visit.min.js",
+                        "semantic-ui/2.2.x/semantic.css",
+                        "semantic-ui/2.2.x/semantic.min.css",
+                        "semantic-ui/2.2.x/semantic.js",
+                        "semantic-ui/2.2.x/semantic.min.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Jack Lukic",
+                    "email": "jacklukic@gmail.com",
+                    "homepage": "http://www.jacklukic.com",
+                    "role": "Creator"
+                }
+            ],
+            "description": "Semantic empowers designers and developers by creating a shared vocabulary for UI.",
+            "homepage": "http://www.semantic-ui.com",
+            "time": "2016-08-29 10:01:18"
+        },
+        {
+            "name": "simplon/components",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_components.git",
+                "reference": "64a49b4d9d9a7b342fd1008d50fbde0edcea58b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_components/zipball/64a49b4d9d9a7b342fd1008d50fbde0edcea58b2",
+                "reference": "64a49b4d9d9a7b342fd1008d50fbde0edcea58b2",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "kriswallsmith/assetic": "1.*",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "composer/composer": "1.*@alpha",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                },
+                "class": "ComponentInstaller\\ComponentInstallerPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "ComponentInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Loach",
+                    "homepage": "http://robloach.net"
+                }
+            ],
+            "description": "Allows installation of Components via Composer.",
+            "time": "2015-10-19 15:57:27"
+        },
+        {
+            "name": "simplon/locale",
+            "version": "0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_locale.git",
+                "reference": "b2b0a88aee28cd38dd774ed6403bbc3339a52d0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_locale/zipball/b2b0a88aee28cd38dd774ed6403bbc3339a52d0a",
+                "reference": "b2b0a88aee28cd38dd774ed6403bbc3339a52d0a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Locale\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Simple, straight forward locale reader",
+            "homepage": "https://github.com/fightbulc/simplon_locale",
+            "keywords": [
+                "i18n",
+                "locales",
+                "reader"
+            ],
+            "time": "2016-08-17 08:17:28"
+        },
+        {
+            "name": "simplon/mustache",
+            "version": "0.1.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_mustache.git",
+                "reference": "00d95584b4bf8e64e1c3974966dbd13cabc7fe2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_mustache/zipball/00d95584b4bf8e64e1c3974966dbd13cabc7fe2c",
+                "reference": "00d95584b4bf8e64e1c3974966dbd13cabc7fe2c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Mustache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Lightweight & fast implementation of Mustache - Logic-less templates.",
+            "homepage": "https://github.com/fightbulc/simplon_mustache",
+            "keywords": [
+                "fast",
+                "leightweight",
+                "less",
+                "logic",
+                "logic-less",
+                "mustache",
+                "template"
+            ],
+            "time": "2015-02-07 21:44:54"
+        },
+        {
+            "name": "simplon/phtml",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_phtml.git",
+                "reference": "acf6fd9c5b70df26bb1659770ca13a6084c1ad2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_phtml/zipball/acf6fd9c5b70df26bb1659770ca13a6084c1ad2a",
+                "reference": "acf6fd9c5b70df26bb1659770ca13a6084c1ad2a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Phtml\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Simple, straight forward implementation of php templates.",
+            "homepage": "https://github.com/fightbulc/simplon_phtml",
+            "keywords": [
+                "php",
+                "phtml",
+                "template"
+            ],
+            "time": "2014-11-15 12:29:39"
+        },
+        {
+            "name": "simplon/template",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_template.git",
+                "reference": "97e5331dc8d79ce8dd1566328adc18a7eb4afbac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_template/zipball/97e5331dc8d79ce8dd1566328adc18a7eb4afbac",
+                "reference": "97e5331dc8d79ce8dd1566328adc18a7eb4afbac",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "simplon/mustache": "0.1.*",
+                "simplon/phtml": "0.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Template\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Simple templating solution w/ assets handling (mustache, phtml, assets)",
+            "homepage": "https://github.com/fightbulc/simplon_template",
+            "keywords": [
+                "fast",
+                "lightweight",
+                "mustache",
+                "phtml",
+                "templates"
+            ],
+            "time": "2016-09-25 11:11:27"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v3.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "e64e93041c80e77197ace5ab9385dedb5a143697"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/e64e93041c80e77197ace5ab9385dedb5a143697",
+                "reference": "e64e93041c80e77197ace5ab9385dedb5a143697",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-08-16 14:58:24"
+        },
+        {
+            "name": "tightenco/collect",
+            "version": "v5.3.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tightenco/collect.git",
+                "reference": "321ff9a1de1466aa8546928c223cdee5b7f762cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tightenco/collect/zipball/321ff9a1de1466aa8546928c223cdee5b7f762cf",
+                "reference": "321ff9a1de1466aa8546928c223cdee5b7f762cf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.4",
+                "phpunit/phpunit": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Illuminate/Support/helpers.php"
+                ],
+                "psr-4": {
+                    "Illuminate\\": "src/Illuminate"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "Collect - Illuminate Collections as a separate package.",
+            "keywords": [
+                "collection",
+                "laravel"
+            ],
+            "time": "2016-09-12 17:54:06"
+        },
+        {
+            "name": "zendframework/zend-diactoros",
+            "version": "1.3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-diactoros.git",
+                "reference": "a60da179c37f2c4e44ef734d0b92824a58943f7f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/a60da179c37f2c4e44ef734d0b92824a58943f7f",
+                "reference": "a60da179c37f2c4e44ef734d0b92824a58943f7f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 || ^7.0",
+                "psr/http-message": "~1.0"
+            },
+            "provide": {
+                "psr/http-message-implementation": "~1.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.6 || ^5.5",
+                "squizlabs/php_codesniffer": "^2.3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3-dev",
+                    "dev-develop": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Diactoros\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "PSR HTTP Message implementations",
+            "homepage": "https://github.com/zendframework/zend-diactoros",
+            "keywords": [
+                "http",
+                "psr",
+                "psr-7"
+            ],
+            "time": "2016-09-07 17:57:29"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.0"
+    },
+    "platform-dev": []
+}

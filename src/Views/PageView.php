@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Views;
+namespace Simplon\Core\Views;
 
 /**
  * Class PageView
- * @package Core\Views
+ * @package Simplon\Core\Views
  */
 class PageView
 {

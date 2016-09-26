@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Interfaces;
+namespace Simplon\Core\Interfaces;
 
 use App\AppContext;
 
 /**
  * Interface EventsInterface
- * @package Core\Interfaces
+ * @package Simplon\Core\Interfaces
  */
 interface EventsInterface
 {

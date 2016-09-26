@@ -1,13 +1,13 @@
 <?php
 
-namespace Core\Interfaces;
+namespace Simplon\Core\Interfaces;
 
 use App\AppContext;
-use Core\Utils\RoutesCollection;
+use Simplon\Core\Utils\RoutesCollection;
 
 /**
  * Interface RegisterInterface
- * @package Core\Interfaces
+ * @package Simplon\Core\Interfaces
  */
 interface RegisterInterface
 {

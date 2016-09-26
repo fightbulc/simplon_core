@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Storage;
+namespace Simplon\Core\Storage;
 
 /**
  * Class CookieStorage
- * @package Core\Storage
+ * @package Simplon\Core\Storage
  */
 class CookieStorage
 {

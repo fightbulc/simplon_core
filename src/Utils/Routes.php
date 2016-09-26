@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Utils;
+namespace Simplon\Core\Utils;
 
-use Core\Middleware\LocaleMiddleware;
+use Simplon\Core\Middleware\LocaleMiddleware;
 
 /**
  * Class Routes
- * @package Core\Utils
+ * @package Simplon\Core\Utils
  */
 abstract class Routes
 {

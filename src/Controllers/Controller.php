@@ -1,16 +1,16 @@
 <?php
 
-namespace Core\Controllers;
+namespace Simplon\Core\Controllers;
 
 use App\AppContext;
-use Core\Interfaces\ControllerInterface;
-use Core\Utils\Config;
+use Simplon\Core\Interfaces\ControllerInterface;
+use Simplon\Core\Utils\Config;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class Controller
- * @package Core\Controllers
+ * @package Simplon\Core\Controllers
  */
 abstract class Controller implements ControllerInterface
 {

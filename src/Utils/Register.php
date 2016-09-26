@@ -1,13 +1,13 @@
 <?php
 
-namespace Core\Utils;
+namespace Simplon\Core\Utils;
 
 use App\AppContext;
-use Core\Interfaces\RegisterInterface;
+use Simplon\Core\Interfaces\RegisterInterface;
 
 /**
  * Class Register
- * @package Core\Utils
+ * @package Simplon\Core\Utils
  */
 abstract class Register implements RegisterInterface
 {

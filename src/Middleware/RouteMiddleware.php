@@ -1,18 +1,18 @@
 <?php
 
-namespace Core\Middleware;
+namespace Simplon\Core\Middleware;
 
 use App\AppContext;
-use Core\Interfaces\ControllerInterface;
-use Core\Interfaces\RegisterInterface;
-use Core\Interfaces\ResponseDataInterface;
-use Core\Utils\AttributesTrait;
+use Simplon\Core\Interfaces\ControllerInterface;
+use Simplon\Core\Interfaces\RegisterInterface;
+use Simplon\Core\Interfaces\ResponseDataInterface;
+use Simplon\Core\Utils\AttributesTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class RouteMiddleware
- * @package Core\Middleware
+ * @package Simplon\Core\Middleware
  */
 class RouteMiddleware
 {

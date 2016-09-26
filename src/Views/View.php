@@ -1,14 +1,14 @@
 <?php
 
-namespace Core\Views;
+namespace Simplon\Core\Views;
 
-use Core\Interfaces\ViewInterface;
+use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Phtml\Phtml;
 use Simplon\Template\Template;
 
 /**
  * Class View
- * @package Core\Views
+ * @package Simplon\Core\Views
  */
 abstract class View implements ViewInterface
 {

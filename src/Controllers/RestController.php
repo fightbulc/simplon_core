@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Controllers;
+namespace Simplon\Core\Controllers;
 
-use Core\Data\ResponseRestData;
+use Simplon\Core\Data\ResponseRestData;
 
 /**
  * Class RestController
- * @package Core\Controllers
+ * @package Simplon\Core\Controllers
  */
 abstract class RestController extends Controller
 {

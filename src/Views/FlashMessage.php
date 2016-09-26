@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Views;
+namespace Simplon\Core\Views;
 
-use Core\Interfaces\SessionStorageInterface;
+use Simplon\Core\Interfaces\SessionStorageInterface;
 
 /**
  * Class FlashMessage
- * @package Core\Views
+ * @package Simplon\Core\Views
  */
 class FlashMessage
 {

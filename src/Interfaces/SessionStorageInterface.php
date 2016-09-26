@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Interfaces;
+namespace Simplon\Core\Interfaces;
 
 /**
  * Interface SessionStorageInterface
- * @package Core\Interfaces
+ * @package Simplon\Core\Interfaces
  */
 interface SessionStorageInterface
 {

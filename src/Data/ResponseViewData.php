@@ -1,13 +1,13 @@
 <?php
 
-namespace Core\Data;
+namespace Simplon\Core\Data;
 
-use Core\Interfaces\ResponseDataInterface;
+use Simplon\Core\Interfaces\ResponseDataInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class ResponseViewData
- * @package Core\Data
+ * @package Simplon\Core\Data
  */
 class ResponseViewData implements ResponseDataInterface
 {
