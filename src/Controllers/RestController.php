@@ -24,6 +24,7 @@ abstract class RestController extends Controller
      */
     public function respond(array $data): ResponseRestData
     {
+        $this->getResponse()->withAddedHeader('Content-Type', 'application/json; charset=UTF-8');
         $this->getResponse()->getBody()->write(json_encode($data));
 
         return new ResponseRestData($this->getResponse());
