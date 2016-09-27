@@ -32,7 +32,7 @@ class FlashMessage
     /**
      * @return bool
      */
-    public function hasFlash()
+    public function hasFlash(): bool
     {
         return $this->getSessionStore()->has(self::SESSION_KEY);
     }
@@ -59,68 +59,80 @@ class FlashMessage
     /**
      * @param string $message
      *
-     * @return bool
+     * @return FlashMessage
      */
-    public function setFlashNormal($message)
+    public function setFlashNormal(string $message): self
     {
-        return $this->setFlash($message);
+        $this->setFlash($message);
+
+        return $this;
     }
 
     /**
      * @param string $message
      *
-     * @return bool
+     * @return FlashMessage
      */
-    public function setFlashInfo($message)
+    public function setFlashInfo(string $message): self
     {
-        return $this->setFlash($message, self::TYPE_INFO);
+        $this->setFlash($message, self::TYPE_INFO);
+
+        return $this;
     }
 
     /**
      * @param string $message
      *
-     * @return bool
+     * @return FlashMessage
      */
-    public function setFlashSuccess($message)
+    public function setFlashSuccess(string $message): self
     {
-        return $this->setFlash($message, self::TYPE_SUCCESS);
+        $this->setFlash($message, self::TYPE_SUCCESS);
+
+        return $this;
     }
 
     /**
      * @param string $message
      *
-     * @return bool
+     * @return FlashMessage
      */
-    public function setFlashWarning($message)
+    public function setFlashWarning(string $message): self
     {
-        return $this->setFlash($message, self::TYPE_WARNING);
+        $this->setFlash($message, self::TYPE_WARNING);
+
+        return $this;
     }
 
     /**
      * @param string $message
      *
-     * @return bool
+     * @return FlashMessage
      */
-    public function setFlashError($message)
+    public function setFlashError(string $message): self
     {
-        return $this->setFlash($message, self::TYPE_ERROR);
+        $this->setFlash($message, self::TYPE_ERROR);
+
+        return $this;
     }
 
     /**
      * @param string $message
-     * @param string $type
+     * @param string|null $type
      *
-     * @return bool
+     * @return FlashMessage
      */
-    private function setFlash($message, $type = null)
+    private function setFlash(string $message, $type = null): self
     {
-        return $this->getSessionStore()->set(self::SESSION_KEY, ['message' => $message, 'type' => $type]);
+        $this->getSessionStore()->set(self::SESSION_KEY, ['message' => $message, 'type' => $type]);
+
+        return $this;
     }
 
     /**
      * @return SessionStorageInterface
      */
-    private function getSessionStore()
+    private function getSessionStore(): SessionStorageInterface
     {
         return $this->sessionStore;
     }
