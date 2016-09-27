@@ -29,7 +29,7 @@ class ResponseRestData implements ResponseDataInterface
      */
     public function render(): ResponseInterface
     {
-        $this->response = $this->response->withAddedHeader('Content-Type', 'application/json');
+        $this->response = $this->response->withAddedHeader('Content-Type', 'application/json; charset=UTF-8');
 
         return $this->response;
     }
