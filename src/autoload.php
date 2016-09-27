@@ -1,5 +1,9 @@
 <?php
 
+//
+// lets use composer's optimsed dumps when we are not in dev environment
+//
+
 $appRootPath = __DIR__ . '/../../..';
 
 if (getenv('APP_ENV') !== 'dev')
