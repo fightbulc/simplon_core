@@ -2,6 +2,7 @@
 
 namespace Simplon\Core;
 
+use Interfaces\SessionHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Relay\RelayBuilder;
 use Simplon\Core\Storage\SessionStorage;
@@ -20,11 +21,14 @@ class Core
     const BODY_CHUNKSIZE = 2048;
 
     /**
+     * @param int $timeoutInSeconds
+     * @param SessionHandlerInterface $sessionHandler
+     *
      * @return Core
      */
-    public function withSession(): self
+    public function withSession(int $timeoutInSeconds, SessionHandlerInterface $sessionHandler = null): self
     {
-        SessionStorage::initSession();
+        SessionStorage::initSession($timeoutInSeconds, $sessionHandler);
 
         return $this;
     }
