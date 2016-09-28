@@ -168,7 +168,7 @@ class RouteMiddleware
             $path = str_replace('{' . $placeholder . '}', '(?<' . $placeholder . '>[\w+-/]+)', $path);
         }
 
-        return trim($path, '/');
+        return rtrim($path, '/');
     }
 
     /**
