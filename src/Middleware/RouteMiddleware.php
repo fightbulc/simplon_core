@@ -2,11 +2,10 @@
 
 namespace Simplon\Core\Middleware;
 
-use App\AppContext;
+use Simplon\Core\Interfaces\AppContextInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegisterInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
-use Simplon\Core\Utils\AttributesTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -16,24 +15,23 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class RouteMiddleware
 {
-    use AttributesTrait;
-
     /**
      * @var RegisterInterface[]
      */
     private $components;
     /**
-     * @var AppContext
+     * @var AppContextInterface
      */
     private $appContext;
 
     /**
+     * @param AppContextInterface $appContext
      * @param RegisterInterface[] $components
      */
-    public function __construct(array $components)
+    public function __construct(AppContextInterface $appContext, array $components)
     {
         $this->components = $components;
-        $this->appContext = new AppContext();
+        $this->appContext = $appContext;
     }
 
     /**

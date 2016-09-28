@@ -2,7 +2,7 @@
 
 namespace Simplon\Core\Utils;
 
-use App\AppContext;
+use Simplon\Core\Interfaces\AppContextInterface;
 use Simplon\Core\Interfaces\RegisterInterface;
 
 /**
@@ -12,14 +12,14 @@ use Simplon\Core\Interfaces\RegisterInterface;
 abstract class Register implements RegisterInterface
 {
     /**
-     * @var AppContext
+     * @var AppContextInterface
      */
     protected $appContext;
 
     /**
      * @inheritDoc
      */
-    public function getAppContext(): AppContext
+    public function getAppContext(): AppContextInterface
     {
         return $this->appContext;
     }
@@ -27,7 +27,7 @@ abstract class Register implements RegisterInterface
     /**
      * @inheritDoc
      */
-    public function setAppContext(AppContext $appContext): RegisterInterface
+    public function setAppContext(AppContextInterface $appContext): RegisterInterface
     {
         $this->appContext = $appContext;
 

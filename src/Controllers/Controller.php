@@ -2,7 +2,7 @@
 
 namespace Simplon\Core\Controllers;
 
-use App\AppContext;
+use Simplon\Core\Interfaces\AppContextInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Utils\Config;
 use Psr\Http\Message\ResponseInterface;
@@ -18,9 +18,8 @@ abstract class Controller implements ControllerInterface
      * @var Config[]
      */
     protected $configCache = [];
-
     /**
-     * @var AppContext
+     * @var AppContextInterface
      */
     protected $appContext;
     /**
@@ -35,14 +34,6 @@ abstract class Controller implements ControllerInterface
      * @var string
      */
     protected $workingDir;
-
-    /**
-     * @return AppContext
-     */
-    public function getAppContext(): AppContext
-    {
-        return $this->appContext;
-    }
 
     /**
      * @param array $key
@@ -84,11 +75,19 @@ abstract class Controller implements ControllerInterface
     }
 
     /**
-     * @param AppContext $appContext
+     * @return AppContextInterface
+     */
+    public function getAppContext(): AppContextInterface
+    {
+        return $this->appContext;
+    }
+
+    /**
+     * @param AppContextInterface $appContext
      *
      * @return ControllerInterface
      */
-    public function setAppContext(AppContext $appContext): ControllerInterface
+    public function setAppContext(AppContextInterface $appContext): ControllerInterface
     {
         $this->appContext = $appContext;
 

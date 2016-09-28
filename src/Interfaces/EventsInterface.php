@@ -2,8 +2,6 @@
 
 namespace Simplon\Core\Interfaces;
 
-use App\AppContext;
-
 /**
  * Interface EventsInterface
  * @package Simplon\Core\Interfaces
@@ -11,9 +9,9 @@ use App\AppContext;
 interface EventsInterface
 {
     /**
-     * @param AppContext $appContext
+     * @param AppContextInterface $appContext
      */
-    public function __construct(AppContext $appContext);
+    public function __construct(AppContextInterface $appContext);
 
     /**
      * @return array

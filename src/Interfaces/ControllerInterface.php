@@ -2,7 +2,6 @@
 
 namespace Simplon\Core\Interfaces;
 
-use App\AppContext;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -13,16 +12,16 @@ use Psr\Http\Message\ServerRequestInterface;
 interface ControllerInterface
 {
     /**
-     * @return AppContext
+     * @return AppContextInterface
      */
-    public function getAppContext(): AppContext;
+    public function getAppContext(): AppContextInterface;
 
     /**
-     * @param AppContext $appContext
+     * @param AppContextInterface $appContext
      *
      * @return ControllerInterface
      */
-    public function setAppContext(AppContext $appContext): ControllerInterface;
+    public function setAppContext(AppContextInterface $appContext): ControllerInterface;
 
     /**
      * @return ServerRequestInterface

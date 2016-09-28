@@ -2,9 +2,9 @@
 
 namespace Simplon\Core\Middleware;
 
-use Simplon\Core\Store\SessionStorage;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Storage\SessionStorage;
 
 /**
  * Class AuthMiddleware

@@ -2,7 +2,6 @@
 
 namespace Simplon\Core\Interfaces;
 
-use App\AppContext;
 use Simplon\Core\Utils\RoutesCollection;
 
 /**
@@ -12,16 +11,16 @@ use Simplon\Core\Utils\RoutesCollection;
 interface RegisterInterface
 {
     /**
-     * @return AppContext
+     * @return AppContextInterface
      */
-    public function getAppContext(): AppContext;
+    public function getAppContext(): AppContextInterface;
 
     /**
-     * @param AppContext $appContext
+     * @param AppContextInterface $appContext
      *
      * @return RegisterInterface
      */
-    public function setAppContext(AppContext $appContext): RegisterInterface;
+    public function setAppContext(AppContextInterface $appContext): RegisterInterface;
 
     /**
      * @return string

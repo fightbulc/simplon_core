@@ -2,7 +2,7 @@
 
 namespace Simplon\Core\Utils;
 
-use App\AppContext;
+use Simplon\Core\Interfaces\AppContextInterface;
 use Simplon\Core\Interfaces\EventsInterface;
 
 /**
@@ -12,14 +12,14 @@ use Simplon\Core\Interfaces\EventsInterface;
 abstract class Events implements EventsInterface
 {
     /**
-     * @var AppContext
+     * @var AppContextInterface
      */
     private $appContext;
 
     /**
      * @inheritDoc
      */
-    public function __construct(AppContext $appContext)
+    public function __construct(AppContextInterface $appContext)
     {
         $this->appContext = $appContext;
     }
