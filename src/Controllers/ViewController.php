@@ -58,8 +58,8 @@ abstract class ViewController extends Controller
     {
         if (!$this->locale)
         {
-            $paths = array_merge(AppContextInterface::getLocalePaths(), [$this->getWorkingDir() . '/Locales']);
-            $this->locale = new Locale(AppContextInterface::getLocaleFileReader($paths), [$code]);
+            $paths = array_merge($this->getAppContext()->getLocalePaths(), [$this->getWorkingDir() . '/Locales']);
+            $this->locale = new Locale($this->getAppContext()->getLocaleFileReader($paths), [$code]);
             $this->locale->setLocale($code);
         }
 

@@ -16,14 +16,14 @@ interface AppContextInterface
     /**
      * @return array
      */
-    public static function getLocalePaths(): array;
+    public function getLocalePaths(): array;
 
     /**
      * @param array $paths
      *
      * @return PhpFileReader
      */
-    public static function getLocaleFileReader(array $paths): PhpFileReader;
+    public function getLocaleFileReader(array $paths): PhpFileReader;
 
     /**
      * @return Config
