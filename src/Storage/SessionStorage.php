@@ -2,6 +2,7 @@
 
 namespace Simplon\Core\Storage;
 
+use Interfaces\SessionHandlerInterface;
 use Simplon\Core\Interfaces\SessionStorageInterface;
 
 /**
@@ -12,11 +13,19 @@ class SessionStorage implements SessionStorageInterface
 {
     /**
      * @param int $sessionTimeoutSeconds
+     * @param SessionHandlerInterface|null $handler
      */
-    public static function initSession(int $sessionTimeoutSeconds = 1800)
+    public static function initSession(int $sessionTimeoutSeconds, SessionHandlerInterface $handler = null)
     {
         if (empty(session_id()))
         {
+            // set handler
+            if ($handler)
+            {
+                ini_set("session.save_handler", $handler->getSaveHandler());
+                ini_set("session.save_path", $handler->getSavePath());
+            }
+
             // max session lifetime
             ini_set("session.gc_maxlifetime", $sessionTimeoutSeconds);
 
