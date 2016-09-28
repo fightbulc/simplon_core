@@ -165,10 +165,10 @@ class RouteMiddleware
     {
         foreach ($this->getPathPlaceholders($path) as $placeholder)
         {
-            $path = str_replace('{' . $placeholder . '}', '(?<' . $placeholder . '>[\w+-]+)', $path);
+            $path = str_replace('{' . $placeholder . '}', '(?<' . $placeholder . '>[\w+-/]+)', $path);
         }
 
-        return $path;
+        return trim($path, '/');
     }
 
     /**
