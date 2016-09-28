@@ -176,9 +176,21 @@ abstract class View implements ViewInterface
      *
      * @return View
      */
-    protected function addCode(string $code): self
+    protected function addHeaderCode(string $code): self
     {
-        $this->getRenderer()->addAssetCode($code);
+        $this->getRenderer()->addAssetCode($code, 'header');
+
+        return $this;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return View
+     */
+    protected function addFooterCode(string $code): self
+    {
+        $this->getRenderer()->addAssetCode($code, 'footer');
 
         return $this;
     }
