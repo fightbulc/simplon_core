@@ -15,15 +15,15 @@ class SessionRedis implements SessionHandlerInterface
      */
     private $host;
     /**
-     * @var string
+     * @var int
      */
     private $port;
 
     /**
      * @param string $host
-     * @param string $port
+     * @param int $port
      */
-    public function __construct(string $host, string $port)
+    public function __construct(string $host, int $port)
     {
         $this->host = $host;
         $this->port = $port;
