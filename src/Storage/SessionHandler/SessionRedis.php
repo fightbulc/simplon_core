@@ -1,12 +1,12 @@
 <?php
 
-namespace Storage\SessionHandler;
+namespace Simplon\Core\Storage\SessionHandler;
 
-use Interfaces\SessionHandlerInterface;
+use Simplon\Core\Interfaces\SessionHandlerInterface;
 
 /**
  * Class SessionRedis
- * @package Storage\SessionHandler
+ * @package Simplon\Core\Storage\SessionHandler
  */
 class SessionRedis implements SessionHandlerInterface
 {

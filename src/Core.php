@@ -2,9 +2,9 @@
 
 namespace Simplon\Core;
 
-use Interfaces\SessionHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Relay\RelayBuilder;
+use Simplon\Core\Interfaces\SessionHandlerInterface;
 use Simplon\Core\Storage\SessionStorage;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PrettyPageHandler;

@@ -2,7 +2,7 @@
 
 namespace Simplon\Core\Storage;
 
-use Interfaces\SessionHandlerInterface;
+use Simplon\Core\Interfaces\SessionHandlerInterface;
 use Simplon\Core\Interfaces\SessionStorageInterface;
 
 /**
