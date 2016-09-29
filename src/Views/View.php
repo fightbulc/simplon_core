@@ -52,6 +52,22 @@ abstract class View implements ViewInterface
     }
 
     /**
+     * @param string $text
+     * @param array $placeholder
+     *
+     * @return string
+     */
+    public static function renderPlaceholder(string $text, array $placeholder): string
+    {
+        foreach ($placeholder as $key => $val)
+        {
+            $text = str_replace('{' . $key . '}', $val, $text);
+        }
+
+        return $text;
+    }
+
+    /**
      * @param string $var
      * @param string $functions
      *
