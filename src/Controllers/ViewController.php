@@ -3,7 +3,6 @@
 namespace Simplon\Core\Controllers;
 
 use Simplon\Core\Data\ResponseViewData;
-use Simplon\Core\Interfaces\AppContextInterface;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Views\FlashMessage;
@@ -47,6 +46,18 @@ abstract class ViewController extends Controller
         $this->getResponse()->getBody()->write($view->render($globalData));
 
         return new ResponseViewData($this->getResponse());
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return ResponseViewData
+     */
+    public function redirect(string $url): ResponseViewData
+    {
+        return new ResponseViewData(
+            $this->getResponse()->withHeader('Location', $url)
+        );
     }
 
     /**

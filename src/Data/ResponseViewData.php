@@ -2,8 +2,8 @@
 
 namespace Simplon\Core\Data;
 
-use Simplon\Core\Interfaces\ResponseDataInterface;
 use Psr\Http\Message\ResponseInterface;
+use Simplon\Core\Interfaces\ResponseDataInterface;
 
 /**
  * Class ResponseViewData
@@ -22,6 +22,14 @@ class ResponseViewData implements ResponseDataInterface
     public function __construct(ResponseInterface $response)
     {
         $this->response = $response;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasRedirect(): bool
+    {
+        return empty($this->response->getHeaderLine('Location')) === false;
     }
 
     /**
