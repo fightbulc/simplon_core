@@ -22,6 +22,17 @@ abstract class Routes
     }
 
     /**
+     * @param string $route
+     * @param array $params
+     *
+     * @return string
+     */
+    public static function renderWithoutLocale(string $route, array $params = []): string
+    {
+        return '/' . trim(self::renderUrl($route, $params), '/');
+    }
+
+    /**
      * @param string $url
      * @param array $params
      *
