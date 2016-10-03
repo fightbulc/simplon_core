@@ -11,18 +11,6 @@ use Simplon\Core\Utils\RoutesCollection;
 interface RegisterInterface
 {
     /**
-     * @return AppContextInterface
-     */
-    public function getAppContext(): AppContextInterface;
-
-    /**
-     * @param AppContextInterface $appContext
-     *
-     * @return RegisterInterface
-     */
-    public function setAppContext(AppContextInterface $appContext): RegisterInterface;
-
-    /**
      * @return string
      */
     public function getWorkingDir(): string;

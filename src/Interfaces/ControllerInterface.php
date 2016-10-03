@@ -12,18 +12,6 @@ use Psr\Http\Message\ServerRequestInterface;
 interface ControllerInterface
 {
     /**
-     * @return AppContextInterface
-     */
-    public function getAppContext(): AppContextInterface;
-
-    /**
-     * @param AppContextInterface $appContext
-     *
-     * @return ControllerInterface
-     */
-    public function setAppContext(AppContextInterface $appContext): ControllerInterface;
-
-    /**
      * @return ServerRequestInterface
      */
     public function getRequest(): ServerRequestInterface;
@@ -58,11 +46,4 @@ interface ControllerInterface
      * @return ControllerInterface
      */
     public function setWorkingDir(string $workingDir): self;
-
-    /**
-     * @param array $key
-     *
-     * @return mixed
-     */
-    public function getConfig(array $key);
 }

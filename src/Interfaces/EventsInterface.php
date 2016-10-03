@@ -9,11 +9,6 @@ namespace Simplon\Core\Interfaces;
 interface EventsInterface
 {
     /**
-     * @param AppContextInterface $appContext
-     */
-    public function __construct(AppContextInterface $appContext);
-
-    /**
      * @return array
      */
     public function getSubscriptions(): array;

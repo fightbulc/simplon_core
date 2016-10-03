@@ -2,6 +2,7 @@
 
 namespace Simplon\Core\Controllers;
 
+use Simplon\Core\Context;
 use Simplon\Core\Data\ResponseViewData;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
@@ -39,7 +40,7 @@ abstract class ViewController extends Controller
     public function respond(ViewInterface $view, array $globalData = []): ResponseViewData
     {
         $globalData = array_merge($globalData, [
-            'locale' => $this->getLocale(LocaleMiddleware::getLocaleCode()),
+            'locale' => $this->getLocale(),
             'flash'  => $this->getFlashMessage(),
         ]);
 
@@ -65,13 +66,17 @@ abstract class ViewController extends Controller
      *
      * @return Locale
      */
-    public function getLocale(string $code): Locale
+    public function getLocale(): Locale
     {
         if (!$this->locale)
         {
-            $paths = array_merge($this->getAppContext()->getLocalePaths(), [$this->getWorkingDir() . '/Locales']);
-            $this->locale = new Locale($this->getAppContext()->getLocaleFileReader($paths), [$code]);
-            $this->locale->setLocale($code);
+            $paths = [
+                Context::APP_PATH . '/Locales', // app path
+                $this->getWorkingDir() . '/Locales', // component path
+            ];
+
+            $this->locale = new Locale(Context::getLocaleFileReader($paths), [LocaleMiddleware::getLocaleCode()]);
+            $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
         }
 
         return $this->locale;
@@ -84,7 +89,7 @@ abstract class ViewController extends Controller
     {
         if (!$this->flashMessage)
         {
-            $this->flashMessage = new FlashMessage($this->getAppContext()->getSessionStorage());
+            $this->flashMessage = new FlashMessage(Context::getSessionStorage());
         }
 
         return $this->flashMessage;
