@@ -2,7 +2,6 @@
 
 namespace Simplon\Core\Controllers;
 
-use Simplon\Core\Interfaces\AppContextInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

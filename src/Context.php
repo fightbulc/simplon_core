@@ -52,12 +52,14 @@ class Context
     {
         if (!self::$config)
         {
+            /** @noinspection PhpIncludeInspection */
             self::$config = new Config(require self::APP_PATH . '/Configs/config.php');
 
             if (getenv('APP_ENV') === 'production')
             {
                 if (file_exists(self::APP_PATH . '/Configs/production.php'))
                 {
+                    /** @noinspection PhpIncludeInspection */
                     self::$config->addConfig(require self::APP_PATH . '/Configs/production.php');
                 }
             }
@@ -85,12 +87,12 @@ class Context
             self::$configCache[$md5WorkingDir] = self::$config;
         }
 
-        if (empty($key))
+        if (empty($keys))
         {
             return self::$configCache[$md5WorkingDir];
         }
 
-        return self::$configCache[$md5WorkingDir]->get($key);
+        return self::$configCache[$md5WorkingDir]->get($keys);
     }
 
     /**

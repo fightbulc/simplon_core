@@ -62,8 +62,6 @@ abstract class ViewController extends Controller
     }
 
     /**
-     * @param string $code
-     *
      * @return Locale
      */
     public function getLocale(): Locale
