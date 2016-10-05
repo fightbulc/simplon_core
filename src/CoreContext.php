@@ -8,10 +8,10 @@ use Simplon\Core\Utils\EventsHandler;
 use Simplon\Locale\Readers\PhpFileReader;
 
 /**
- * Class Context
+ * Class CoreContext
  * @package Simplon\Core
  */
-class Context
+class CoreContext
 {
     const APP_PATH = __DIR__ . '/../../../../src';
 
@@ -44,11 +44,10 @@ class Context
 
     /**
      * @param string $workingDir
-     * @param array $keys
      *
      * @return Config
      */
-    public static function getConfig(string $workingDir, array $keys = []): Config
+    public static function getConfig(string $workingDir): Config
     {
         if (!self::$config)
         {
@@ -87,12 +86,7 @@ class Context
             self::$configCache[$md5WorkingDir] = self::$config;
         }
 
-        if (empty($keys))
-        {
-            return self::$configCache[$md5WorkingDir];
-        }
-
-        return self::$configCache[$md5WorkingDir]->get($keys);
+        return self::$configCache[$md5WorkingDir];
     }
 
     /**

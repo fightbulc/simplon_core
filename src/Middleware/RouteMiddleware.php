@@ -4,7 +4,7 @@ namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Simplon\Core\Context;
+use Simplon\Core\CoreContext;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegisterInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
@@ -177,7 +177,7 @@ class RouteMiddleware
             {
                 foreach ($register->getEvents()->getSubscriptions() as $event => $callback)
                 {
-                    Context::getEventsHandler()->addSubscription($event, $callback);
+                    CoreContext::getEventsHandler()->addSubscription($event, $callback);
                 }
             }
 
@@ -187,7 +187,7 @@ class RouteMiddleware
             {
                 foreach ($register->getEvents()->getOffers() as $event => $callback)
                 {
-                    Context::getEventsHandler()->addOffer($event, $callback);
+                    CoreContext::getEventsHandler()->addOffer($event, $callback);
                 }
             }
         }
