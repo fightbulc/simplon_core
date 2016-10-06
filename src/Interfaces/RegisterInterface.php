@@ -10,6 +10,8 @@ use Simplon\Core\Utils\RoutesCollection;
  */
 interface RegisterInterface
 {
+    public function getContext();
+
     /**
      * @return string
      */

@@ -4,8 +4,8 @@ namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Simplon\Core\CoreContext;
 use Simplon\Core\Interfaces\ControllerInterface;
+use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Interfaces\RegisterInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
 
@@ -16,15 +16,21 @@ use Simplon\Core\Interfaces\ResponseDataInterface;
 class RouteMiddleware
 {
     /**
+     * @var CoreContextInterface
+     */
+    private $coreContext;
+    /**
      * @var RegisterInterface[]
      */
     private $components;
 
     /**
+     * @param CoreContextInterface $coreContext
      * @param RegisterInterface[] $components
      */
-    public function __construct(array $components)
+    public function __construct(CoreContextInterface $coreContext, array $components)
     {
+        $this->coreContext = $coreContext;
         $this->components = $components;
     }
 
@@ -64,6 +70,7 @@ class RouteMiddleware
                 $controller
                     ->setRequest($request)
                     ->setResponse($response)
+                    ->setContext($component['context'])
                     ->setWorkingDir($component['workingDir']);
 
                 /** @var ResponseDataInterface $responseData */
@@ -104,6 +111,7 @@ class RouteMiddleware
                     'methods'    => $routeData->getMethodsAllowed(),
                     'controller' => $routeData->getController(),
                     'workingDir' => $component->getWorkingDir(),
+                    'context'    => $component->getContext(),
                 ];
 
                 // register component events
@@ -177,7 +185,7 @@ class RouteMiddleware
             {
                 foreach ($register->getEvents()->getSubscriptions() as $event => $callback)
                 {
-                    CoreContext::getEventsHandler()->addSubscription($event, $callback);
+                    $this->coreContext->getEventsHandler()->addSubscription($event, $callback);
                 }
             }
 
@@ -187,7 +195,7 @@ class RouteMiddleware
             {
                 foreach ($register->getEvents()->getOffers() as $event => $callback)
                 {
-                    CoreContext::getEventsHandler()->addOffer($event, $callback);
+                    $this->coreContext->getEventsHandler()->addOffer($event, $callback);
                 }
             }
         }

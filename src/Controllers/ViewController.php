@@ -4,6 +4,7 @@ namespace Simplon\Core\Controllers;
 
 use Simplon\Core\CoreContext;
 use Simplon\Core\Data\ResponseViewData;
+use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Views\FlashMessage;
@@ -73,7 +74,7 @@ abstract class ViewController extends Controller
                 $this->getWorkingDir() . '/Locales', // component path
             ];
 
-            $this->locale = new Locale(CoreContext::getLocaleFileReader($paths), [LocaleMiddleware::getLocaleCode()]);
+            $this->locale = new Locale($this->getAppContext()->getLocaleFileReader($paths), [LocaleMiddleware::getLocaleCode()]);
             $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
         }
 
@@ -87,9 +88,20 @@ abstract class ViewController extends Controller
     {
         if (!$this->flashMessage)
         {
-            $this->flashMessage = new FlashMessage(CoreContext::getSessionStorage());
+            $this->flashMessage = new FlashMessage(
+                $this->getAppContext()->getSessionStorage()
+            );
         }
 
         return $this->flashMessage;
+    }
+
+    /**
+     * @return CoreContextInterface
+     */
+    private function getAppContext()
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->context->getAppContext();
     }
 }

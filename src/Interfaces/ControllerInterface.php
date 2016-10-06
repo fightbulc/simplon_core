@@ -11,6 +11,15 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 interface ControllerInterface
 {
+    public function getContext();
+
+    /**
+     * @param $context
+     *
+     * @return ControllerInterface
+     */
+    public function setContext($context): self;
+
     /**
      * @return ServerRequestInterface
      */

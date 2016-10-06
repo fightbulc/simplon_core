@@ -2,6 +2,7 @@
 
 namespace Simplon\Core;
 
+use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Storage\SessionStorage;
 use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\EventsHandler;
@@ -11,33 +12,33 @@ use Simplon\Locale\Readers\PhpFileReader;
  * Class CoreContext
  * @package Simplon\Core
  */
-class CoreContext
+abstract class CoreContext implements CoreContextInterface
 {
     const APP_PATH = __DIR__ . '/../../../../src';
 
     /**
      * @var Config
      */
-    private static $config;
+    private $config;
     /**
      * @var Config[]
      */
-    private static $configCache;
+    private $configCache;
     /**
      * @var SessionStorage
      */
-    private static $sessionStorage;
+    private $sessionStorage;
     /**
      * @var EventsHandler
      */
-    private static $eventsHandler;
+    private $eventsHandler;
 
     /**
      * @param array $paths
      *
      * @return PhpFileReader
      */
-    public static function getLocaleFileReader(array $paths): PhpFileReader
+    public function getLocaleFileReader(array $paths): PhpFileReader
     {
         return new PhpFileReader($paths);
     }
@@ -47,71 +48,71 @@ class CoreContext
      *
      * @return Config
      */
-    public static function getConfig(string $workingDir): Config
+    public function getConfig(string $workingDir): Config
     {
-        if (!self::$config)
+        if (!$this->config)
         {
             /** @noinspection PhpIncludeInspection */
-            self::$config = new Config(require self::APP_PATH . '/Configs/config.php');
+            $this->config = new Config(require self::APP_PATH . '/Configs/config.php');
 
             if (getenv('APP_ENV') === 'production')
             {
                 if (file_exists(self::APP_PATH . '/Configs/production.php'))
                 {
                     /** @noinspection PhpIncludeInspection */
-                    self::$config->addConfig(require self::APP_PATH . '/Configs/production.php');
+                    $this->config->addConfig(require self::APP_PATH . '/Configs/production.php');
                 }
             }
         }
 
         $md5WorkingDir = md5($workingDir);
 
-        if (empty(self::$configCache[$md5WorkingDir]))
+        if (empty($this->configCache[$md5WorkingDir]))
         {
             if (file_exists($workingDir . '/Configs/config.php'))
             {
                 /** @noinspection PhpIncludeInspection */
-                self::$config->addConfig(require $workingDir . '/Configs/config.php');
+                $this->config->addConfig(require $workingDir . '/Configs/config.php');
 
                 if (getenv('APP_ENV') === 'production')
                 {
                     if (file_exists($workingDir . '/Configs/production.php'))
                     {
                         /** @noinspection PhpIncludeInspection */
-                        self::$config->addConfig(require $workingDir . '/Configs/production.php');
+                        $this->config->addConfig(require $workingDir . '/Configs/production.php');
                     }
                 }
             }
 
-            self::$configCache[$md5WorkingDir] = self::$config;
+            $this->configCache[$md5WorkingDir] = $this->config;
         }
 
-        return self::$configCache[$md5WorkingDir];
+        return $this->configCache[$md5WorkingDir];
     }
 
     /**
      * @return EventsHandler
      */
-    public static function getEventsHandler(): EventsHandler
+    public function getEventsHandler(): EventsHandler
     {
-        if (!self::$eventsHandler)
+        if (!$this->eventsHandler)
         {
-            self::$eventsHandler = new EventsHandler();
+            $this->eventsHandler = new EventsHandler();
         }
 
-        return self::$eventsHandler;
+        return $this->eventsHandler;
     }
 
     /**
      * @return SessionStorage
      */
-    public static function getSessionStorage(): SessionStorage
+    public function getSessionStorage(): SessionStorage
     {
-        if (!self::$sessionStorage)
+        if (!$this->sessionStorage)
         {
-            self::$sessionStorage = new SessionStorage();
+            $this->sessionStorage = new SessionStorage();
         }
 
-        return self::$sessionStorage;
+        return $this->sessionStorage;
     }
 }

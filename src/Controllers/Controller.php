@@ -2,9 +2,9 @@
 
 namespace Simplon\Core\Controllers;
 
-use Simplon\Core\Interfaces\ControllerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Interfaces\ControllerInterface;
 
 /**
  * Class Controller
@@ -12,6 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 abstract class Controller implements ControllerInterface
 {
+    protected $context;
     /**
      * @var ServerRequestInterface
      */
@@ -24,6 +25,18 @@ abstract class Controller implements ControllerInterface
      * @var string
      */
     protected $workingDir;
+
+    /**
+     * @param $context
+     *
+     * @return ControllerInterface
+     */
+    public function setContext($context): ControllerInterface
+    {
+        $this->setContext($context);
+
+        return $this;
+    }
 
     /**
      * @return ServerRequestInterface
