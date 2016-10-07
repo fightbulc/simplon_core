@@ -33,7 +33,7 @@ abstract class Controller implements ControllerInterface
      */
     public function setContext($context): ControllerInterface
     {
-        $this->setContext($context);
+        $this->context = $context;
 
         return $this;
     }
