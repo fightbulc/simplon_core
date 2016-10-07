@@ -100,22 +100,29 @@ class RouteMiddleware
 
         foreach ($this->components as $component)
         {
-            foreach ($component->getRoutes()->getRouteData() as $routeData)
+            if ($component instanceof RegisterInterface)
             {
-                if (isset($collect[$routeData->getPath()]))
+                foreach ($component->getRoutes()->getRouteData() as $routeData)
                 {
-                    throw new \Exception("Path is already taken by {$collect[$routeData->getPath()]}");
+                    if (isset($collect[$routeData->getPath()]))
+                    {
+                        throw new \Exception("Path is already taken by {$collect[$routeData->getPath()]}");
+                    }
+
+                    $collect[$routeData->getPath()] = [
+                        'methods'    => $routeData->getMethodsAllowed(),
+                        'controller' => $routeData->getController(),
+                        'workingDir' => $component->getWorkingDir(),
+                        'context'    => $component->getContext(),
+                    ];
+
+                    // register component events
+                    $this->registerEvents($component);
                 }
-
-                $collect[$routeData->getPath()] = [
-                    'methods'    => $routeData->getMethodsAllowed(),
-                    'controller' => $routeData->getController(),
-                    'workingDir' => $component->getWorkingDir(),
-                    'context'    => $component->getContext(),
-                ];
-
-                // register component events
-                $this->registerEvents($component);
+            }
+            else
+            {
+                throw new \Exception('Component "' . get_class($component) . '" did not implement RegisterInterface');
             }
         }
 
