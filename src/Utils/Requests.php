@@ -46,11 +46,45 @@ abstract class Requests
      *
      * @return ResponseInterface
      */
+    public function postJSON(string $url, array $params = [], array $options = []): ResponseInterface
+    {
+        if (!empty($params))
+        {
+            $options['json'] = $params;
+        }
+
+        return $this->getClient()->post($url, $options);
+    }
+
+    /**
+     * @param string $url
+     * @param array $params
+     * @param array $options
+     *
+     * @return ResponseInterface
+     */
     public function put(string $url, array $params = [], array $options = []): ResponseInterface
     {
         if (!empty($params))
         {
             $options['form_params'] = $params;
+        }
+
+        return $this->getClient()->put($url, $options);
+    }
+
+    /**
+     * @param string $url
+     * @param array $params
+     * @param array $options
+     *
+     * @return ResponseInterface
+     */
+    public function putJSON(string $url, array $params = [], array $options = []): ResponseInterface
+    {
+        if (!empty($params))
+        {
+            $options['json'] = $params;
         }
 
         return $this->getClient()->put($url, $options);
