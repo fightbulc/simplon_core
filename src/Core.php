@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Relay\RelayBuilder;
 use Simplon\Core\Interfaces\SessionHandlerInterface;
 use Simplon\Core\Storage\SessionStorage;
-use Whoops\Handler\JsonResponseHandler;
+use Whoops\Handler\HandlerInterface;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 use Zend\Diactoros\Response;
@@ -34,27 +34,24 @@ class Core
     }
 
     /**
+     * @param \Closure $handler
+     *
      * @return Core
      */
-    public function withErrorHandler(): self
+    public function withErrorHandler(\Closure $handler = null): self
     {
-        $handler = new PrettyPageHandler();
+        $useHandler = new PrettyPageHandler();
 
-        if (getenv('APP_MODULE') === 'api')
+        if ($handler && $result = $handler())
         {
-            $handler = new JsonResponseHandler();
-        }
-
-        if (getenv('APP_ENV') === 'production')
-        {
-            // work in progress ...
-            $handler = function ($exception, $inspector, $run)
+            if ($result instanceof HandlerInterface)
             {
-            };
+                $useHandler = $result;
+            }
         }
 
         $whoops = new Run();
-        $whoops->pushHandler($handler);
+        $whoops->pushHandler($useHandler);
         $whoops->register();
 
         return $this;
