@@ -21,14 +21,14 @@ class Core
     const BODY_CHUNKSIZE = 2048;
 
     /**
-     * @param int $timeoutInSeconds
+     * @param int $timeoutInMinuntes
      * @param SessionHandlerInterface $sessionHandler
      *
      * @return Core
      */
-    public function withSession(int $timeoutInSeconds, SessionHandlerInterface $sessionHandler = null): self
+    public function withSession(int $timeoutInMinuntes, SessionHandlerInterface $sessionHandler = null): self
     {
-        SessionStorage::initSession($timeoutInSeconds, $sessionHandler);
+        SessionStorage::initSession($timeoutInMinuntes * 60, $sessionHandler);
 
         return $this;
     }
