@@ -53,7 +53,7 @@ class FlashMessage
             return null;
         }
 
-        return '<div class="ui huge ' . $flash['type'] . ' message flash-message">' . $flash['message'] . '</div>';
+        return '<div class="ui ' . $flash['type'] . ' message flash-message">' . $flash['message'] . '</div>';
     }
 
     /**
