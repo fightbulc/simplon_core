@@ -60,7 +60,7 @@ class RouteMiddleware
                 {
                     if (isset($match[$placeholder]))
                     {
-                        $params[$placeholder] = $match[$placeholder];
+                        $params[$placeholder] = rtrim($match[$placeholder], '/');
                     }
                 }
 
