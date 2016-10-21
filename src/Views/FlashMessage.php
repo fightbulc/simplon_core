@@ -38,10 +38,21 @@ class FlashMessage
     }
 
     /**
+     * @param string $size
+     *
      * @return null|string
      */
-    public function getFlash()
+    public function getFlash(string $size = 'large')
     {
+        $validSizes = [
+            'mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive',
+        ];
+
+        if (!in_array($size, $validSizes))
+        {
+            $size = 'large';
+        }
+
         // fetch message
         $flash = $this->getSessionStore()->get(self::SESSION_KEY);
 
@@ -53,7 +64,7 @@ class FlashMessage
             return null;
         }
 
-        return '<div class="ui ' . $flash['type'] . ' message flash-message">' . $flash['message'] . '</div>';
+        return '<div class="ui ' . $size . ' ' . $flash['type'] . ' message flash-message">' . $flash['message'] . '</div>';
     }
 
     /**
