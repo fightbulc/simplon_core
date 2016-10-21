@@ -64,7 +64,7 @@ class CookieStorage
      *
      * @return CookieStorage
      */
-    public function set(string $key, array $val, ?int $expiresAt = null): self
+    public function set(string $key, array $val, int $expiresAt = null): self
     {
         if ($expiresAt === null)
         {
