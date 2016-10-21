@@ -41,10 +41,11 @@ class CookieStorage
 
     /**
      * @param string $key
+     * @param mixed $fallback
      *
      * @return array|null
      */
-    public function get(string $key): array
+    public function get(string $key, $fallback = null): array
     {
         if ($this->has($key))
         {
@@ -53,7 +54,7 @@ class CookieStorage
             return json_decode($value, true);
         }
 
-        return null;
+        return $fallback;
     }
 
     /**
