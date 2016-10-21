@@ -3,6 +3,7 @@
 namespace Simplon\Core;
 
 use Simplon\Core\Interfaces\CoreContextInterface;
+use Simplon\Core\Storage\CookieStorage;
 use Simplon\Core\Storage\SessionStorage;
 use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\EventsHandler;
@@ -28,6 +29,10 @@ abstract class CoreContext implements CoreContextInterface
      * @var SessionStorage
      */
     private $sessionStorage;
+    /**
+     * @var CookieStorage
+     */
+    private $cookieStorage;
     /**
      * @var EventsHandler
      */
@@ -114,5 +119,20 @@ abstract class CoreContext implements CoreContextInterface
         }
 
         return $this->sessionStorage;
+    }
+
+    /**
+     * @param string $namespace
+     *
+     * @return CookieStorage
+     */
+    public function getCookieStorage(string $namespace = 'CORE'): CookieStorage
+    {
+        if (!$this->cookieStorage)
+        {
+            $this->cookieStorage = new CookieStorage($namespace);
+        }
+
+        return $this->cookieStorage;
     }
 }
