@@ -25,10 +25,11 @@ interface SessionStorageInterface
 
     /**
      * @param string $key
+     * @param mixed $default
      *
-     * @return mixed|null
+     * @return mixed
      */
-    public function get(string $key);
+    public function get(string $key, $default = null);
 
     /**
      * @param string $key
