@@ -78,15 +78,15 @@ class SessionStorage implements SessionStorageInterface
 
     /**
      * @param string $key
-     * @param mixed $default
+     * @param mixed $fallback
      *
      * @return mixed
      */
-    public function get(string $key, $default = null)
+    public function get(string $key, $fallback = null)
     {
         if (isset($_SESSION[$key]) === false)
         {
-            return $default;
+            return $fallback;
         }
 
         return $_SESSION[$key];
