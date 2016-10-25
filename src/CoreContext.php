@@ -53,7 +53,7 @@ abstract class CoreContext implements CoreContextInterface
      *
      * @return Config
      */
-    public function getConfig(string $workingDir): Config
+    public function getConfig(string $workingDir = null): Config
     {
         if (!$this->config)
         {
@@ -70,29 +70,34 @@ abstract class CoreContext implements CoreContextInterface
             }
         }
 
-        $md5WorkingDir = md5($workingDir);
-
-        if (empty($this->configCache[$md5WorkingDir]))
+        if ($workingDir)
         {
-            if (file_exists($workingDir . '/Configs/config.php'))
-            {
-                /** @noinspection PhpIncludeInspection */
-                $this->config->addConfig(require $workingDir . '/Configs/config.php');
+            $md5WorkingDir = md5($workingDir);
 
-                if (getenv('APP_ENV') === 'production')
+            if (empty($this->configCache[$md5WorkingDir]))
+            {
+                if (file_exists($workingDir . '/Configs/config.php'))
                 {
-                    if (file_exists($workingDir . '/Configs/production.php'))
+                    /** @noinspection PhpIncludeInspection */
+                    $this->config->addConfig(require $workingDir . '/Configs/config.php');
+
+                    if (getenv('APP_ENV') === 'production')
                     {
-                        /** @noinspection PhpIncludeInspection */
-                        $this->config->addConfig(require $workingDir . '/Configs/production.php');
+                        if (file_exists($workingDir . '/Configs/production.php'))
+                        {
+                            /** @noinspection PhpIncludeInspection */
+                            $this->config->addConfig(require $workingDir . '/Configs/production.php');
+                        }
                     }
                 }
+
+                $this->configCache[$md5WorkingDir] = $this->config;
             }
 
-            $this->configCache[$md5WorkingDir] = $this->config;
+            return $this->configCache[$md5WorkingDir];
         }
 
-        return $this->configCache[$md5WorkingDir];
+        return $this->config;
     }
 
     /**
