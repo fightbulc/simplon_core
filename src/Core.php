@@ -42,12 +42,9 @@ class Core
     {
         $useHandler = new PrettyPageHandler();
 
-        if ($handler && $result = $handler())
+        if ($handler)
         {
-            if ($result instanceof HandlerInterface)
-            {
-                $useHandler = $result;
-            }
+            $useHandler = $handler;
         }
 
         $whoops = new Run();
