@@ -11,9 +11,9 @@ interface DataInterface
     /**
      * @param array $data
      *
-     * @return DataInterface
+     * @return static
      */
-    public function fromArray(array $data): self;
+    public function fromArray(array $data);
 
     /**
      * @return array
@@ -30,7 +30,7 @@ interface DataInterface
     /**
      * @param string $json
      *
-     * @return DataInterface
+     * @return static
      */
-    public function fromJson(string $json): DataInterface;
+    public function fromJson(string $json);
 }

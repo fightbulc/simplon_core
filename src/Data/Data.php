@@ -13,9 +13,9 @@ abstract class Data implements DataInterface
     /**
      * @param array|null $data
      *
-     * @return DataInterface
+     * @return static
      */
-    public function fromArray(array $data): DataInterface
+    public function fromArray(array $data)
     {
         if ($data)
         {
@@ -95,9 +95,9 @@ abstract class Data implements DataInterface
     /**
      * @param string $json
      *
-     * @return DataInterface
+     * @return static
      */
-    public function fromJson(string $json): DataInterface
+    public function fromJson(string $json)
     {
         return $this->fromArray(
             json_decode($json, true)
