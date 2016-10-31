@@ -6,7 +6,6 @@ use Psr\Http\Message\ResponseInterface;
 use Relay\RelayBuilder;
 use Simplon\Core\Interfaces\SessionHandlerInterface;
 use Simplon\Core\Storage\SessionStorage;
-use Whoops\Handler\HandlerInterface;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 use Zend\Diactoros\Response;
