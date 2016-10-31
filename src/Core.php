@@ -43,7 +43,7 @@ class Core
 
         if ($handler)
         {
-            $useHandler = $handler;
+            $useHandler = $handler();
         }
 
         $whoops = new Run();
