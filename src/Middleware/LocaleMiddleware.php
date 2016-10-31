@@ -16,7 +16,7 @@ class LocaleMiddleware
     /**
      * @var string
      */
-    private static $localeCode;
+    private static $localeCode = 'en'; // fallback value
 
     /**
      * @var array
