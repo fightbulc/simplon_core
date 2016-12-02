@@ -16,6 +16,10 @@ abstract class View implements ViewInterface
      * @var Template
      */
     protected $renderer;
+    /**
+     * @var ViewInterface[]
+     */
+    protected $implementsView = [];
 
     /**
      * @param string $string
@@ -45,6 +49,7 @@ abstract class View implements ViewInterface
      * @param array $data
      *
      * @return string
+     * @throws \Simplon\Phtml\PhtmlException
      */
     public static function renderWidget(string $path, array $data = []): string
     {
@@ -65,6 +70,98 @@ abstract class View implements ViewInterface
         }
 
         return $text;
+    }
+
+    /**
+     * @param array|null $globalData
+     *
+     * @return string
+     */
+    public function render(array $globalData = null): string
+    {
+        $data = $this->getData();
+
+        if (!empty($this->implementsView))
+        {
+            foreach ($this->implementsView as $id => $view)
+            {
+                $this->getRenderer()
+                    ->addMultipleAssetsCss($view->getAssetsCss())
+                    ->addMultipleAssetsJs($view->getAssetsJs())
+                    ->addMultipleAssetsCode($view->getAssetsCode());
+
+                $data[$id] = $view->render($globalData);
+            }
+        }
+
+        return $this->renderPartial($this->getTemplate(), $data, $globalData);
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssetsCss(): array
+    {
+        $assets = $this->getRenderer()->getAssetsCss();
+
+        if (!empty($this->implementsView))
+        {
+            foreach ($this->implementsView as $id => $view)
+            {
+                $assets = array_merge($assets, $view->getAssetsCss());
+            }
+        }
+
+        return $assets;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssetsJs(): array
+    {
+        $assets = $this->getRenderer()->getAssetsJs();
+
+        if (!empty($this->implementsView))
+        {
+            foreach ($this->implementsView as $id => $view)
+            {
+                $assets = array_merge($assets, $view->getAssetsJs());
+            }
+        }
+
+        return $assets;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssetsCode(): array
+    {
+        $assets = $this->getRenderer()->getAssetsCode();
+
+        if (!empty($this->implementsView))
+        {
+            foreach ($this->implementsView as $id => $view)
+            {
+                $assets = array_merge($assets, $view->getAssetsCode());
+            }
+        }
+
+        return $assets;
+    }
+
+    /**
+     * @param ViewInterface $view
+     * @param string $id
+     *
+     * @return View
+     */
+    public function implements (ViewInterface $view, string $id = 'partial'): View
+    {
+        $this->implementsView[$id] = $view;
+
+        return $this;
     }
 
     /**
@@ -96,95 +193,28 @@ abstract class View implements ViewInterface
     }
 
     /**
-     * @param PageView $view
-     *
      * @return string
      */
-    protected function renderPage(PageView $view): string
-    {
-        foreach ($view->getPartials() as $partial)
-        {
-            $view->addGlobalData([
-                $partial->getId() => $this->renderPartial($partial, $view->getGlobalData()),
-            ]);
-        }
+    abstract protected function getTemplate(): string;
 
-        return $this->getRenderer()->renderPhtml(
-            $view->getPagePath(), $view->getGlobalData(), true
-        );
+    /**
+     * @return array
+     */
+    protected function getData(): array
+    {
+        return [];
     }
 
     /**
-     * @param PartialView $view
+     * @param string $path
+     * @param array $data
      * @param array $globalData
      *
      * @return string
      */
-    protected function renderPartial(PartialView $view, array $globalData): string
+    protected function renderPartial(string $path, array $data = [], array $globalData = []): string
     {
-        return $this->getRenderer()->renderPhtml(
-            $view->getPath(), array_merge($globalData, $view->getData()), true
-        );
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return View
-     */
-    protected function addCssVendor(string $path): self
-    {
-        return $this->addCss($path, 'vendor');
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return View
-     */
-    protected function addCssApp(string $path): self
-    {
-        return $this->addCss($path, 'app');
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return View
-     */
-    protected function addCssComponent(string $path): self
-    {
-        return $this->addCss($path, 'component');
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return View
-     */
-    protected function addJsVendor(string $path): self
-    {
-        return $this->addJs($path, 'vendor');
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return View
-     */
-    protected function addJsApp(string $path): self
-    {
-        return $this->addJs($path, 'app');
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return View
-     */
-    protected function addJsComponent(string $path): self
-    {
-        return $this->addJs($path, 'component');
+        return $this->getRenderer()->renderPhtml($path, array_merge($globalData, $data), true);
     }
 
     /**
@@ -217,7 +247,7 @@ abstract class View implements ViewInterface
      *
      * @return View
      */
-    private function addCss(string $path, string $blockId = null): self
+    protected function addCss(string $path, string $blockId = null): self
     {
         $this->getRenderer()->addAssetCss($path, $blockId);
 
@@ -230,7 +260,7 @@ abstract class View implements ViewInterface
      *
      * @return View
      */
-    private function addJs(string $path, string $blockId = null): self
+    protected function addJs(string $path, string $blockId = null): self
     {
         $this->getRenderer()->addAssetJs($path, $blockId);
 

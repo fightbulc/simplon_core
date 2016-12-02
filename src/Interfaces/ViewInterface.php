@@ -9,6 +9,21 @@ namespace Simplon\Core\Interfaces;
 interface ViewInterface
 {
     /**
+     * @return array
+     */
+    public function getAssetsCss(): array;
+
+    /**
+     * @return array
+     */
+    public function getAssetsJs(): array;
+
+    /**
+     * @return array
+     */
+    public function getAssetsCode(): array;
+
+    /**
      * @param array|null $globalData
      *
      * @return string

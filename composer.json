@@ -35,7 +35,7 @@
     "tightenco/collect": "^5.3",
     "simplon/component_semanticui": "0.0.*",
     "simplon/locale": "^0.3",
-    "simplon/template": "^0.7"
+    "simplon/template": "^0.8"
   },
   "config": {
     "component-dir": "public/assets/vendor"
