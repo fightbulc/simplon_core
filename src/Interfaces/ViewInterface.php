@@ -24,6 +24,11 @@ interface ViewInterface
     public function getAssetsCode(): array;
 
     /**
+     * @return array
+     */
+    public function getGlobalData(): array;
+
+    /**
      * @param array|null $globalData
      *
      * @return string

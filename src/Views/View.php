@@ -20,6 +20,10 @@ abstract class View implements ViewInterface
      * @var ViewInterface[]
      */
     protected $implementsView = [];
+    /**
+     * @var array
+     */
+    protected $globalData = [];
 
     /**
      * @param string $string
@@ -73,11 +77,11 @@ abstract class View implements ViewInterface
     }
 
     /**
-     * @param array|null $globalData
+     * @param array $globalData
      *
      * @return string
      */
-    public function render(array $globalData = null): string
+    public function render(array $globalData = []): string
     {
         $data = $this->getData();
 
@@ -94,7 +98,40 @@ abstract class View implements ViewInterface
             }
         }
 
-        return $this->renderPartial($this->getTemplate(), $data, $globalData);
+        return $this->renderPartial($this->getTemplate(), $data, array_merge($this->getGlobalData(), $globalData));
+    }
+
+    /**
+     * @return array
+     */
+    public function getGlobalData(): array
+    {
+        return $this->globalData;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return View
+     */
+    public function addGlobalData(string $key, $value): View
+    {
+        $this->globalData[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param array $globalData
+     *
+     * @return View
+     */
+    public function setGlobalData(array $globalData): View
+    {
+        $this->globalData = $globalData;
+
+        return $this;
     }
 
     /**
