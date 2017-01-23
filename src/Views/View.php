@@ -176,7 +176,7 @@ abstract class View implements ViewInterface
             }
         }
 
-        return $this->renderPartial($this->getTemplate(), $data, array_replace_recursive($this->getGlobalData(), $globalData));
+        return $this->renderPartial($this->getDeviceTemplate(), $data, array_replace_recursive($this->getGlobalData(), $globalData));
     }
 
     /**
@@ -381,6 +381,34 @@ abstract class View implements ViewInterface
         $this->getRenderer()->addAssetJs($path, $blockId);
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    private function getDeviceTemplate(): string
+    {
+        $templatePath = $this->getTemplate();
+        $typesTemplateAlternatives = [Device::TYPE_MOBILE, Device::TYPE_TABLET];
+
+        $fileNamePartials = explode('/', $this->getTemplate());
+        $fileName = array_pop($fileNamePartials);
+        $baseFilePath = implode('/', $fileNamePartials);
+
+        if (in_array($this->getDevice()->getType(), $typesTemplateAlternatives))
+        {
+            foreach ($typesTemplateAlternatives as $type)
+            {
+                $testFilePath = $baseFilePath . '/' . strtolower($type) . '/' . $fileName;
+
+                if (file_exists($testFilePath))
+                {
+                    return $testFilePath;
+                }
+            }
+        }
+
+        return $templatePath;
     }
 
     /**
