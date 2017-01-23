@@ -8,6 +8,14 @@ namespace Simplon\Core\Data;
  */
 class RouteData
 {
+    const METHOD_GET = 'GET';
+    const METHOD_OPTION = 'OPTION';
+    const METHOD_HEAD = 'HEAD';
+    const METHOD_POST = 'POST';
+    const METHOD_PUT = 'PUT';
+    const METHOD_PATCH = 'PATCH';
+    const METHOD_DELETE = 'DELETE';
+
     /**
      * @var string
      */
@@ -19,19 +27,19 @@ class RouteData
     /**
      * @var array
      */
-    protected $methodsAllowed = ['GET'];
+    protected $methodsAllowed = [self::METHOD_GET, self::METHOD_OPTION, self::METHOD_HEAD];
 
     /**
      * @param string $path
      * @param string $controller
-     * @param bool $removeDefaultGet
+     * @param bool $removeDefaults
      */
-    public function __construct(string $path, string $controller, bool $removeDefaultGet = false)
+    public function __construct(string $path, string $controller, bool $removeDefaults = false)
     {
         $this->path = $path;
         $this->controller = $controller;
 
-        if ($removeDefaultGet)
+        if ($removeDefaults)
         {
             $this->methodsAllowed = [];
         }
@@ -66,7 +74,23 @@ class RouteData
      */
     public function withGet(): self
     {
-        return $this->addMethodAllowed('GET');
+        return $this->addMethodAllowed(self::METHOD_GET);
+    }
+
+    /**
+     * @return RouteData
+     */
+    public function withOption(): self
+    {
+        return $this->addMethodAllowed(self::METHOD_OPTION);
+    }
+
+    /**
+     * @return RouteData
+     */
+    public function withHead(): self
+    {
+        return $this->addMethodAllowed(self::METHOD_HEAD);
     }
 
     /**
@@ -74,7 +98,7 @@ class RouteData
      */
     public function withPost(): self
     {
-        return $this->addMethodAllowed('POST');
+        return $this->addMethodAllowed(self::METHOD_POST);
     }
 
     /**
@@ -82,7 +106,15 @@ class RouteData
      */
     public function withPut(): self
     {
-        return $this->addMethodAllowed('PUT');
+        return $this->addMethodAllowed(self::METHOD_PUT);
+    }
+
+    /**
+     * @return RouteData
+     */
+    public function withPatch(): self
+    {
+        return $this->addMethodAllowed(self::METHOD_PATCH);
     }
 
     /**
@@ -90,7 +122,7 @@ class RouteData
      */
     public function withDelete(): self
     {
-        return $this->addMethodAllowed('DELETE');
+        return $this->addMethodAllowed(self::METHOD_DELETE);
     }
 
     /**
