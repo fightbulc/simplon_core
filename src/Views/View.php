@@ -172,7 +172,12 @@ abstract class View implements ViewInterface
                     ->addMultipleAssetsCode($subView->getAssetsCode())
                 ;
 
-                $data[$subViewId] = $subView->render($globalData);
+                $data[$subViewId] = $subView
+                    ->setLocale($this->getLocale())
+                    ->setFlashMessage($this->getFlashMessage())
+                    ->setDevice($this->getDevice())
+                    ->render($globalData)
+                ;
             }
         }
 
@@ -399,7 +404,7 @@ abstract class View implements ViewInterface
         {
             foreach ($typesTemplateAlternatives as $type)
             {
-                $testFilePath = $baseFilePath . '/' . strtolower($type) . '/' . $fileName;
+                $testFilePath = $baseFilePath . '/' . ucfirst(strtolower($type)) . $fileName;
 
                 if (file_exists($testFilePath))
                 {
