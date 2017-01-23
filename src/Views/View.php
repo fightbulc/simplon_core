@@ -3,7 +3,10 @@
 namespace Simplon\Core\Views;
 
 use Simplon\Core\Interfaces\ViewInterface;
+use Simplon\Device\Device;
+use Simplon\Locale\Locale;
 use Simplon\Phtml\Phtml;
+use Simplon\Phtml\PhtmlException;
 use Simplon\Template\Template;
 
 /**
@@ -24,6 +27,18 @@ abstract class View implements ViewInterface
      * @var array
      */
     protected $globalData = [];
+    /**
+     * @var Locale
+     */
+    protected $locale;
+    /**
+     * @var FlashMessage
+     */
+    protected $flashMessage;
+    /**
+     * @var Device
+     */
+    protected $device;
 
     /**
      * @param string $string
@@ -53,7 +68,7 @@ abstract class View implements ViewInterface
      * @param array $data
      *
      * @return string
-     * @throws \Simplon\Phtml\PhtmlException
+     * @throws PhtmlException
      */
     public static function renderWidget(string $path, array $data = []): string
     {
@@ -77,9 +92,70 @@ abstract class View implements ViewInterface
     }
 
     /**
+     * @return Locale
+     */
+    public function getLocale(): Locale
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param Locale $locale
+     *
+     * @return static
+     */
+    public function setLocale(Locale $locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * @return FlashMessage
+     */
+    public function getFlashMessage(): FlashMessage
+    {
+        return $this->flashMessage;
+    }
+
+    /**
+     * @param FlashMessage $flashMessage
+     *
+     * @return static
+     */
+    public function setFlashMessage(FlashMessage $flashMessage)
+    {
+        $this->flashMessage = $flashMessage;
+
+        return $this;
+    }
+
+    /**
+     * @return Device
+     */
+    public function getDevice(): Device
+    {
+        return $this->device;
+    }
+
+    /**
+     * @param Device $device
+     *
+     * @return static
+     */
+    public function setDevice(Device $device)
+    {
+        $this->device = $device;
+
+        return $this;
+    }
+
+    /**
      * @param array $globalData
      *
      * @return string
+     * @throws PhtmlException
      */
     public function render(array $globalData = []): string
     {
@@ -87,18 +163,20 @@ abstract class View implements ViewInterface
 
         if (!empty($this->implementsView))
         {
-            foreach ($this->implementsView as $id => $view)
+            foreach ($this->implementsView as $subViewId => $subView)
             {
-                $this->getRenderer()
-                    ->addMultipleAssetsCss($view->getAssetsCss())
-                    ->addMultipleAssetsJs($view->getAssetsJs())
-                    ->addMultipleAssetsCode($view->getAssetsCode());
+                $this
+                    ->getRenderer()
+                    ->addMultipleAssetsCss($subView->getAssetsCss())
+                    ->addMultipleAssetsJs($subView->getAssetsJs())
+                    ->addMultipleAssetsCode($subView->getAssetsCode())
+                ;
 
-                $data[$id] = $view->render($globalData);
+                $data[$subViewId] = $subView->render($globalData);
             }
         }
 
-        return $this->renderPartial($this->getTemplate(), $data, array_merge($this->getGlobalData(), $globalData));
+        return $this->renderPartial($this->getTemplate(), $data, array_replace_recursive($this->getGlobalData(), $globalData));
     }
 
     /**
@@ -248,6 +326,7 @@ abstract class View implements ViewInterface
      * @param array $globalData
      *
      * @return string
+     * @throws PhtmlException
      */
     protected function renderPartial(string $path, array $data = [], array $globalData = []): string
     {

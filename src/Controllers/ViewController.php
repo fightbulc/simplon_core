@@ -8,6 +8,7 @@ use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Views\FlashMessage;
+use Simplon\Device\Device;
 use Simplon\Locale\Locale;
 
 /**
@@ -24,6 +25,10 @@ abstract class ViewController extends Controller
      * @var FlashMessage
      */
     protected $flashMessage;
+    /**
+     * @var Device
+     */
+    protected $device;
 
     /**
      * @param array $params
@@ -40,10 +45,17 @@ abstract class ViewController extends Controller
      */
     public function respond(ViewInterface $view, array $globalData = []): ResponseViewData
     {
-        $globalData = array_merge($globalData, [
+        $globalData = array_replace($globalData, [
             'locale' => $this->getLocale(),
             'flash'  => $this->getFlashMessage(),
+            'device' => $this->getDevice(),
         ]);
+
+        $view
+            ->setLocale($this->getLocale())
+            ->setFlashMessage($this->getFlashMessage())
+            ->setDevice($this->getDevice())
+        ;
 
         $this->getResponse()->getBody()->write($view->render($globalData));
 
@@ -52,13 +64,14 @@ abstract class ViewController extends Controller
 
     /**
      * @param string $url
+     * @param int $code
      *
      * @return ResponseViewData
      */
-    public function redirect(string $url): ResponseViewData
+    public function redirect(string $url, int $code = 301): ResponseViewData
     {
         return new ResponseViewData(
-            $this->getResponse()->withHeader('Location', $url)
+            $this->getResponse()->withStatus($code)->withHeader('Location', $url)
         );
     }
 
@@ -94,6 +107,19 @@ abstract class ViewController extends Controller
         }
 
         return $this->flashMessage;
+    }
+
+    /**
+     * @return Device
+     */
+    public function getDevice(): Device
+    {
+        if (!$this->getDevice())
+        {
+            $this->device = new Device();
+        }
+
+        return $this->device;
     }
 
     /**
