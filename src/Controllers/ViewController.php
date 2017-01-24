@@ -114,7 +114,7 @@ abstract class ViewController extends Controller
      */
     public function getDevice(): Device
     {
-        if (!$this->getDevice())
+        if (!$this->device)
         {
             $this->device = new Device();
         }
