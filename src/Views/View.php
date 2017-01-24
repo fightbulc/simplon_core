@@ -393,27 +393,18 @@ abstract class View implements ViewInterface
      */
     private function getDeviceTemplate(): string
     {
-        $templatePath = $this->getTemplate();
-        $typesTemplateAlternatives = [Device::TYPE_MOBILE, Device::TYPE_TABLET];
+        $filePathPartials = explode('.', $this->getTemplate());
+        $fileExtension = array_pop($filePathPartials);
+        $baseFilePath = implode('.', $filePathPartials);
 
-        $fileNamePartials = explode('/', $this->getTemplate());
-        $fileName = array_pop($fileNamePartials);
-        $baseFilePath = implode('/', $fileNamePartials);
+        $testFilePath = $baseFilePath . ucfirst(strtolower($this->getDevice()->getType())) . '.' . $fileExtension;
 
-        if (in_array($this->getDevice()->getType(), $typesTemplateAlternatives))
+        if (file_exists($testFilePath))
         {
-            foreach ($typesTemplateAlternatives as $type)
-            {
-                $testFilePath = $baseFilePath . '/' . ucfirst(strtolower($type)) . $fileName;
-
-                if (file_exists($testFilePath))
-                {
-                    return $testFilePath;
-                }
-            }
+            return $testFilePath;
         }
 
-        return $templatePath;
+        return $this->getTemplate();
     }
 
     /**
