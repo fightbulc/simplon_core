@@ -45,12 +45,6 @@ abstract class ViewController extends Controller
      */
     public function respond(ViewInterface $view, array $globalData = []): ResponseViewData
     {
-        $globalData = array_replace($globalData, [
-            'locale' => $this->getLocale(),
-            'flash'  => $this->getFlashMessage(),
-            'device' => $this->getDevice(),
-        ]);
-
         $view
             ->setLocale($this->getLocale())
             ->setFlashMessage($this->getFlashMessage())

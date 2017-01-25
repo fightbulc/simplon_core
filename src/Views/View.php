@@ -160,6 +160,9 @@ abstract class View implements ViewInterface
     public function render(array $globalData = []): string
     {
         $data = $this->getData();
+        $data['locale'] = $this->getLocale();
+        $data['flash'] = $this->getFlashMessage();
+        $data['device'] = $this->getDevice();
 
         if (!empty($this->implementsView))
         {
@@ -282,6 +285,20 @@ abstract class View implements ViewInterface
         $this->implementsView[$id] = $view;
 
         return $this;
+    }
+
+    /**
+     * @param ViewInterface $view
+     *
+     * @return ViewInterface
+     */
+    protected function initializeNewView(ViewInterface $view): ViewInterface
+    {
+        return $view
+            ->setLocale($this->getLocale())
+            ->setFlashMessage($this->getFlashMessage())
+            ->setDevice($this->getDevice())
+            ;
     }
 
     /**
