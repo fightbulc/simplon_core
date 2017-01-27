@@ -3,6 +3,7 @@
 namespace Simplon\Core\Data;
 
 use Simplon\Core\Interfaces\DataInterface;
+use Simplon\Core\Utils\Exceptions\ServerException;
 
 /**
  * Class Data
@@ -11,11 +12,13 @@ use Simplon\Core\Interfaces\DataInterface;
 abstract class Data implements DataInterface
 {
     /**
-     * @param array|null $data
+     * @param array $data
+     * @param bool $throwErrorOnMissingProperty
      *
      * @return static
+     * @throws ServerException
      */
-    public function fromArray(array $data)
+    public function fromArray(array $data, bool $throwErrorOnMissingProperty = true)
     {
         if ($data)
         {
@@ -29,15 +32,27 @@ abstract class Data implements DataInterface
 
                 $setMethodName = 'set' . ucfirst($fieldName);
 
-                // set by setter
+                // set on setter
                 if (method_exists($this, $setMethodName))
                 {
                     $this->$setMethodName($val);
                     continue;
                 }
 
-                // set directly on field
-                $this->$fieldName = $val;
+                // set on field
+                if (property_exists($this, $fieldName))
+                {
+                    $this->$fieldName = $val;
+                    continue;
+                }
+
+                if ($throwErrorOnMissingProperty)
+                {
+                    throw (new ServerException())->internalError([
+                        'reason'   => 'missing property to set value on data object',
+                        'property' => $fieldName,
+                    ]);
+                }
             }
         }
 
@@ -46,10 +61,12 @@ abstract class Data implements DataInterface
 
     /**
      * @param bool $snakeCase
+     * @param bool $throwErrorOnMissingProperty
      *
      * @return array
+     * @throws ServerException
      */
-    public function toArray(bool $snakeCase = true): array
+    public function toArray(bool $snakeCase = true, bool $throwErrorOnMissingProperty = true): array
     {
         $result = [];
 
@@ -58,6 +75,7 @@ abstract class Data implements DataInterface
         // render column names
         foreach ($visibleFields as $fieldName => $value)
         {
+            $propertyName = $fieldName;
             $getMethodName = 'get' . ucfirst($fieldName);
 
             // format field name
@@ -66,7 +84,7 @@ abstract class Data implements DataInterface
                 $fieldName = self::snakeCaseString($fieldName);
             }
 
-            // set by getter
+            // get from getter
             if (method_exists($this, $getMethodName))
             {
                 $result[$fieldName] = $this->$getMethodName();
@@ -74,7 +92,19 @@ abstract class Data implements DataInterface
             }
 
             // get from field
-            $result[$fieldName] = $this->$fieldName;
+            if (property_exists($this, $propertyName))
+            {
+                $result[$fieldName] = $this->$propertyName;
+                continue;
+            }
+
+            if ($throwErrorOnMissingProperty)
+            {
+                throw (new ServerException())->internalError([
+                    'reason'   => 'missing property to get value from data object',
+                    'property' => $propertyName,
+                ]);
+            }
         }
 
         return $result;
@@ -84,6 +114,7 @@ abstract class Data implements DataInterface
      * @param bool $snakeCase
      *
      * @return string
+     * @throws ServerException
      */
     public function toJson(bool $snakeCase = true): string
     {
@@ -95,7 +126,8 @@ abstract class Data implements DataInterface
     /**
      * @param string $json
      *
-     * @return static
+     * @return Data
+     * @throws ServerException
      */
     public function fromJson(string $json)
     {
