@@ -50,7 +50,9 @@ abstract class Data implements DataInterface
                 {
                     throw (new ServerException())->internalError([
                         'reason'   => 'missing property to set value on data object',
+                        'object'   => get_called_class(),
                         'property' => $fieldName,
+                        'context'  => $data,
                     ]);
                 }
             }
@@ -102,6 +104,7 @@ abstract class Data implements DataInterface
             {
                 throw (new ServerException())->internalError([
                     'reason'   => 'missing property to get value from data object',
+                    'object'   => get_called_class(),
                     'property' => $propertyName,
                 ]);
             }
