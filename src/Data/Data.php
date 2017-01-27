@@ -18,7 +18,7 @@ abstract class Data implements DataInterface
      * @return static
      * @throws ServerException
      */
-    public function fromArray(array $data, bool $throwErrorOnMissingProperty = true)
+    public function fromArray(array $data, bool $throwErrorOnMissingProperty = false)
     {
         if ($data)
         {
@@ -68,7 +68,7 @@ abstract class Data implements DataInterface
      * @return array
      * @throws ServerException
      */
-    public function toArray(bool $snakeCase = true, bool $throwErrorOnMissingProperty = true): array
+    public function toArray(bool $snakeCase = true, bool $throwErrorOnMissingProperty = false): array
     {
         $result = [];
 
