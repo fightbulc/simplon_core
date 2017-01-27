@@ -8,6 +8,8 @@ use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Interfaces\RegisterInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
+use Simplon\Core\Utils\Exceptions\ClientException;
+use Simplon\Core\Utils\Exceptions\ServerException;
 
 /**
  * Class RouteMiddleware
@@ -40,7 +42,8 @@ class RouteMiddleware
      * @param callable|null $next
      *
      * @return ResponseInterface
-     * @throws \Exception
+     * @throws ClientException
+     * @throws ServerException
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null): ResponseInterface
     {
@@ -71,7 +74,8 @@ class RouteMiddleware
                     ->setRequest($request)
                     ->setResponse($response)
                     ->setContext($component['context'])
-                    ->setWorkingDir($component['workingDir']);
+                    ->setWorkingDir($component['workingDir'])
+                ;
 
                 /** @var ResponseDataInterface $responseData */
                 /** @noinspection PhpParamsInspection */
@@ -87,12 +91,15 @@ class RouteMiddleware
             }
         }
 
-        throw new \Exception("could not match any component routes to <{$requestedPath}>");
+        throw (new ClientException())->contentNotFound([
+            'reason'   => 'requested resource does not exist',
+            'resource' => $requestedPath,
+        ]);
     }
 
     /**
      * @return array
-     * @throws \Exception
+     * @throws ServerException
      */
     private function collectRoutes(): array
     {
@@ -106,7 +113,7 @@ class RouteMiddleware
                 {
                     if (isset($collect[$routeData->getPath()]))
                     {
-                        throw new \Exception("Path is already taken by {$collect[$routeData->getPath()]}");
+                        throw (new ServerException())->internalError(['reasons' => "Path is already taken by {$collect[$routeData->getPath()]}"]);
                     }
 
                     $collect[$routeData->getPath()] = [
@@ -122,7 +129,7 @@ class RouteMiddleware
             }
             else
             {
-                throw new \Exception('Component "' . get_class($component) . '" did not implement RegisterInterface');
+                throw (new ServerException())->internalError(['reason' => 'Component "' . get_class($component) . '" did not implement RegisterInterface']);
             }
         }
 
