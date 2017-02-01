@@ -16,6 +16,9 @@ use Simplon\Locale\Readers\PhpFileReader;
 abstract class CoreContext implements CoreContextInterface
 {
     const APP_PATH = __DIR__ . '/../../../../src';
+    const APP_ENV_DEV = 'dev';
+    const APP_ENV_STAGING = 'staging';
+    const APP_ENV_PRODUCTION = 'production';
 
     /**
      * @var Config
@@ -60,12 +63,19 @@ abstract class CoreContext implements CoreContextInterface
             /** @noinspection PhpIncludeInspection */
             $this->config = new Config(require self::APP_PATH . '/Configs/config.php');
 
-            if (getenv('APP_ENV') === 'production')
+            foreach ([self::APP_ENV_STAGING, self::APP_ENV_PRODUCTION] as $env)
             {
-                if (file_exists(self::APP_PATH . '/Configs/production.php'))
+                if (getenv('APP_ENV') === $env)
                 {
-                    /** @noinspection PhpIncludeInspection */
-                    $this->config->addConfig(require self::APP_PATH . '/Configs/production.php');
+                    $filePath = self::APP_PATH . '/Configs/' . $env . '.php';
+
+                    if (file_exists($filePath))
+                    {
+                        /** @noinspection PhpIncludeInspection */
+                        $this->config->addConfig(require $filePath);
+                    }
+
+                    break;
                 }
             }
         }
@@ -81,12 +91,19 @@ abstract class CoreContext implements CoreContextInterface
                     /** @noinspection PhpIncludeInspection */
                     $this->config->addConfig(require $workingDir . '/Configs/config.php');
 
-                    if (getenv('APP_ENV') === 'production')
+                    foreach ([self::APP_ENV_STAGING, self::APP_ENV_PRODUCTION] as $env)
                     {
-                        if (file_exists($workingDir . '/Configs/production.php'))
+                        if (getenv('APP_ENV') === $env)
                         {
-                            /** @noinspection PhpIncludeInspection */
-                            $this->config->addConfig(require $workingDir . '/Configs/production.php');
+                            $filePath = $workingDir . '/Configs/' . $env . '.php';
+
+                            if (file_exists($filePath))
+                            {
+                                /** @noinspection PhpIncludeInspection */
+                                $this->config->addConfig(require $filePath);
+                            }
+
+                            break;
                         }
                     }
                 }
