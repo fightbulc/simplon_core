@@ -278,7 +278,7 @@ abstract class View implements ViewInterface
      * @param ViewInterface $view
      * @param string $id
      *
-     * @return View
+     * @return ViewInterface
      */
     public function implements (ViewInterface $view, string $id = 'partial'): View
     {
@@ -408,7 +408,7 @@ abstract class View implements ViewInterface
     /**
      * @return string
      */
-    private function getDeviceTemplate(): string
+    protected function getDeviceTemplate(): string
     {
         $filePathPartials = explode('.', $this->getTemplate());
         $fileExtension = array_pop($filePathPartials);

@@ -60,24 +60,7 @@ abstract class CoreContext implements CoreContextInterface
     {
         if (!$this->config)
         {
-            /** @noinspection PhpIncludeInspection */
-            $this->config = new Config(require self::APP_PATH . '/Configs/config.php');
-
-            foreach ([self::APP_ENV_STAGING, self::APP_ENV_PRODUCTION] as $env)
-            {
-                if (getenv('APP_ENV') === $env)
-                {
-                    $filePath = self::APP_PATH . '/Configs/' . $env . '.php';
-
-                    if (file_exists($filePath))
-                    {
-                        /** @noinspection PhpIncludeInspection */
-                        $this->config->addConfig(require $filePath);
-                    }
-
-                    break;
-                }
-            }
+            $this->config = $this->searchAddConfigByPath(new Config(), self::APP_PATH . '/Configs');
         }
 
         if ($workingDir)
@@ -86,28 +69,7 @@ abstract class CoreContext implements CoreContextInterface
 
             if (empty($this->configCache[$md5WorkingDir]))
             {
-                if (file_exists($workingDir . '/Configs/config.php'))
-                {
-                    /** @noinspection PhpIncludeInspection */
-                    $this->config->addConfig(require $workingDir . '/Configs/config.php');
-
-                    foreach ([self::APP_ENV_STAGING, self::APP_ENV_PRODUCTION] as $env)
-                    {
-                        if (getenv('APP_ENV') === $env)
-                        {
-                            $filePath = $workingDir . '/Configs/' . $env . '.php';
-
-                            if (file_exists($filePath))
-                            {
-                                /** @noinspection PhpIncludeInspection */
-                                $this->config->addConfig(require $filePath);
-                            }
-
-                            break;
-                        }
-                    }
-                }
-
+                $this->config = $this->searchAddConfigByPath($this->config, $workingDir . '/Configs');
                 $this->configCache[$md5WorkingDir] = $this->config;
             }
 
@@ -156,5 +118,38 @@ abstract class CoreContext implements CoreContextInterface
         }
 
         return $this->cookieStorage;
+    }
+
+    /**
+     * @param Config $config
+     * @param string $path
+     *
+     * @return Config
+     */
+    protected function searchAddConfigByPath(Config $config, string $path): Config
+    {
+        if (file_exists($path . '/config.php'))
+        {
+            /** @noinspection PhpIncludeInspection */
+            $config->addConfig(require $path . '/config.php');
+
+            foreach ([self::APP_ENV_STAGING, self::APP_ENV_PRODUCTION] as $env)
+            {
+                if (getenv('APP_ENV') === $env)
+                {
+                    $envFilePath = $path . '/' . $env . '.php';
+
+                    if (file_exists($envFilePath))
+                    {
+                        /** @noinspection PhpIncludeInspection */
+                        $config->addConfig(require $envFilePath);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        return $config;
     }
 }
