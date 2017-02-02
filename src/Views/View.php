@@ -280,7 +280,7 @@ abstract class View implements ViewInterface
      *
      * @return ViewInterface
      */
-    public function implements (ViewInterface $view, string $id = 'partial'): View
+    public function implements (ViewInterface $view, string $id = 'partial'): ViewInterface
     {
         $this->implementsView[$id] = $view;
 
