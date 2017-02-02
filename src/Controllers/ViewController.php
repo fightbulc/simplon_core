@@ -76,12 +76,7 @@ abstract class ViewController extends Controller
     {
         if (!$this->locale)
         {
-            $paths = [
-                CoreContext::APP_PATH . '/Locales', // app path
-                $this->getWorkingDir() . '/Locales', // component path
-            ];
-
-            $this->locale = new Locale($this->getAppContext()->getLocaleFileReader($paths), [LocaleMiddleware::getLocaleCode()]);
+            $this->locale = new Locale($this->getAppContext()->getLocaleFileReader($this->getLocalePaths()), [LocaleMiddleware::getLocaleCode()]);
             $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
         }
 
@@ -114,6 +109,17 @@ abstract class ViewController extends Controller
         }
 
         return $this->device;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getLocalePaths(): array
+    {
+        return [
+            CoreContext::APP_PATH . '/Locales', // app path
+            $this->getWorkingDir() . '/Locales', // component path
+        ];
     }
 
     /**
