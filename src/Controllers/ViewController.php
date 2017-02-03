@@ -2,14 +2,11 @@
 
 namespace Simplon\Core\Controllers;
 
-use Simplon\Core\CoreContext;
 use Simplon\Core\Data\ResponseViewData;
-use Simplon\Core\Interfaces\CoreContextInterface;
+use Simplon\Core\Data\ViewInitialData;
 use Simplon\Core\Interfaces\ViewInterface;
-use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
-use Simplon\Locale\Locale;
 
 /**
  * Class ViewController
@@ -17,10 +14,6 @@ use Simplon\Locale\Locale;
  */
 abstract class ViewController extends Controller
 {
-    /**
-     * @var Locale
-     */
-    protected $locale;
     /**
      * @var FlashMessage
      */
@@ -45,12 +38,6 @@ abstract class ViewController extends Controller
      */
     public function respond(ViewInterface $view, array $globalData = []): ResponseViewData
     {
-        $view
-            ->setLocale($this->getLocale())
-            ->setFlashMessage($this->getFlashMessage())
-            ->setDevice($this->getDevice())
-        ;
-
         $this->getResponse()->getBody()->write($view->render($globalData));
 
         return new ResponseViewData($this->getResponse());
@@ -70,17 +57,11 @@ abstract class ViewController extends Controller
     }
 
     /**
-     * @return Locale
+     * @return ViewInitialData
      */
-    public function getLocale(): Locale
+    public function getViewInitialData(): ViewInitialData
     {
-        if (!$this->locale)
-        {
-            $this->locale = new Locale($this->getAppContext()->getLocaleFileReader($this->getLocalePaths()), [LocaleMiddleware::getLocaleCode()]);
-            $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
-        }
-
-        return $this->locale;
+        return new ViewInitialData($this->getLocale(), $this->getFlashMessage(), $this->getDevice());
     }
 
     /**
@@ -109,25 +90,5 @@ abstract class ViewController extends Controller
         }
 
         return $this->device;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getLocalePaths(): array
-    {
-        return [
-            CoreContext::APP_PATH . '/Locales', // app path
-            $this->getWorkingDir() . '/Locales', // component path
-        ];
-    }
-
-    /**
-     * @return CoreContextInterface
-     */
-    private function getAppContext()
-    {
-        /** @noinspection PhpUndefinedMethodInspection */
-        return $this->context->getAppContext();
     }
 }

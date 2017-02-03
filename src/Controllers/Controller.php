@@ -4,7 +4,11 @@ namespace Simplon\Core\Controllers;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\CoreContext;
 use Simplon\Core\Interfaces\ControllerInterface;
+use Simplon\Core\Interfaces\CoreContextInterface;
+use Simplon\Core\Middleware\LocaleMiddleware;
+use Simplon\Locale\Locale;
 
 /**
  * Class Controller
@@ -25,6 +29,10 @@ abstract class Controller implements ControllerInterface
      * @var string
      */
     protected $workingDir;
+    /**
+     * @var Locale
+     */
+    protected $locale;
 
     /**
      * @param $context
@@ -96,5 +104,39 @@ abstract class Controller implements ControllerInterface
         $this->workingDir = $workingDir;
 
         return $this;
+    }
+
+    /**
+     * @return Locale
+     */
+    public function getLocale(): Locale
+    {
+        if (!$this->locale)
+        {
+            $this->locale = new Locale($this->getAppContext()->getLocaleFileReader($this->getLocalePaths()), [LocaleMiddleware::getLocaleCode()]);
+            $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
+        }
+
+        return $this->locale;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getLocalePaths(): array
+    {
+        return [
+            CoreContext::APP_PATH . '/Locales', // app path
+            $this->getWorkingDir() . '/Locales', // component path
+        ];
+    }
+
+    /**
+     * @return CoreContextInterface
+     */
+    protected function getAppContext()
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->context->getAppContext();
     }
 }

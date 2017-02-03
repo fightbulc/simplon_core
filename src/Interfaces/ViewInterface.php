@@ -2,6 +2,7 @@
 
 namespace Simplon\Core\Interfaces;
 
+use Simplon\Core\Data\ViewInitialData;
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
 use Simplon\Locale\Locale;
@@ -33,16 +34,21 @@ interface ViewInterface
     public function getGlobalData(): array;
 
     /**
+     * @param array|null $globalData
+     *
+     * @return string
+     */
+    public function render(array $globalData = null): string;
+
+    /**
+     * @return ViewInitialData
+     */
+    public function getViewInitialData(): ViewInitialData;
+
+    /**
      * @return Locale
      */
     public function getLocale(): Locale;
-
-    /**
-     * @param Locale $locale
-     *
-     * @return static
-     */
-    public function setLocale(Locale $locale);
 
     /**
      * @return FlashMessage
@@ -50,28 +56,7 @@ interface ViewInterface
     public function getFlashMessage(): FlashMessage;
 
     /**
-     * @param FlashMessage $flashMessage
-     *
-     * @return static
-     */
-    public function setFlashMessage(FlashMessage $flashMessage);
-
-    /**
      * @return Device
      */
     public function getDevice(): Device;
-
-    /**
-     * @param Device $device
-     *
-     * @return static
-     */
-    public function setDevice(Device $device);
-
-    /**
-     * @param array|null $globalData
-     *
-     * @return string
-     */
-    public function render(array $globalData = null): string;
 }

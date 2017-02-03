@@ -2,6 +2,7 @@
 
 namespace Simplon\Core\Views;
 
+use Simplon\Core\Data\ViewInitialData;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Device\Device;
 use Simplon\Locale\Locale;
@@ -28,17 +29,21 @@ abstract class View implements ViewInterface
      */
     protected $globalData = [];
     /**
-     * @var Locale
+     * @var ViewInitialData
      */
-    protected $locale;
+    private $viewInitialData;
+
     /**
-     * @var FlashMessage
+     * @param ViewInitialData $viewInitialData
+     *
+     * @internal param Locale $locale
+     * @internal param FlashMessage $flashMessage
+     * @internal param Device $device
      */
-    protected $flashMessage;
-    /**
-     * @var Device
-     */
-    protected $device;
+    public function __construct(ViewInitialData $viewInitialData)
+    {
+        $this->viewInitialData = $viewInitialData;
+    }
 
     /**
      * @param string $string
@@ -92,23 +97,19 @@ abstract class View implements ViewInterface
     }
 
     /**
+     * @return ViewInitialData
+     */
+    public function getViewInitialData(): ViewInitialData
+    {
+        return $this->viewInitialData;
+    }
+
+    /**
      * @return Locale
      */
     public function getLocale(): Locale
     {
-        return $this->locale;
-    }
-
-    /**
-     * @param Locale $locale
-     *
-     * @return static
-     */
-    public function setLocale(Locale $locale)
-    {
-        $this->locale = $locale;
-
-        return $this;
+        return $this->viewInitialData->getLocale();
     }
 
     /**
@@ -116,19 +117,7 @@ abstract class View implements ViewInterface
      */
     public function getFlashMessage(): FlashMessage
     {
-        return $this->flashMessage;
-    }
-
-    /**
-     * @param FlashMessage $flashMessage
-     *
-     * @return static
-     */
-    public function setFlashMessage(FlashMessage $flashMessage)
-    {
-        $this->flashMessage = $flashMessage;
-
-        return $this;
+        return $this->viewInitialData->getFlashMessage();
     }
 
     /**
@@ -136,19 +125,7 @@ abstract class View implements ViewInterface
      */
     public function getDevice(): Device
     {
-        return $this->device;
-    }
-
-    /**
-     * @param Device $device
-     *
-     * @return static
-     */
-    public function setDevice(Device $device)
-    {
-        $this->device = $device;
-
-        return $this;
+        return $this->viewInitialData->getDevice();
     }
 
     /**
@@ -159,10 +136,11 @@ abstract class View implements ViewInterface
      */
     public function render(array $globalData = []): string
     {
-        $data = $this->getData();
-        $data['locale'] = $this->getLocale();
-        $data['flash'] = $this->getFlashMessage();
-        $data['device'] = $this->getDevice();
+        $localData = $this->getData();
+
+        $localData['locale'] = $this->getLocale();
+        $localData['flash'] = $this->getFlashMessage();
+        $localData['device'] = $this->getDevice();
 
         if (!empty($this->implementsView))
         {
@@ -175,16 +153,13 @@ abstract class View implements ViewInterface
                     ->addMultipleAssetsCode($subView->getAssetsCode())
                 ;
 
-                $data[$subViewId] = $subView
-                    ->setLocale($this->getLocale())
-                    ->setFlashMessage($this->getFlashMessage())
-                    ->setDevice($this->getDevice())
-                    ->render($globalData)
-                ;
+                $localData[$subViewId] = $subView->render($globalData);
             }
         }
 
-        return $this->renderPartial($this->getDeviceTemplate(), $data, array_replace_recursive($this->getGlobalData(), $globalData));
+        return $this->renderPartial(
+            $this->getDeviceTemplate(), $localData, array_replace_recursive($this->getGlobalData(), $globalData)
+        );
     }
 
     /**
@@ -285,20 +260,6 @@ abstract class View implements ViewInterface
         $this->implementsView[$id] = $view;
 
         return $this;
-    }
-
-    /**
-     * @param ViewInterface $view
-     *
-     * @return ViewInterface
-     */
-    protected function initializeNewView(ViewInterface $view): ViewInterface
-    {
-        return $view
-            ->setLocale($this->getLocale())
-            ->setFlashMessage($this->getFlashMessage())
-            ->setDevice($this->getDevice())
-            ;
     }
 
     /**
