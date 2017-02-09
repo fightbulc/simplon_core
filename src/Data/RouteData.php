@@ -2,11 +2,13 @@
 
 namespace Simplon\Core\Data;
 
+use Fig\Http\Message\RequestMethodInterface;
+
 /**
  * Class RouteData
  * @package Simplon\Core\Data
  */
-class RouteData
+class RouteData implements RequestMethodInterface
 {
     const METHOD_GET = 'GET';
     const METHOD_OPTION = 'OPTION';
@@ -27,7 +29,7 @@ class RouteData
     /**
      * @var array
      */
-    protected $methodsAllowed = [self::METHOD_GET, self::METHOD_OPTION, self::METHOD_HEAD];
+    protected $methodsAllowed = [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_OPTIONS, RequestMethodInterface::METHOD_HEAD];
 
     /**
      * @param string $path
@@ -74,7 +76,7 @@ class RouteData
      */
     public function withGet(): self
     {
-        return $this->addMethodAllowed(self::METHOD_GET);
+        return $this->addMethodAllowed(RequestMethodInterface::METHOD_GET);
     }
 
     /**
@@ -82,7 +84,7 @@ class RouteData
      */
     public function withOption(): self
     {
-        return $this->addMethodAllowed(self::METHOD_OPTION);
+        return $this->addMethodAllowed(RequestMethodInterface::METHOD_OPTIONS);
     }
 
     /**
@@ -90,7 +92,7 @@ class RouteData
      */
     public function withHead(): self
     {
-        return $this->addMethodAllowed(self::METHOD_HEAD);
+        return $this->addMethodAllowed(RequestMethodInterface::METHOD_HEAD);
     }
 
     /**
@@ -98,7 +100,7 @@ class RouteData
      */
     public function withPost(): self
     {
-        return $this->addMethodAllowed(self::METHOD_POST);
+        return $this->addMethodAllowed(RequestMethodInterface::METHOD_POST);
     }
 
     /**
@@ -106,7 +108,7 @@ class RouteData
      */
     public function withPut(): self
     {
-        return $this->addMethodAllowed(self::METHOD_PUT);
+        return $this->addMethodAllowed(RequestMethodInterface::METHOD_PUT);
     }
 
     /**
@@ -114,7 +116,7 @@ class RouteData
      */
     public function withPatch(): self
     {
-        return $this->addMethodAllowed(self::METHOD_PATCH);
+        return $this->addMethodAllowed(RequestMethodInterface::METHOD_PATCH);
     }
 
     /**
@@ -122,7 +124,7 @@ class RouteData
      */
     public function withDelete(): self
     {
-        return $this->addMethodAllowed(self::METHOD_DELETE);
+        return $this->addMethodAllowed(RequestMethodInterface::METHOD_DELETE);
     }
 
     /**
