@@ -13,12 +13,10 @@ abstract class Data implements DataInterface
 {
     /**
      * @param array $data
-     * @param bool $throwErrorOnMissingProperty
      *
      * @return static
-     * @throws ServerException
      */
-    public function fromArray(array $data, bool $throwErrorOnMissingProperty = false)
+    public function fromArray(array $data)
     {
         if ($data)
         {
@@ -45,16 +43,6 @@ abstract class Data implements DataInterface
                     $this->$fieldName = $val;
                     continue;
                 }
-
-                if ($throwErrorOnMissingProperty)
-                {
-                    throw (new ServerException())->internalError([
-                        'reason'   => 'missing property to set value on data object',
-                        'object'   => get_called_class(),
-                        'property' => $fieldName,
-                        'context'  => $data,
-                    ]);
-                }
             }
         }
 
@@ -63,12 +51,10 @@ abstract class Data implements DataInterface
 
     /**
      * @param bool $snakeCase
-     * @param bool $throwErrorOnMissingProperty
      *
      * @return array
-     * @throws ServerException
      */
-    public function toArray(bool $snakeCase = true, bool $throwErrorOnMissingProperty = false): array
+    public function toArray(bool $snakeCase = true): array
     {
         $result = [];
 
@@ -98,15 +84,6 @@ abstract class Data implements DataInterface
             {
                 $result[$fieldName] = $this->$propertyName;
                 continue;
-            }
-
-            if ($throwErrorOnMissingProperty)
-            {
-                throw (new ServerException())->internalError([
-                    'reason'   => 'missing property to get value from data object',
-                    'object'   => get_called_class(),
-                    'property' => $propertyName,
-                ]);
             }
         }
 
