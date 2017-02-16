@@ -23,23 +23,23 @@ abstract class CoreContext implements CoreContextInterface
     /**
      * @var Config
      */
-    private $config;
+    protected $config;
     /**
      * @var Config[]
      */
-    private $configCache;
+    protected $configCache;
     /**
      * @var SessionStorage
      */
-    private $sessionStorage;
+    protected $sessionStorage;
     /**
      * @var CookieStorage
      */
-    private $cookieStorage;
+    protected $cookieStorage;
     /**
      * @var EventsHandler
      */
-    private $eventsHandler;
+    protected $eventsHandler;
 
     /**
      * @param array $paths
@@ -69,8 +69,7 @@ abstract class CoreContext implements CoreContextInterface
 
             if (empty($this->configCache[$md5WorkingDir]))
             {
-                $this->config = $this->searchAddConfigByPath($this->config, $workingDir . '/Configs');
-                $this->configCache[$md5WorkingDir] = $this->config;
+                $this->configCache[$md5WorkingDir] = $this->searchAddConfigByPath($this->config, $workingDir . '/Configs');
             }
 
             return $this->configCache[$md5WorkingDir];
