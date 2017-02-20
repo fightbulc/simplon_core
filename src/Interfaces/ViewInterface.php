@@ -34,11 +34,11 @@ interface ViewInterface
     public function getGlobalData(): array;
 
     /**
-     * @param array|null $globalData
+     * @param array $globalData
      *
      * @return string
      */
-    public function render(array $globalData = null): string;
+    public function render(array $globalData = []): string;
 
     /**
      * @return ViewInitialData
