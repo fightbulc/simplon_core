@@ -333,9 +333,35 @@ abstract class View implements ViewInterface
      *
      * @return View
      */
+    protected function addBodyStartCode(string $code): self
+    {
+        $this->getRenderer()->addAssetCode($code, 'bodyStart');
+
+        return $this;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return View
+     */
+    protected function addBodyEndCode(string $code): self
+    {
+        $this->getRenderer()->addAssetCode($code, 'bodyEnd');
+
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     *
+     * @param string $code
+     *
+     * @return View
+     */
     protected function addFooterCode(string $code): self
     {
-        $this->getRenderer()->addAssetCode($code, 'footer');
+        $this->addBodyEndCode($code);
 
         return $this;
     }
