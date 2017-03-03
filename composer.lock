@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "32690ab7119ea7cfaaead529d513740c",
+    "content-hash": "f8741a0dd1b75b54262cdc88a8b7ad1a",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -950,6 +950,53 @@
             "time": "2017-02-01T17:15:46+00:00"
         },
         {
+            "name": "simplon/mustache",
+            "version": "0.1.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_mustache.git",
+                "reference": "00d95584b4bf8e64e1c3974966dbd13cabc7fe2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_mustache/zipball/00d95584b4bf8e64e1c3974966dbd13cabc7fe2c",
+                "reference": "00d95584b4bf8e64e1c3974966dbd13cabc7fe2c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Mustache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Lightweight & fast implementation of Mustache - Logic-less templates.",
+            "homepage": "https://github.com/fightbulc/simplon_mustache",
+            "keywords": [
+                "fast",
+                "leightweight",
+                "less",
+                "logic",
+                "logic-less",
+                "mustache",
+                "template"
+            ],
+            "time": "2015-02-07T21:44:54+00:00"
+        },
+        {
             "name": "simplon/phtml",
             "version": "0.2.0",
             "source": {
@@ -991,6 +1038,53 @@
                 "template"
             ],
             "time": "2017-02-23T17:14:23+00:00"
+        },
+        {
+            "name": "simplon/template",
+            "version": "0.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_template.git",
+                "reference": "7b21dff10743a23c42df28e58129ec2e93e8b43a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_template/zipball/7b21dff10743a23c42df28e58129ec2e93e8b43a",
+                "reference": "7b21dff10743a23c42df28e58129ec2e93e8b43a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "simplon/mustache": "^0.1",
+                "simplon/phtml": "^0.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Template\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Simple templating solution w/ assets handling (mustache, phtml, assets)",
+            "homepage": "https://github.com/fightbulc/simplon_template",
+            "keywords": [
+                "fast",
+                "lightweight",
+                "mustache",
+                "phtml",
+                "templates"
+            ],
+            "time": "2017-03-03T21:19:47+00:00"
         },
         {
             "name": "symfony/process",
