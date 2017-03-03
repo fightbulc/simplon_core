@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8741a0dd1b75b54262cdc88a8b7ad1a",
+    "content-hash": "32690ab7119ea7cfaaead529d513740c",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -950,64 +950,17 @@
             "time": "2017-02-01T17:15:46+00:00"
         },
         {
-            "name": "simplon/mustache",
-            "version": "0.1.14",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fightbulc/simplon_mustache.git",
-                "reference": "00d95584b4bf8e64e1c3974966dbd13cabc7fe2c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_mustache/zipball/00d95584b4bf8e64e1c3974966dbd13cabc7fe2c",
-                "reference": "00d95584b4bf8e64e1c3974966dbd13cabc7fe2c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Simplon\\Mustache\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tino Ehrich",
-                    "email": "tino@bigpun.me",
-                    "role": "developer"
-                }
-            ],
-            "description": "Lightweight & fast implementation of Mustache - Logic-less templates.",
-            "homepage": "https://github.com/fightbulc/simplon_mustache",
-            "keywords": [
-                "fast",
-                "leightweight",
-                "less",
-                "logic",
-                "logic-less",
-                "mustache",
-                "template"
-            ],
-            "time": "2015-02-07T21:44:54+00:00"
-        },
-        {
             "name": "simplon/phtml",
-            "version": "0.1.1",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_phtml.git",
-                "reference": "acf6fd9c5b70df26bb1659770ca13a6084c1ad2a"
+                "reference": "89a7a1dbf9ab70dbfba8a7170897129d533bb5ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_phtml/zipball/acf6fd9c5b70df26bb1659770ca13a6084c1ad2a",
-                "reference": "acf6fd9c5b70df26bb1659770ca13a6084c1ad2a",
+                "url": "https://api.github.com/repos/fightbulc/simplon_phtml/zipball/89a7a1dbf9ab70dbfba8a7170897129d533bb5ae",
+                "reference": "89a7a1dbf9ab70dbfba8a7170897129d533bb5ae",
                 "shasum": ""
             },
             "require": {
@@ -1037,54 +990,7 @@
                 "phtml",
                 "template"
             ],
-            "time": "2014-11-15T12:29:39+00:00"
-        },
-        {
-            "name": "simplon/template",
-            "version": "0.8.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fightbulc/simplon_template.git",
-                "reference": "730dd8af9b7ff504daa76b4ed427b6330850b535"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_template/zipball/730dd8af9b7ff504daa76b4ed427b6330850b535",
-                "reference": "730dd8af9b7ff504daa76b4ed427b6330850b535",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4",
-                "simplon/mustache": "0.1.*",
-                "simplon/phtml": "0.1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Simplon\\Template\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tino Ehrich",
-                    "email": "tino@bigpun.me",
-                    "role": "developer"
-                }
-            ],
-            "description": "Simple templating solution w/ assets handling (mustache, phtml, assets)",
-            "homepage": "https://github.com/fightbulc/simplon_template",
-            "keywords": [
-                "fast",
-                "lightweight",
-                "mustache",
-                "phtml",
-                "templates"
-            ],
-            "time": "2017-02-22T10:51:06+00:00"
+            "time": "2017-02-23T17:14:23+00:00"
         },
         {
             "name": "symfony/process",
