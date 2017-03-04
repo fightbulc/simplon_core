@@ -29,18 +29,6 @@ interface ViewInterface
     public function getAssetsCode(): array;
 
     /**
-     * @return array
-     */
-    public function getGlobalData(): array;
-
-    /**
-     * @param array $globalData
-     *
-     * @return string
-     */
-    public function render(array $globalData = []): string;
-
-    /**
      * @return ViewInitialData
      */
     public function getViewInitialData(): ViewInitialData;
@@ -59,4 +47,9 @@ interface ViewInterface
      * @return Device
      */
     public function getDevice(): Device;
+
+    /**
+     * @return string
+     */
+    public function render(): string;
 }

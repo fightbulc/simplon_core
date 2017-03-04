@@ -5,8 +5,8 @@ namespace Simplon\Core\Controllers;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\CoreContext;
+use Simplon\Core\Interfaces\ComponentContextInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
-use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Locale\Locale;
 
@@ -16,6 +16,9 @@ use Simplon\Locale\Locale;
  */
 abstract class Controller implements ControllerInterface
 {
+    /**
+     * @see ViewController defines actual type
+     */
     protected $context;
     /**
      * @var ServerRequestInterface
@@ -35,11 +38,11 @@ abstract class Controller implements ControllerInterface
     protected $locale;
 
     /**
-     * @param $context
+     * @param ComponentContextInterface $context
      *
      * @return ControllerInterface
      */
-    public function setContext($context): ControllerInterface
+    public function setContext(ComponentContextInterface $context): ControllerInterface
     {
         $this->context = $context;
 
@@ -113,7 +116,8 @@ abstract class Controller implements ControllerInterface
     {
         if (!$this->locale)
         {
-            $this->locale = new Locale($this->getAppContext()->getLocaleFileReader($this->getLocalePaths()), [LocaleMiddleware::getLocaleCode()]);
+            /** @noinspection PhpUndefinedMethodInspection */
+            $this->locale = new Locale($this->context->getAppContext()->getLocaleFileReader($this->getLocalePaths()), [LocaleMiddleware::getLocaleCode()]);
             $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
         }
 
@@ -129,14 +133,5 @@ abstract class Controller implements ControllerInterface
             CoreContext::APP_PATH . '/Locales', // app path
             $this->getWorkingDir() . '/Locales', // component path
         ];
-    }
-
-    /**
-     * @return CoreContextInterface
-     */
-    protected function getAppContext()
-    {
-        /** @noinspection PhpUndefinedMethodInspection */
-        return $this->context->getAppContext();
     }
 }

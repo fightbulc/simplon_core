@@ -32,13 +32,12 @@ abstract class ViewController extends Controller
 
     /**
      * @param ViewInterface $view
-     * @param array $globalData
      *
      * @return ResponseViewData
      */
-    public function respond(ViewInterface $view, array $globalData = []): ResponseViewData
+    public function respond(ViewInterface $view): ResponseViewData
     {
-        $this->getResponse()->getBody()->write($view->render($globalData));
+        $this->getResponse()->getBody()->write($view->render());
 
         return new ResponseViewData($this->getResponse());
     }
@@ -71,8 +70,9 @@ abstract class ViewController extends Controller
     {
         if (!$this->flashMessage)
         {
+            /** @noinspection PhpUndefinedMethodInspection */
             $this->flashMessage = new FlashMessage(
-                $this->getAppContext()->getSessionStorage()
+                $this->getContext()->getAppContext()->getSessionStorage()
             );
         }
 

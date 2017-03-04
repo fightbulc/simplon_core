@@ -2,6 +2,7 @@
 
 namespace Simplon\Core\Interfaces;
 
+use Simplon\Core\Data\AuthRouteData;
 use Simplon\Core\Utils\RoutesCollection;
 
 /**
@@ -23,7 +24,12 @@ interface RegisterInterface
     public function getRoutes(): RoutesCollection;
 
     /**
-     * @return EventsInterface|null
+     * @return AuthRouteData[]|null
      */
-    public function getEvents();
+    public function getAuth(): ?array;
+
+    /**
+     * @return null|EventsInterface
+     */
+    public function getEvents(): ?EventsInterface;
 }

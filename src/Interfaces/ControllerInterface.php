@@ -14,11 +14,11 @@ interface ControllerInterface
     public function getContext();
 
     /**
-     * @param $context
+     * @param ComponentContextInterface $context
      *
      * @return ControllerInterface
      */
-    public function setContext($context): self;
+    public function setContext(ComponentContextInterface $context): self;
 
     /**
      * @return ServerRequestInterface

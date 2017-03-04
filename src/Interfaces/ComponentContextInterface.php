@@ -8,6 +8,9 @@ namespace Simplon\Core\Interfaces;
  */
 interface ComponentContextInterface
 {
+    /**
+     * @return CoreContextInterface
+     */
     public function getAppContext();
 
     /**

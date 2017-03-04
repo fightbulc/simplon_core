@@ -25,10 +25,6 @@ abstract class View implements ViewInterface
      */
     protected $implementsView = [];
     /**
-     * @var array
-     */
-    protected $globalData = [];
-    /**
      * @var ViewInitialData
      */
     private $viewInitialData;
@@ -77,7 +73,7 @@ abstract class View implements ViewInterface
      */
     public static function renderWidget(string $path, array $data = []): string
     {
-        return Phtml::render($path, $data, '');
+        return Phtml::render($path, $data);
     }
 
     /**
@@ -129,12 +125,10 @@ abstract class View implements ViewInterface
     }
 
     /**
-     * @param array $globalData
-     *
      * @return string
      * @throws PhtmlException
      */
-    public function render(array $globalData = []): string
+    public function render(): string
     {
         $localData = $this->getData();
 
@@ -153,46 +147,13 @@ abstract class View implements ViewInterface
                     ->addMultipleAssetsCode($subView->getAssetsCode())
                 ;
 
-                $localData[$subViewId] = $subView->render($globalData);
+                $localData[$subViewId] = $subView->render();
             }
         }
 
         return $this->renderPartial(
-            $this->getDeviceTemplate(), $localData, array_replace_recursive($this->getGlobalData(), $globalData)
+            $this->getDeviceTemplate(), $localData
         );
-    }
-
-    /**
-     * @return array
-     */
-    public function getGlobalData(): array
-    {
-        return $this->globalData;
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     *
-     * @return View
-     */
-    public function addGlobalData(string $key, $value): View
-    {
-        $this->globalData[$key] = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param array $globalData
-     *
-     * @return View
-     */
-    public function setGlobalData(array $globalData): View
-    {
-        $this->globalData = $globalData;
-
-        return $this;
     }
 
     /**
@@ -306,14 +267,13 @@ abstract class View implements ViewInterface
     /**
      * @param string $path
      * @param array $data
-     * @param array $globalData
      *
      * @return string
      * @throws PhtmlException
      */
-    protected function renderPartial(string $path, array $data = [], array $globalData = []): string
+    protected function renderPartial(string $path, array $data = []): string
     {
-        return $this->getRenderer()->renderPhtml($path, array_merge($data, $globalData), true);
+        return $this->getRenderer()->renderPhtml($path, $data, true);
     }
 
     /**

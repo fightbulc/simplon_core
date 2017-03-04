@@ -104,7 +104,7 @@ class Core
                 $body->rewind();
             }
 
-            $contentLength = $response->getHeaderLine('Content-Length');
+            $contentLength = $response->getHeaderLine('Auth-Length');
 
             if (!$contentLength)
             {

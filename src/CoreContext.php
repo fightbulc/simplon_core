@@ -105,18 +105,24 @@ abstract class CoreContext implements CoreContextInterface
     }
 
     /**
-     * @param string $namespace
-     *
      * @return CookieStorage
      */
-    public function getCookieStorage(string $namespace = 'CORE'): CookieStorage
+    public function getCookieStorage(): CookieStorage
     {
         if (!$this->cookieStorage)
         {
-            $this->cookieStorage = new CookieStorage($namespace);
+            $this->cookieStorage = new CookieStorage($this->getCookieStorageNameSpace());
         }
 
         return $this->cookieStorage;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCookieStorageNameSpace(): string
+    {
+        return 'CORE';
     }
 
     /**
