@@ -14,6 +14,11 @@ use Simplon\Locale\Readers\PhpFileReader;
 interface CoreContextInterface
 {
     /**
+     * @return array
+     */
+    public function getRemoteEnvs(): array;
+
+    /**
      * @param array $paths
      *
      * @return PhpFileReader

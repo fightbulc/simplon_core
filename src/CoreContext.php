@@ -17,7 +17,8 @@ abstract class CoreContext implements CoreContextInterface
 {
     const APP_PATH = __DIR__ . '/../../../../src';
     const APP_ENV_DEV = 'dev';
-    const APP_ENV_STAGING = 'staging';
+    const APP_ENV_REVIEW = 'review';
+    const APP_ENV_STAGE = 'stage';
     const APP_ENV_PRODUCTION = 'production';
 
     /**
@@ -40,6 +41,18 @@ abstract class CoreContext implements CoreContextInterface
      * @var EventsHandler
      */
     protected $eventsHandler;
+
+    /**
+     * @return array
+     */
+    public function getRemoteEnvs(): array
+    {
+        return [
+            self::APP_ENV_REVIEW,
+            self::APP_ENV_STAGE,
+            self::APP_ENV_PRODUCTION,
+        ];
+    }
 
     /**
      * @param array $paths
@@ -138,7 +151,7 @@ abstract class CoreContext implements CoreContextInterface
             /** @noinspection PhpIncludeInspection */
             $config->addConfig(require $path . '/config.php');
 
-            foreach ([self::APP_ENV_STAGING, self::APP_ENV_PRODUCTION] as $env)
+            foreach ($this->getRemoteEnvs() as $env)
             {
                 if (getenv('APP_ENV') === $env)
                 {
