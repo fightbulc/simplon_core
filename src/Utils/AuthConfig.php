@@ -11,10 +11,6 @@ use Simplon\Core\Interfaces\SessionStorageInterface;
  */
 class AuthConfig
 {
-    const DENIED_NO_SESSION = 1;
-    const DENIED_WRONG_GROUP = 2;
-    const DENIED_WRONG_TOKEN = 3;
-
     /**
      * @var SessionStorageInterface
      */
@@ -43,27 +39,16 @@ class AuthConfig
      * @var string
      */
     private $deniedAccessRoute;
-    /**
-     * @var string
-     */
-    private $deniedWrongGroupRoute;
 
     /**
      * @param SessionStorageInterface $sessionStorage
      * @param string $deniedAccessRoute
-     * @param string $deniedWrongGroupRoute
      * @param callable|null $callbackVerifyToken
      */
-    public function __construct(
-        SessionStorageInterface $sessionStorage,
-        string $deniedAccessRoute,
-        string $deniedWrongGroupRoute,
-        ?callable $callbackVerifyToken = null
-    )
+    public function __construct(SessionStorageInterface $sessionStorage, string $deniedAccessRoute, ?callable $callbackVerifyToken = null)
     {
         $this->sessionStorage = $sessionStorage;
         $this->deniedAccessRoute = $deniedAccessRoute;
-        $this->deniedWrongGroupRoute = $deniedWrongGroupRoute;
         $this->callbackVerifyToken = $callbackVerifyToken;
     }
 
@@ -81,14 +66,6 @@ class AuthConfig
     public function getDeniedAccessRoute(): string
     {
         return $this->deniedAccessRoute;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDeniedWrongGroupRoute(): string
-    {
-        return $this->deniedWrongGroupRoute;
     }
 
     /**

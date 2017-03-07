@@ -17,6 +17,10 @@ class AuthRouteData
      * @var array
      */
     private $groups;
+    /**
+     * @var string|null
+     */
+    private $deniedRoute;
 
     /**
      * @param string $pattern
@@ -60,5 +64,25 @@ class AuthRouteData
     public function inGroup(AuthUserInterface $user): bool
     {
         return !$this->hasGroups() || in_array($user->getGroup(), $this->groups);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDeniedRoute(): ?string
+    {
+        return $this->deniedRoute;
+    }
+
+    /**
+     * @param string $deniedRoute
+     *
+     * @return AuthRouteData
+     */
+    public function setDeniedRoute(string $deniedRoute): AuthRouteData
+    {
+        $this->deniedRoute = $deniedRoute;
+
+        return $this;
     }
 }

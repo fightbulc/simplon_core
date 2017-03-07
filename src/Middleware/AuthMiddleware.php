@@ -30,24 +30,24 @@ class AuthMiddleware
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
-     * @param callable $next
+     * @param callable|null $next
      *
      * @return ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?callable $next = null): ResponseInterface
     {
-        $path = $request->getUri()->getPath();
-
         /** @var AuthUserInterface $user */
         $user = $this->authConfig->getSessionStorage()->get('AUTH:USER');
+        $path = $request->getUri()->getPath();
+        $route = $this->findAuthData($path);
 
-        if (!$user && !$this->isPublicRoute($path))
+        if (!$user && !$this->isPublicRoute($route))
         {
             $deniedRoute = $this->authConfig->getDeniedAccessRoute();
 
-            if ($user && !$this->isAllowedGroup($path, $user))
+            if ($user && !$this->isAllowedGroup($route, $user))
             {
-                $deniedRoute = $this->authConfig->getDeniedWrongGroupRoute();
+                $deniedRoute = $route->getDeniedRoute() ?? $this->authConfig->getDeniedAccessRoute();
             }
 
             return $response->withHeader('Location', $deniedRoute);
@@ -57,42 +57,33 @@ class AuthMiddleware
     }
 
     /**
-     * @param string $path
+     * @param null|AuthRouteData $route
      *
      * @return bool
      */
-    private function isPublicRoute(string $path): bool
+    private function isPublicRoute(?AuthRouteData $route): bool
     {
-        return $this->isAllowedRoute($path, function (AuthRouteData $route)
-        {
-            return $route->hasGroups() === false;
-        });
+        return $route && $route->hasGroups() === false;
     }
 
     /**
-     * @param string $path
+     * @param null|AuthRouteData $route
      * @param AuthUserInterface $user
      *
      * @return bool
      */
-    private function isAllowedGroup(string $path, AuthUserInterface $user): bool
+    private function isAllowedGroup(?AuthRouteData $route, AuthUserInterface $user): bool
     {
-        return $this->isAllowedRoute($path, function (AuthRouteData $route) use ($user)
-        {
-            return $route->inGroup($user);
-        });
+        return $route && $route->inGroup($user);
     }
 
     /**
      * @param string $path
-     * @param callable $callback
      *
-     * @return bool
+     * @return AuthRouteData
      */
-    private function isAllowedRoute(string $path, callable $callback): bool
+    private function findAuthData(string $path): ?AuthRouteData
     {
-        $isAllowed = false;
-
         if ($this->authConfig->getRoutes())
         {
             foreach ($this->authConfig->getRoutes() as $route)
@@ -102,11 +93,11 @@ class AuthMiddleware
 
                 if (preg_match('/' . $quotedPattern . '/i', $path))
                 {
-                    $isAllowed = $callback($route);
+                    return $route;
                 }
             }
         }
 
-        return $isAllowed;
+        return null;
     }
 }
