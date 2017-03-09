@@ -35,6 +35,7 @@
     "guzzlehttp/guzzle": "^6.2",
     "simplon/component_semanticui": "0.0.*",
     "simplon/locale": "^0.3",
+    "simplon/form": "^2.0",
     "simplon/template": "^0.8",
     "simplon/device": "^0.0"
   },

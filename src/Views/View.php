@@ -5,6 +5,7 @@ namespace Simplon\Core\Views;
 use Simplon\Core\Data\ViewInitialData;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Device\Device;
+use Simplon\Form\View\FormView;
 use Simplon\Locale\Locale;
 use Simplon\Phtml\Phtml;
 use Simplon\Phtml\PhtmlException;
@@ -157,6 +158,28 @@ abstract class View implements ViewInterface
     }
 
     /**
+     * @param FormView $formView
+     *
+     * @return static
+     */
+    public function addFormAssets(FormView $formView)
+    {
+        foreach ($formView->getCssAssets() as $asset)
+        {
+            $this->addFormCss($asset);
+        }
+
+        foreach ($formView->getJsAssets() as $asset)
+        {
+            $this->addFormJs($asset);
+        }
+
+        $this->addFormCode($formView->getCodeAssets());
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getAssetsCss(): array
@@ -167,11 +190,11 @@ abstract class View implements ViewInterface
         {
             foreach ($this->implementsView as $id => $view)
             {
-                $assets = array_merge($assets, $view->getAssetsCss());
+                $assets = array_merge_recursive($assets, $view->getAssetsCss());
             }
         }
 
-        return $assets;
+        return $this->cleanAssetsFromDuplicates($assets);
     }
 
     /**
@@ -185,11 +208,11 @@ abstract class View implements ViewInterface
         {
             foreach ($this->implementsView as $id => $view)
             {
-                $assets = array_merge($assets, $view->getAssetsJs());
+                $assets = array_merge_recursive($assets, $view->getAssetsJs());
             }
         }
 
-        return $assets;
+        return $this->cleanAssetsFromDuplicates($assets);
     }
 
     /**
@@ -203,7 +226,7 @@ abstract class View implements ViewInterface
         {
             foreach ($this->implementsView as $id => $view)
             {
-                $assets = array_merge($assets, $view->getAssetsCode());
+                $assets = array_merge_recursive($assets, $view->getAssetsCode());
             }
         }
 
@@ -249,6 +272,37 @@ abstract class View implements ViewInterface
         }
 
         return $var;
+    }
+
+    /**
+     * @param array $assets
+     *
+     * @return array
+     */
+    protected function cleanAssetsFromDuplicates(array $assets): array
+    {
+        $clean = [];
+
+        if (!empty($assets))
+        {
+            foreach ($assets as $block => $files)
+            {
+                if (empty($clean[$block]))
+                {
+                    $clean[$block] = [];
+                }
+
+                foreach ($files as $file)
+                {
+                    if (!in_array($file, $clean[$block]))
+                    {
+                        $clean[$block][] = $file;
+                    }
+                }
+            }
+        }
+
+        return $clean;
     }
 
     /**
@@ -308,6 +362,42 @@ abstract class View implements ViewInterface
     protected function addBodyEndCode(string $code): self
     {
         $this->getRenderer()->addAssetCode($code, 'bodyEnd');
+
+        return $this;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return View
+     */
+    protected function addFormCss(string $code): self
+    {
+        $this->getRenderer()->addAssetCss($code, 'form');
+
+        return $this;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return View
+     */
+    protected function addFormJs(string $code): self
+    {
+        $this->getRenderer()->addAssetJs($code, 'form');
+
+        return $this;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return View
+     */
+    protected function addFormCode(string $code): self
+    {
+        $this->getRenderer()->addAssetCode($code, 'form');
 
         return $this;
     }

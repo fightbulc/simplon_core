@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8741a0dd1b75b54262cdc88a8b7ad1a",
+    "content-hash": "b95c63d70c53d8b7baebc1ad89fd87a0",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -57,17 +57,80 @@
             "time": "2017-02-09T16:10:21+00:00"
         },
         {
-            "name": "filp/whoops",
-            "version": "2.1.7",
+            "name": "fightbulc/moment",
+            "version": "1.26.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/filp/whoops.git",
-                "reference": "1a8192deae1f35aabc3a73aad19cd07c68091dd1"
+                "url": "https://github.com/fightbulc/moment.php.git",
+                "reference": "68f3ddad3feca6d7aae5a333724401355661afbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/1a8192deae1f35aabc3a73aad19cd07c68091dd1",
-                "reference": "1a8192deae1f35aabc3a73aad19cd07c68091dd1",
+                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/68f3ddad3feca6d7aae5a333724401355661afbb",
+                "reference": "68f3ddad3feca6d7aae5a333724401355661afbb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Moment\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ashish Tilara",
+                    "email": "ashish@itcutives.com",
+                    "role": "developer"
+                },
+                {
+                    "name": "Jaroslaw Kozak",
+                    "email": "jaroslaw.kozak68@gmail.com",
+                    "role": "developer"
+                },
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Parse, validate, manipulate, and display dates in PHP w/ i18n support. Inspired by moment.js",
+            "keywords": [
+                "date",
+                "display",
+                "format",
+                "i18n",
+                "locale",
+                "manipulate",
+                "moment",
+                "parse",
+                "time",
+                "translation",
+                "validate"
+            ],
+            "time": "2017-01-19T07:57:28+00:00"
+        },
+        {
+            "name": "filp/whoops",
+            "version": "2.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3",
+                "reference": "f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3",
                 "shasum": ""
             },
             "require": {
@@ -115,7 +178,7 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2017-03-02T16:54:56+00:00"
+            "time": "2017-03-07T09:04:45+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -616,6 +679,48 @@
             "time": "2015-12-17T18:18:30+00:00"
         },
         {
+            "name": "simplon/component_form",
+            "version": "0.0.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_component_form.git",
+                "reference": "5ff570e3358699dfcf382ce139b05a0df8ee6c30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_component_form/zipball/5ff570e3358699dfcf382ce139b05a0df8ee6c30",
+                "reference": "5ff570e3358699dfcf382ce139b05a0df8ee6c30",
+                "shasum": ""
+            },
+            "require": {
+                "simplon/components": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "files": [
+                        "simplon-form/base.min.css",
+                        "simplon-form/base.min.js",
+                        "momentjs/2.17.x/moment-with-locales.min.js",
+                        "momentjs/2.17.x/timezone.min.js",
+                        "image-upload/bundle.min.css",
+                        "image-upload/bundle.min.js",
+                        "handlebars/4.0.x/handlebars.min.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Assets required for simplon/form",
+            "time": "2017-02-27T17:39:11+00:00"
+        },
+        {
             "name": "simplon/component_semanticui",
             "version": "0.0.17",
             "source": {
@@ -907,6 +1012,59 @@
             "time": "2017-02-07T14:40:16+00:00"
         },
         {
+            "name": "simplon/form",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_form.git",
+                "reference": "1b5c428d0dbf236fee646947522da7571337b968"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/1b5c428d0dbf236fee646947522da7571337b968",
+                "reference": "1b5c428d0dbf236fee646947522da7571337b968",
+                "shasum": ""
+            },
+            "require": {
+                "fightbulc/moment": "^1.25",
+                "php": ">=7.1",
+                "simplon/component_form": "^0.0",
+                "simplon/component_semanticui": "^0.0",
+                "simplon/phtml": "^0.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Form\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Data validation & flexible form rendering incl. semantic-ui structure.",
+            "homepage": "https://github.com/fightbulc/simplon_form",
+            "keywords": [
+                "calendar",
+                "fields",
+                "filters",
+                "form",
+                "phtml",
+                "rules",
+                "semantic-ui",
+                "templates",
+                "validation"
+            ],
+            "time": "2017-03-03T17:10:00+00:00"
+        },
+        {
             "name": "simplon/locale",
             "version": "0.3.3",
             "source": {
@@ -1088,16 +1246,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.2.4",
+            "version": "v3.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "0ab87c1e7570b3534a6e51eb4ca8e9f6d7327856"
+                "reference": "68bfa8c83f24c0ac04ea7193bcdcda4519f41892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/0ab87c1e7570b3534a6e51eb4ca8e9f6d7327856",
-                "reference": "0ab87c1e7570b3534a6e51eb4ca8e9f6d7327856",
+                "url": "https://api.github.com/repos/symfony/process/zipball/68bfa8c83f24c0ac04ea7193bcdcda4519f41892",
+                "reference": "68bfa8c83f24c0ac04ea7193bcdcda4519f41892",
                 "shasum": ""
             },
             "require": {
@@ -1133,7 +1291,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-16T14:07:22+00:00"
+            "time": "2017-03-04T12:23:14+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
