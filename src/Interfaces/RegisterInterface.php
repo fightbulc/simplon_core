@@ -26,7 +26,7 @@ interface RegisterInterface
     /**
      * @return AuthRouteData[]|null
      */
-    public function getAuth(): ?array;
+    public function getAuthRoutes(): ?array;
 
     /**
      * @return null|EventsInterface

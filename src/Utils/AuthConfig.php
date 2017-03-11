@@ -111,7 +111,7 @@ class AuthConfig
     {
         foreach ($components as $component)
         {
-            if ($routes = $component->getAuth())
+            if ($routes = $component->getAuthRoutes())
             {
                 foreach ($routes as $route)
                 {
