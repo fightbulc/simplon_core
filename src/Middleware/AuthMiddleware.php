@@ -37,11 +37,11 @@ class AuthMiddleware
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?callable $next = null): ResponseInterface
     {
         /** @var AuthUserInterface $user */
-        $user = $this->authConfig->getSessionStorage()->get('AUTH:USER');
+        $user = $this->authConfig->getSessionStorage()->get(AuthConfig::SESSION_KEY);
         $path = $request->getUri()->getPath();
-        $route = $this->findAuthData($path);
+        $route = $this->findAuthRoute($path);
 
-        if (!$user && !$this->isPublicRoute($route))
+        if ($route && !$user)
         {
             $deniedRoute = $this->authConfig->getDeniedAccessRoute();
 
@@ -54,16 +54,6 @@ class AuthMiddleware
         }
 
         return $response = $next($request, $response);
-    }
-
-    /**
-     * @param null|AuthRouteData $route
-     *
-     * @return bool
-     */
-    private function isPublicRoute(?AuthRouteData $route): bool
-    {
-        return $route && $route->hasGroups() === false;
     }
 
     /**
@@ -82,7 +72,7 @@ class AuthMiddleware
      *
      * @return AuthRouteData
      */
-    private function findAuthData(string $path): ?AuthRouteData
+    private function findAuthRoute(string $path): ?AuthRouteData
     {
         if ($this->authConfig->getRoutes())
         {

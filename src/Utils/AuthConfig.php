@@ -11,6 +11,8 @@ use Simplon\Core\Interfaces\SessionStorageInterface;
  */
 class AuthConfig
 {
+    const SESSION_KEY = 'AUTH:USER';
+
     /**
      * @var SessionStorageInterface
      */
