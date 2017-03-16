@@ -81,7 +81,7 @@ class AuthMiddleware
                 $quotedPattern = preg_quote($route->getPattern(), '/');
                 $quotedPattern = preg_replace('/\\\{\w+\\\}/i', '.*?', $quotedPattern);
 
-                if (preg_match('/' . $quotedPattern . '/i', $path))
+                if (preg_match('/^' . $quotedPattern . '$/i', $path))
                 {
                     return $route;
                 }
