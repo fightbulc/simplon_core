@@ -13,23 +13,46 @@ abstract class Routes
     /**
      * @param string $route
      * @param array $params
+     * @param bool $withPrefix
      *
      * @return string
      */
-    public static function render(string $route, array $params = []): string
+    public static function render(string $route, array $params = [], bool $withPrefix = true): string
     {
-        return '/' . LocaleMiddleware::getLocaleCode() . '/' . trim(self::renderUrl($route, $params), '/');
+        $parts = [$route];
+
+        if ($withPrefix)
+        {
+            array_unshift($parts, static::routePrefix());
+        }
+
+        return static::routeUrl() . static::replacePlaceholders(static::trimUrl($parts), $params);
     }
 
     /**
-     * @param string $route
+     * @return null|string
+     */
+    protected static function routePrefix(): ?string
+    {
+        return LocaleMiddleware::getLocaleCode();
+    }
+
+    /**
+     * @return null|string
+     */
+    protected static function routeUrl(): ?string
+    {
+        return '/';
+    }
+
+    /**
      * @param array $params
      *
      * @return string
      */
-    public static function renderWithoutLocale(string $route, array $params = []): string
+    protected static function trimUrl(array $parts): string
     {
-        return '/' . trim(self::renderUrl($route, $params), '/');
+        return preg_replace('/\/\//', '/', implode('/', $parts));
     }
 
     /**
@@ -38,7 +61,7 @@ abstract class Routes
      *
      * @return string
      */
-    public static function renderUrl(string $url, array $params = []): string
+    protected static function replacePlaceholders(string $url, array $params = []): string
     {
         foreach ($params as $key => $val)
         {
