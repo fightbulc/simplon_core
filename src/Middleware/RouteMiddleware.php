@@ -4,6 +4,7 @@ namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Data\ControllerCoreData;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Interfaces\RegisterInterface;
@@ -68,14 +69,9 @@ class RouteMiddleware
                 }
 
                 /** @var ControllerInterface $controller */
-                $controller = new $component['controller'];
-
-                $controller
-                    ->setRequest($request)
-                    ->setResponse($response)
-                    ->setContext($component['context'])
-                    ->setWorkingDir($component['workingDir'])
-                ;
+                $controller = new $component['controller'](
+                    new ControllerCoreData($request, $response, $component['context'], $component['workingDir'])
+                );
 
                 /** @var ResponseDataInterface $responseData */
                 /** @noinspection PhpParamsInspection */

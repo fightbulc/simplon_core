@@ -5,6 +5,7 @@ namespace Simplon\Core\Controllers;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\CoreContext;
+use Simplon\Core\Data\ControllerCoreData;
 use Simplon\Core\Interfaces\ComponentContextInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
@@ -18,36 +19,25 @@ use Simplon\Locale\Locale;
 abstract class Controller implements ControllerInterface
 {
     /**
-     * @see ViewController defines actual type
+     * @var ControllerCoreData
+     */
+    protected $coreData;
+    /**
+     * @see exect type will be refered in controller due to component dependency
      */
     protected $context;
-    /**
-     * @var ServerRequestInterface
-     */
-    protected $request;
-    /**
-     * @var ResponseInterface
-     */
-    protected $response;
-    /**
-     * @var string
-     */
-    protected $workingDir;
     /**
      * @var Locale
      */
     protected $locale;
 
     /**
-     * @param ComponentContextInterface $context
-     *
-     * @return ControllerInterface
+     * @param ControllerCoreData $coreData
      */
-    public function setContext(ComponentContextInterface $context): ControllerInterface
+    public function __construct(ControllerCoreData $coreData)
     {
-        $this->context = $context;
-
-        return $this;
+        $this->coreData = $coreData;
+        $this->context = $this->coreData->getContext();
     }
 
     /**
@@ -55,19 +45,7 @@ abstract class Controller implements ControllerInterface
      */
     public function getRequest(): ServerRequestInterface
     {
-        return $this->request;
-    }
-
-    /**
-     * @param ServerRequestInterface $request
-     *
-     * @return ControllerInterface
-     */
-    public function setRequest(ServerRequestInterface $request): ControllerInterface
-    {
-        $this->request = $request;
-
-        return $this;
+        return $this->coreData->getRequest();
     }
 
     /**
@@ -75,19 +53,7 @@ abstract class Controller implements ControllerInterface
      */
     public function getResponse(): ResponseInterface
     {
-        return $this->response;
-    }
-
-    /**
-     * @param ResponseInterface $response
-     *
-     * @return ControllerInterface
-     */
-    public function setResponse(ResponseInterface $response): ControllerInterface
-    {
-        $this->response = $response;
-
-        return $this;
+        return $this->coreData->getResponse();
     }
 
     /**
@@ -95,19 +61,7 @@ abstract class Controller implements ControllerInterface
      */
     public function getWorkingDir(): string
     {
-        return $this->workingDir;
-    }
-
-    /**
-     * @param string $workingDir
-     *
-     * @return ControllerInterface
-     */
-    public function setWorkingDir(string $workingDir): ControllerInterface
-    {
-        $this->workingDir = $workingDir;
-
-        return $this;
+        return $this->coreData->getWorkingDir();
     }
 
     /**
@@ -117,8 +71,9 @@ abstract class Controller implements ControllerInterface
     {
         if (!$this->locale)
         {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $this->locale = new Locale($this->context->getAppContext()->getLocaleFileReader($this->getLocalePaths()), [LocaleMiddleware::getLocaleCode()]);
+            /** @var ComponentContextInterface $context */
+            $context = $this->context;
+            $this->locale = new Locale($context->getAppContext()->getLocaleFileReader($this->getLocalePaths()), [LocaleMiddleware::getLocaleCode()]);
             $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
         }
 
