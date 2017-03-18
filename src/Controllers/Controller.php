@@ -8,6 +8,7 @@ use Simplon\Core\CoreContext;
 use Simplon\Core\Interfaces\ComponentContextInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
+use Simplon\Core\Utils\EventsHandler;
 use Simplon\Locale\Locale;
 
 /**
@@ -122,6 +123,17 @@ abstract class Controller implements ControllerInterface
         }
 
         return $this->locale;
+    }
+
+    /**
+     * @return EventsHandler
+     */
+    public function getEventsHandler(): EventsHandler
+    {
+        /** @var ComponentContextInterface $context */
+        $context = $this->context;
+
+        return $context->getAppContext()->getEventsHandler();
     }
 
     /**
