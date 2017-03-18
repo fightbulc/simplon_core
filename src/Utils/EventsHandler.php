@@ -12,7 +12,6 @@ class EventsHandler
      * @var array
      */
     protected $subscriptions = [];
-
     /**
      * @var array
      */
