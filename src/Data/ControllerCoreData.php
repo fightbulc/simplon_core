@@ -20,7 +20,7 @@ class ControllerCoreData extends Data
      */
     private $response;
     /**
-     * @var ComponentContextInterface
+     * @see exect type will be refered in controller due to component dependency
      */
     private $context;
     /**
@@ -59,9 +59,9 @@ class ControllerCoreData extends Data
     }
 
     /**
-     * @return ComponentContextInterface
+     * @see exect type will be refered in controller due to component dependency
      */
-    public function getContext(): ComponentContextInterface
+    public function getContext()
     {
         return $this->context;
     }
