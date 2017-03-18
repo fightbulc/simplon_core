@@ -3,6 +3,7 @@
 namespace Simplon\Core\Utils;
 
 use Simplon\Core\Data\AuthRouteData;
+use Simplon\Core\Interfaces\AuthUserInterface;
 use Simplon\Core\Interfaces\RegisterInterface;
 use Simplon\Core\Interfaces\SessionStorageInterface;
 
@@ -12,19 +13,13 @@ use Simplon\Core\Interfaces\SessionStorageInterface;
 class AuthConfig
 {
     const SESSION_KEY = 'AUTH:USER';
+    const TOKEN_KEY = 'auth_token';
+    const TOKEN_TTL_SECS = 1 * 60 * 60; // 1 hour
 
     /**
      * @var SessionStorageInterface
      */
     private $sessionStorage;
-    /**
-     * @var bool
-     */
-    private $allowToken = false;
-    /**
-     * @var string
-     */
-    private $tokenName = 'auth_token';
     /**
      * @var string
      */
@@ -41,17 +36,49 @@ class AuthConfig
      * @var string
      */
     private $deniedAccessRoute;
+    /**
+     * @var AuthUserInterface
+     */
+    private $authUserShell;
 
     /**
      * @param SessionStorageInterface $sessionStorage
+     * @param AuthUserInterface $authUserShell
      * @param string $deniedAccessRoute
-     * @param callable|null $callbackVerifyToken
      */
-    public function __construct(SessionStorageInterface $sessionStorage, string $deniedAccessRoute, ?callable $callbackVerifyToken = null)
+    public function __construct(SessionStorageInterface $sessionStorage, AuthUserInterface $authUserShell, string $deniedAccessRoute)
     {
         $this->sessionStorage = $sessionStorage;
         $this->deniedAccessRoute = $deniedAccessRoute;
+        $this->authUserShell = $authUserShell;
+    }
+
+    /**
+     * @return AuthUserInterface
+     */
+    public function getAuthUserShell(): AuthUserInterface
+    {
+        return $this->authUserShell;
+    }
+
+    /**
+     * @return callable|null
+     */
+    public function getCallbackVerifyToken(): ?callable
+    {
+        return $this->callbackVerifyToken;
+    }
+
+    /**
+     * @param callable $callbackVerifyToken
+     *
+     * @return AuthConfig
+     */
+    public function setCallbackVerifyToken(callable $callbackVerifyToken)
+    {
         $this->callbackVerifyToken = $callbackVerifyToken;
+
+        return $this;
     }
 
     /**
@@ -128,37 +155,7 @@ class AuthConfig
      */
     public function isTokenAllowed(): bool
     {
-        return $this->allowToken;
-    }
-
-    /**
-     * @return AuthConfig
-     */
-    public function allowToken(): self
-    {
-        $this->allowToken = true;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTokenName(): string
-    {
-        return $this->tokenName;
-    }
-
-    /**
-     * @param string $tokenName
-     *
-     * @return AuthConfig
-     */
-    public function setTokenName(string $tokenName): AuthConfig
-    {
-        $this->tokenName = $tokenName;
-
-        return $this;
+        return $this->callbackVerifyToken !== null;
     }
 
     /**
@@ -178,11 +175,11 @@ class AuthConfig
     }
 
     /**
-     * @param string $token
+     * @param string|null $token
      *
      * @return AuthConfig
      */
-    public function setToken(string $token): AuthConfig
+    public function setToken(?string $token = null): AuthConfig
     {
         $this->token = $token;
 

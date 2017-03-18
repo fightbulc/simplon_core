@@ -2,6 +2,8 @@
 
 namespace Simplon\Core\Middleware;
 
+use App\Components\Auth\Data\UserSessionData;
+use App\Utils\KnifeUtil;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\Data\AuthRouteData;
@@ -36,24 +38,47 @@ class AuthMiddleware
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?callable $next = null): ResponseInterface
     {
-        /** @var AuthUserInterface $user */
-        $user = $this->authConfig->getSessionStorage()->get(AuthConfig::SESSION_KEY);
+        $user = $this->getUser();
         $path = $request->getUri()->getPath();
         $route = $this->findAuthRoute($path);
 
-        if ($route && !$user)
+        if ($route)
         {
-            $deniedRoute = $this->authConfig->getDeniedAccessRoute();
-
-            if ($user && !$this->isAllowedGroup($route, $user))
+            if (!$this->hasValidToken($request))
             {
-                $deniedRoute = $route->getDeniedRoute() ?? $this->authConfig->getDeniedAccessRoute();
-            }
+                $deniedRoute = null;
 
-            return $response->withHeader('Location', $deniedRoute);
+                if (!$user)
+                {
+                    $deniedRoute = $this->authConfig->getDeniedAccessRoute();
+                }
+
+                elseif (!$this->isAllowedGroup($route, $user))
+                {
+                    $deniedRoute = $route->getDeniedRoute() ?? $this->authConfig->getDeniedAccessRoute();
+                }
+
+                if ($deniedRoute)
+                {
+                    return $response->withHeader('Location', $deniedRoute);
+                }
+            }
         }
 
         return $response = $next($request, $response);
+    }
+
+    /**
+     * @return null|AuthUserInterface
+     */
+    private function getUser(): ?AuthUserInterface
+    {
+        if ($user = $this->authConfig->getSessionStorage()->get(AuthConfig::SESSION_KEY))
+        {
+            return $this->authConfig->getAuthUserShell()->fromArray($user);
+        }
+
+        return null;
     }
 
     /**
@@ -89,5 +114,22 @@ class AuthMiddleware
         }
 
         return null;
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return bool
+     */
+    private function hasValidToken(ServerRequestInterface $request): bool
+    {
+        $params = $request->getQueryParams();
+
+        if (!empty($params[AuthConfig::TOKEN_KEY]))
+        {
+            $this->authConfig->setToken($params[AuthConfig::TOKEN_KEY]);
+        }
+
+        return $this->authConfig->verifyToken();
     }
 }
