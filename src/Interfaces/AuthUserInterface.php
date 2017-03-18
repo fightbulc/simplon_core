@@ -5,7 +5,7 @@ namespace Simplon\Core\Interfaces;
 /**
  * @package Simplon\Core\Interfaces
  */
-interface AuthUserInterface
+interface AuthUserInterface extends DataInterface
 {
     /**
      * @return string
