@@ -2,8 +2,6 @@
 
 namespace Simplon\Core\Middleware;
 
-use App\Components\Auth\Data\UserSessionData;
-use App\Utils\KnifeUtil;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\Data\AuthRouteData;
@@ -128,8 +126,10 @@ class AuthMiddleware
         if (!empty($params[AuthConfig::TOKEN_KEY]))
         {
             $this->authConfig->setToken($params[AuthConfig::TOKEN_KEY]);
+
+            return $this->authConfig->verifyToken();
         }
 
-        return $this->authConfig->verifyToken();
+        return false;
     }
 }
