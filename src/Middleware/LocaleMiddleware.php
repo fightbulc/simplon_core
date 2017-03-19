@@ -42,11 +42,11 @@ class LocaleMiddleware
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
-     * @param callable $next
+     * @param \Closure $next
      *
      * @return ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, \Closure $next = null): ResponseInterface
     {
         if (preg_match('/\/(\w{2})\/*/', $request->getUri()->getPath(), $match))
         {
