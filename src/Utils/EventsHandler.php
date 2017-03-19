@@ -91,7 +91,7 @@ class EventsHandler
      *
      * @return EventsHandler
      */
-    public function listen(string $event, array $params = []): self
+    public function trigger(string $event, array $params = []): self
     {
         foreach ($this->getSubscriptions($event) as $push)
         {
