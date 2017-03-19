@@ -30,6 +30,16 @@ class InstanceData
 
     /**
      * @param string $className
+     *
+     * @return InstanceData
+     */
+    public static function create(string $className): InstanceData
+    {
+        return new InstanceData($className);
+    }
+
+    /**
+     * @param string $className
      */
     public function __construct(string $className)
     {
