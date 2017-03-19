@@ -12,6 +12,19 @@ use Simplon\Core\Utils\Exceptions\ServerException;
 abstract class Data implements DataInterface
 {
     /**
+     * @var string
+     */
+    private $internalChecksum;
+
+    /**
+     * @return bool
+     */
+    public function isChanged(): bool
+    {
+        return $this->internalChecksum !== $this->calcMd5($this->toArray());
+    }
+
+    /**
      * @param array $data
      *
      * @return static
@@ -44,6 +57,9 @@ abstract class Data implements DataInterface
                     continue;
                 }
             }
+
+            // lets create checksum here
+            $this->internalChecksum = $this->calcMd5($this->toArray());
         }
 
         return $this;
@@ -82,8 +98,11 @@ abstract class Data implements DataInterface
             // get from field
             if (property_exists($this, $propertyName))
             {
-                $result[$fieldName] = $this->$propertyName;
-                continue;
+                if ($propertyName !== 'internalChecksum')
+                {
+                    $result[$fieldName] = $this->$propertyName;
+                    continue;
+                }
             }
         }
 
@@ -137,5 +156,17 @@ abstract class Data implements DataInterface
         $string = ucwords(str_replace('_', ' ', $string));
 
         return lcfirst(str_replace(' ', '', $string));
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return string
+     */
+    private function calcMd5(array $data): string
+    {
+        ksort($data);
+
+        return md5(json_encode($data));
     }
 }

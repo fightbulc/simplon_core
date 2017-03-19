@@ -9,6 +9,11 @@ namespace Simplon\Core\Interfaces;
 interface DataInterface
 {
     /**
+     * @return bool
+     */
+    public function isChanged(): bool;
+
+    /**
      * @param array $data
      *
      * @return static
