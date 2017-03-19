@@ -20,11 +20,11 @@ class InstanceData
      */
     private $params = [];
     /**
-     * @var \Closure
+     * @var callable
      */
     private $paramsBuilder;
     /**
-     * @var \Closure
+     * @var callable
      */
     private $afterCallback;
 
@@ -120,9 +120,9 @@ class InstanceData
     }
 
     /**
-     * @return \Closure
+     * @return callable
      */
-    public function getParamsBuilder(): \Closure
+    public function getParamsBuilder(): callable
     {
         return $this->paramsBuilder;
     }
@@ -132,15 +132,15 @@ class InstanceData
      */
     public function hasParamsBuilder(): bool
     {
-        return is_\Closure($this->paramsBuilder);
+        return is_callable($this->paramsBuilder);
     }
 
     /**
-     * @param \Closure $paramsBuilder
+     * @param callable $paramsBuilder
      *
      * @return InstanceData
      */
-    public function setParamsBuilder(\Closure $paramsBuilder): InstanceData
+    public function setParamsBuilder(callable $paramsBuilder): InstanceData
     {
         $this->paramsBuilder = $paramsBuilder;
 
@@ -148,9 +148,9 @@ class InstanceData
     }
 
     /**
-     * @return \Closure
+     * @return callable
      */
-    public function getAfterCallback(): \Closure
+    public function getAfterCallback(): callable
     {
         return $this->afterCallback;
     }
@@ -160,15 +160,15 @@ class InstanceData
      */
     public function hasAfterCallback(): bool
     {
-        return is_\Closure($this->afterCallback);
+        return is_callable($this->afterCallback);
     }
 
     /**
-     * @param \Closure $afterCallback
+     * @param callable $afterCallback
      *
      * @return InstanceData
      */
-    public function setAfterCallback(\Closure $afterCallback): InstanceData
+    public function setAfterCallback(callable $afterCallback): InstanceData
     {
         $this->afterCallback = $afterCallback;
 

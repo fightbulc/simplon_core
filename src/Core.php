@@ -33,11 +33,11 @@ class Core
     }
 
     /**
-     * @param \Closure $handler
+     * @param callable $handler
      *
      * @return Core
      */
-    public function withErrorHandler(\Closure $handler = null): self
+    public function withErrorHandler(callable $handler = null): self
     {
         $useHandler = new PrettyPageHandler();
 

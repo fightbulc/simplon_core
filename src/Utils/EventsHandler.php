@@ -19,11 +19,11 @@ class EventsHandler
 
     /**
      * @param string $event
-     * @param \Closure $callback
+     * @param callable $callback
      *
      * @return EventsHandler
      */
-    public function addSubscription(string $event, \Closure $callback): self
+    public function addSubscription(string $event, callable $callback): self
     {
         if (empty($this->subscriptions[$event]))
         {
@@ -37,11 +37,11 @@ class EventsHandler
 
     /**
      * @param string $event
-     * @param \Closure $callback
+     * @param callable $callback
      *
      * @return EventsHandler
      */
-    public function removeSubscription(string $event, \Closure $callback): self
+    public function removeSubscription(string $event, callable $callback): self
     {
         if (isset($this->subscriptions[$event]))
         {
@@ -103,11 +103,11 @@ class EventsHandler
 
     /**
      * @param string $event
-     * @param \Closure $callback
+     * @param callable $callback
      *
      * @return EventsHandler
      */
-    public function addOffer(string $event, \Closure $callback): self
+    public function addOffer(string $event, callable $callback): self
     {
         $this->pulls[$event] = $callback;
 

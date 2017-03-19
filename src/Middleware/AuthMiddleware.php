@@ -30,11 +30,11 @@ class AuthMiddleware
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
-     * @param \Closure|null $next
+     * @param callable|null $next
      *
      * @return ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?\Closure $next = null): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?callable $next = null): ResponseInterface
     {
         $user = $this->getUser();
         $path = $request->getUri()->getPath();

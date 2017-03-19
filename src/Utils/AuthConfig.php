@@ -29,7 +29,7 @@ class AuthConfig
      */
     private $routes = [];
     /**
-     * @var \Closure|null
+     * @var callable|null
      */
     private $callbackVerifyToken;
     /**
@@ -62,19 +62,19 @@ class AuthConfig
     }
 
     /**
-     * @return \Closure|null
+     * @return callable|null
      */
-    public function getCallbackVerifyToken(): ?\Closure
+    public function getCallbackVerifyToken(): ?callable
     {
         return $this->callbackVerifyToken;
     }
 
     /**
-     * @param \Closure $callbackVerifyToken
+     * @param callable $callbackVerifyToken
      *
      * @return AuthConfig
      */
-    public function setCallbackVerifyToken(\Closure $callbackVerifyToken)
+    public function setCallbackVerifyToken(callable $callbackVerifyToken)
     {
         $this->callbackVerifyToken = $callbackVerifyToken;
 
