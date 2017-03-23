@@ -458,6 +458,20 @@ abstract class View implements ViewInterface
             return $testFilePath;
         }
 
+        //
+        // tablet can fallback to mobile if available
+        //
+
+        if ($this->getDevice()->isTypeTablet())
+        {
+            $testFilePath = $baseFilePath . ucfirst(strtolower(Device::TYPE_MOBILE)) . '.' . $fileExtension;
+
+            if (file_exists($testFilePath))
+            {
+                return $testFilePath;
+            }
+        }
+
         return $this->getTemplate();
     }
 
