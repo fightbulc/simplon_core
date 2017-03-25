@@ -51,7 +51,7 @@ class LocaleMiddleware extends BaseMiddleware
             if (in_array($match[1], $this->locales))
             {
                 self::$localeCode = $match[1];
-                $request = $this->removeFromUri($request, self::getLocaleCode());
+                $request = $this->removeFromUri($request, '/' . self::getLocaleCode());
             }
         }
 
