@@ -125,7 +125,7 @@ abstract class Data implements DataInterface
     /**
      * @param string $json
      *
-     * @return Data
+     * @return static
      * @throws ServerException
      */
     public function fromJson(string $json)
