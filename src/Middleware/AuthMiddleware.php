@@ -80,14 +80,14 @@ class AuthMiddleware
     }
 
     /**
-     * @param null|AuthRouteData $route
+     * @param AuthRouteData $route
      * @param AuthUserInterface $user
      *
      * @return bool
      */
-    private function isAllowedGroup(?AuthRouteData $route, AuthUserInterface $user): bool
+    private function isAllowedGroup(AuthRouteData $route, AuthUserInterface $user): bool
     {
-        return $route && $route->inGroup($user);
+        return $user->isGodAccount() || $route->inGroup($user);
     }
 
     /**
