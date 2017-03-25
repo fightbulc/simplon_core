@@ -9,10 +9,8 @@ use Psr\Http\Message\ServerRequestInterface;
  * Class LocaleMiddleware
  * @package Simplon\Core\Middleware
  */
-class LocaleMiddleware
+class LocaleMiddleware extends BaseMiddleware
 {
-    const HEADER_ORIGINAL_REQUEST_PATH = 'X-Original-Request-Path';
-
     /**
      * @var string
      */
@@ -53,7 +51,7 @@ class LocaleMiddleware
             if (in_array($match[1], $this->locales))
             {
                 self::$localeCode = $match[1];
-                $request = $this->removeLocaleFromRequest($request, self::getLocaleCode());
+                $request = $this->removeFromUri($request, self::getLocaleCode());
             }
         }
 
@@ -70,22 +68,5 @@ class LocaleMiddleware
         }
 
         return $response;
-    }
-
-    /**
-     * @param ServerRequestInterface $request
-     * @param string $locale
-     *
-     * @return ServerRequestInterface
-     */
-    private function removeLocaleFromRequest(ServerRequestInterface $request, string $locale): ServerRequestInterface
-    {
-        return $request
-            ->withAddedHeader(self::HEADER_ORIGINAL_REQUEST_PATH, $request->getUri()->getPath())
-            ->withUri(
-                $request->getUri()->withPath(
-                    str_replace('/' . $locale, '', $request->getUri()->getPath())
-                )
-            );
     }
 }
