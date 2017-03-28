@@ -28,16 +28,16 @@
   ],
   "require": {
     "php": ">=7.1",
+    "simplon/component_semanticui": "0.0.*",
+    "simplon/locale": "^0.4",
+    "simplon/form": "^2.0",
+    "simplon/template": "^0.8",
+    "simplon/device": "^0.0",
     "relay/relay": "^1.1",
     "zendframework/zend-diactoros": "^1.3",
     "fig/http-message-util": "^1.1",
     "filp/whoops": "^2.1",
-    "guzzlehttp/guzzle": "^6.2",
-    "simplon/component_semanticui": "0.0.*",
-    "simplon/locale": "^0.3",
-    "simplon/form": "^2.0",
-    "simplon/template": "^0.8",
-    "simplon/device": "^0.0"
+    "guzzlehttp/guzzle": "^6.2"
   },
   "config": {
     "component-dir": "public/assets/vendor"
