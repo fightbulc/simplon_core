@@ -36,8 +36,7 @@ class Config
     /**
      * @param array $key
      *
-     * @return mixed
-     * @throws \Exception
+     * @return null|mixed
      */
     public function get(array $key)
     {
@@ -47,7 +46,7 @@ class Config
         {
             if (!isset($config[$item]))
             {
-                throw new \Exception('Following key cannot be find within given config: ' . join('=>', $key));
+                return null;
             }
 
             $config = $config[$item];
