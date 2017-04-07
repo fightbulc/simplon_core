@@ -13,9 +13,9 @@ class SessionStorage implements SessionStorageInterface
 {
     /**
      * @param int $sessionTimeoutSeconds
-     * @param SessionHandlerInterface|null $handler
+     * @param null|SessionHandlerInterface $handler
      */
-    public static function initSession(int $sessionTimeoutSeconds, SessionHandlerInterface $handler = null)
+    public static function initSession(int $sessionTimeoutSeconds, ?SessionHandlerInterface $handler = null)
     {
         if (empty(session_id()))
         {

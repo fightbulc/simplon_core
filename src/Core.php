@@ -6,8 +6,6 @@ use Psr\Http\Message\ResponseInterface;
 use Relay\RelayBuilder;
 use Simplon\Core\Interfaces\SessionHandlerInterface;
 use Simplon\Core\Storage\SessionStorage;
-use Whoops\Handler\PrettyPageHandler;
-use Whoops\Run;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 
@@ -21,11 +19,11 @@ class Core
 
     /**
      * @param int $timeoutInMinuntes
-     * @param SessionHandlerInterface $sessionHandler
+     * @param null|SessionHandlerInterface $sessionHandler
      *
      * @return Core
      */
-    public function withSession(int $timeoutInMinuntes, SessionHandlerInterface $sessionHandler = null): self
+    public function withSession(int $timeoutInMinuntes, ?SessionHandlerInterface $sessionHandler = null): self
     {
         SessionStorage::initSession($timeoutInMinuntes * 60, $sessionHandler);
 
