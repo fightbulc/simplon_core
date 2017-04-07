@@ -2,7 +2,7 @@
 
 namespace Simplon\Core\Interfaces;
 
-use Simplon\Core\Data\ViewInitialData;
+use Simplon\Core\Data\CoreViewData;
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
 use Simplon\Locale\Locale;
@@ -29,9 +29,9 @@ interface ViewInterface
     public function getAssetsCode(): array;
 
     /**
-     * @return ViewInitialData
+     * @return CoreViewData
      */
-    public function getViewInitialData(): ViewInitialData;
+    public function getCoreViewData(): CoreViewData;
 
     /**
      * @return Locale

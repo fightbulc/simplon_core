@@ -2,7 +2,7 @@
 
 namespace Simplon\Core\Views;
 
-use Simplon\Core\Data\ViewInitialData;
+use Simplon\Core\Data\CoreViewData;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Device\Device;
 use Simplon\Form\View\FormView;
@@ -26,20 +26,20 @@ abstract class View implements ViewInterface
      */
     protected $implementsView = [];
     /**
-     * @var ViewInitialData
+     * @var CoreViewData
      */
-    private $viewInitialData;
+    private $coreViewData;
 
     /**
-     * @param ViewInitialData $viewInitialData
+     * @param CoreViewData $coreViewData
      *
      * @internal param Locale $locale
      * @internal param FlashMessage $flashMessage
      * @internal param Device $device
      */
-    public function __construct(ViewInitialData $viewInitialData)
+    public function __construct(CoreViewData $coreViewData)
     {
-        $this->viewInitialData = $viewInitialData;
+        $this->coreViewData = $coreViewData;
     }
 
     /**
@@ -94,11 +94,11 @@ abstract class View implements ViewInterface
     }
 
     /**
-     * @return ViewInitialData
+     * @return CoreViewData
      */
-    public function getViewInitialData(): ViewInitialData
+    public function getCoreViewData(): CoreViewData
     {
-        return $this->viewInitialData;
+        return $this->coreViewData;
     }
 
     /**
@@ -106,7 +106,7 @@ abstract class View implements ViewInterface
      */
     public function getLocale(): Locale
     {
-        return $this->viewInitialData->getLocale();
+        return $this->coreViewData->getLocale();
     }
 
     /**
@@ -114,7 +114,7 @@ abstract class View implements ViewInterface
      */
     public function getFlashMessage(): FlashMessage
     {
-        return $this->viewInitialData->getFlashMessage();
+        return $this->coreViewData->getFlashMessage();
     }
 
     /**
@@ -122,7 +122,7 @@ abstract class View implements ViewInterface
      */
     public function getDevice(): Device
     {
-        return $this->viewInitialData->getDevice();
+        return $this->coreViewData->getDevice();
     }
 
     /**

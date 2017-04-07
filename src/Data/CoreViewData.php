@@ -9,7 +9,7 @@ use Simplon\Locale\Locale;
 /**
  * @package Simplon\Core\Data
  */
-class ViewInitialData extends Data
+class CoreViewData extends Data
 {
     /**
      * @var Locale
