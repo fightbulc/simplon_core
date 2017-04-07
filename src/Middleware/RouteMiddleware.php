@@ -4,10 +4,8 @@ namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Simplon\Core\Data\ControllerCoreData;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\CoreContextInterface;
-use Simplon\Core\Interfaces\RegisterInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
 use Simplon\Core\Utils\Exceptions\ClientException;
@@ -24,13 +22,13 @@ class RouteMiddleware
      */
     private $coreContext;
     /**
-     * @var RegisterInterface[]
+     * @var RegistryInterface[]
      */
     private $components;
 
     /**
      * @param CoreContextInterface $coreContext
-     * @param RegisterInterface[] $components
+     * @param RegistryInterface[] $components
      */
     public function __construct(CoreContextInterface $coreContext, array $components)
     {
@@ -106,21 +104,24 @@ class RouteMiddleware
         {
             if ($component instanceof RegistryInterface)
             {
-                foreach ($component->getRoutes()->getRouteData() as $routeData)
+                if ($component->getRoutes())
                 {
-                    if (isset($collect[$routeData->getPath()]))
+                    foreach ($component->getRoutes()->getRouteData() as $routeData)
                     {
-                        throw (new ServerException())->internalError(['reasons' => "Path is already taken by {$collect[$routeData->getPath()]}"]);
+                        if (isset($collect[$routeData->getPath()]))
+                        {
+                            throw (new ServerException())->internalError(['reasons' => "Path is already taken by {$collect[$routeData->getPath()]}"]);
+                        }
+
+                        $collect[$routeData->getPath()] = [
+                            'methods'    => $routeData->getMethodsAllowed(),
+                            'controller' => $routeData->getController(),
+                            'registry'   => $component,
+                        ];
+
+                        // register component events
+                        $this->registerEvents($component);
                     }
-
-                    $collect[$routeData->getPath()] = [
-                        'methods'    => $routeData->getMethodsAllowed(),
-                        'controller' => $routeData->getController(),
-                        'registry'   => $component,
-                    ];
-
-                    // register component events
-                    $this->registerEvents($component);
                 }
             }
             else
