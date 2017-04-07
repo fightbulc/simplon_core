@@ -20,14 +20,4 @@ interface ControllerInterface
      * @return ResponseInterface
      */
     public function getResponse(): ResponseInterface;
-
-    /**
-     * @see exect type will be refered in controller due to component dependency
-     */
-    public function getContext();
-
-    /**
-     * @return string
-     */
-    public function getWorkingDir(): string;
 }

@@ -3,28 +3,24 @@
 namespace Simplon\Core\Interfaces;
 
 use Simplon\Core\Data\AuthRouteData;
+use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\RoutesCollection;
+use Simplon\Locale\Locale;
 
 /**
- * Interface RegisterInterface
  * @package Simplon\Core\Interfaces
  */
-interface RegisterInterface
+interface RegistryInterface
 {
     public function getContext();
 
     /**
-     * @return string
+     * @return null|RoutesCollection
      */
-    public function getWorkingDir(): string;
+    public function getRoutes(): ?RoutesCollection;
 
     /**
-     * @return RoutesCollection
-     */
-    public function getRoutes(): RoutesCollection;
-
-    /**
-     * @return AuthRouteData[]|null
+     * @return null|AuthRouteData[]
      */
     public function getAuthRoutes(): ?array;
 

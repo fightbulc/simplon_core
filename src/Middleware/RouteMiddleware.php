@@ -8,6 +8,7 @@ use Simplon\Core\Data\ControllerCoreData;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Interfaces\RegisterInterface;
+use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
 use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
@@ -70,7 +71,7 @@ class RouteMiddleware
 
                 /** @var ControllerInterface $controller */
                 $controller = new $component['controller'](
-                    new ControllerCoreData($request, $response, $component['context'], $component['workingDir'])
+                    $component['registry'], $request, $response
                 );
 
                 /** @var ResponseDataInterface $responseData */
@@ -103,7 +104,7 @@ class RouteMiddleware
 
         foreach ($this->components as $component)
         {
-            if ($component instanceof RegisterInterface)
+            if ($component instanceof RegistryInterface)
             {
                 foreach ($component->getRoutes()->getRouteData() as $routeData)
                 {
@@ -115,8 +116,7 @@ class RouteMiddleware
                     $collect[$routeData->getPath()] = [
                         'methods'    => $routeData->getMethodsAllowed(),
                         'controller' => $routeData->getController(),
-                        'workingDir' => $component->getWorkingDir(),
-                        'context'    => $component->getContext(),
+                        'registry'   => $component,
                     ];
 
                     // register component events
@@ -181,11 +181,11 @@ class RouteMiddleware
     }
 
     /**
-     * @param RegisterInterface $register
+     * @param RegistryInterface $register
      *
      * @return RouteMiddleware
      */
-    private function registerEvents(RegisterInterface $register): self
+    private function registerEvents(RegistryInterface $register): self
     {
         if ($register->getEvents())
         {

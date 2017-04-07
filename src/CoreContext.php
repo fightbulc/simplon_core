@@ -3,10 +3,12 @@
 namespace Simplon\Core;
 
 use Simplon\Core\Interfaces\CoreContextInterface;
+use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Storage\CookieStorage;
 use Simplon\Core\Storage\SessionStorage;
 use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\EventsHandler;
+use Simplon\Locale\Locale;
 use Simplon\Locale\Readers\PhpFileReader;
 
 /**
@@ -25,6 +27,10 @@ abstract class CoreContext implements CoreContextInterface
      * @var Config
      */
     protected $config;
+    /**
+     * @var Locale
+     */
+    protected $locale;
     /**
      * @var Config[]
      */
@@ -65,11 +71,11 @@ abstract class CoreContext implements CoreContextInterface
     }
 
     /**
-     * @param string $workingDir
+     * @param null|string $workingDir
      *
      * @return Config
      */
-    public function getConfig(string $workingDir = null): Config
+    public function getConfig(?string $workingDir = null): Config
     {
         if (!$this->config)
         {
@@ -89,6 +95,29 @@ abstract class CoreContext implements CoreContextInterface
         }
 
         return $this->config;
+    }
+
+    /**
+     * @param null|string $workingDir
+     *
+     * @return Locale
+     */
+    public function getLocale(?string $workingDir = null): Locale
+    {
+        if (!$this->locale)
+        {
+            $paths = $this->getLocalePaths();
+
+            if ($workingDir)
+            {
+                $paths[] = rtrim($workingDir, '/') . '/Locales';
+            }
+
+            $this->locale = new Locale($this->getLocaleFileReader($paths), [LocaleMiddleware::getLocaleCode()]);
+            $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
+        }
+
+        return $this->locale;
     }
 
     /**
@@ -128,6 +157,16 @@ abstract class CoreContext implements CoreContextInterface
         }
 
         return $this->cookieStorage;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getLocalePaths(): array
+    {
+        return [
+            self::APP_PATH . '/Locales',
+        ];
     }
 
     /**

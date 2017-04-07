@@ -2,8 +2,12 @@
 
 namespace Simplon\Core\Controllers;
 
+use Simplon\Core\CoreContext;
+use Simplon\Core\CoreRegistry;
 use Simplon\Core\Data\ResponseViewData;
 use Simplon\Core\Data\ViewInitialData;
+use Simplon\Core\Interfaces\ComponentContextInterface;
+use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
@@ -70,10 +74,17 @@ abstract class ViewController extends Controller
     {
         if (!$this->flashMessage)
         {
+            /** @var RegistryInterface $registry */
+            $registry = $this->getRegistry();
+
+            /** @var ComponentContextInterface $context */
+            $context = $registry->getContext();
+
+            /** @var CoreContext $context */
+            $appContext = $context->getAppContext();
+
             /** @noinspection PhpUndefinedMethodInspection */
-            $this->flashMessage = new FlashMessage(
-                $this->getContext()->getAppContext()->getSessionStorage()
-            );
+            $this->flashMessage = new FlashMessage($appContext->getSessionStorage());
         }
 
         return $this->flashMessage;

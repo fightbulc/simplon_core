@@ -4,12 +4,9 @@ namespace Simplon\Core\Controllers;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Simplon\Core\CoreContext;
-use Simplon\Core\Data\ControllerCoreData;
 use Simplon\Core\Interfaces\ComponentContextInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
-use Simplon\Core\Middleware\LocaleMiddleware;
-use Simplon\Core\Utils\EventsHandler;
+use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Locale\Locale;
 
 /**
@@ -18,34 +15,36 @@ use Simplon\Locale\Locale;
  */
 abstract class Controller implements ControllerInterface
 {
+    protected $registry;
     /**
-     * @var ControllerCoreData
+     * @var ServerRequestInterface
      */
-    protected $coreData;
+    protected $request;
     /**
-     * @see exect type will be refered in controller due to component dependency
+     * @var ResponseInterface
      */
-    protected $context;
-    /**
-     * @var Locale
-     */
-    protected $locale;
+    protected $response;
 
     /**
-     * @param ControllerCoreData $coreData
+     * @param $registry
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
      */
-    public function __construct(ControllerCoreData $coreData)
+    public function __construct($registry, ServerRequestInterface $request, ResponseInterface $response)
     {
-        $this->coreData = $coreData;
-        $this->context = $this->coreData->getContext();
+        $this->registry = $registry;
+        $this->request = $request;
+        $this->response = $response;
     }
+
+    abstract public function getRegistry();
 
     /**
      * @return ServerRequestInterface
      */
     public function getRequest(): ServerRequestInterface
     {
-        return $this->coreData->getRequest();
+        return $this->request;
     }
 
     /**
@@ -53,52 +52,20 @@ abstract class Controller implements ControllerInterface
      */
     public function getResponse(): ResponseInterface
     {
-        return $this->coreData->getResponse();
+        return $this->response;
     }
 
     /**
-     * @return string
+     * @return null|Locale
      */
-    public function getWorkingDir(): string
+    public function getLocale(): ?Locale
     {
-        return $this->coreData->getWorkingDir();
-    }
+        /** @var RegistryInterface $registry */
+        $registry = $this->getRegistry();
 
-    /**
-     * @return Locale
-     */
-    public function getLocale(): Locale
-    {
-        if (!$this->locale)
-        {
-            /** @var ComponentContextInterface $context */
-            $context = $this->context;
-            $this->locale = new Locale($context->getAppContext()->getLocaleFileReader($this->getLocalePaths()), [LocaleMiddleware::getLocaleCode()]);
-            $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
-        }
-
-        return $this->locale;
-    }
-
-    /**
-     * @return EventsHandler
-     */
-    public function getEventsHandler(): EventsHandler
-    {
         /** @var ComponentContextInterface $context */
-        $context = $this->context;
+        $context = $registry->getContext();
 
-        return $context->getAppContext()->getEventsHandler();
-    }
-
-    /**
-     * @return array
-     */
-    protected function getLocalePaths(): array
-    {
-        return [
-            CoreContext::APP_PATH . '/Locales', // app path
-            $this->getWorkingDir() . '/Locales', // component path
-        ];
+        return $context->getLocale();
     }
 }

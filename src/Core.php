@@ -33,27 +33,6 @@ class Core
     }
 
     /**
-     * @param callable $handler
-     *
-     * @return Core
-     */
-    public function withErrorHandler(callable $handler = null): self
-    {
-        $useHandler = new PrettyPageHandler();
-
-        if ($handler)
-        {
-            $useHandler = $handler();
-        }
-
-        $whoops = new Run();
-        $whoops->pushHandler($useHandler);
-        $whoops->register();
-
-        return $this;
-    }
-
-    /**
      * @param array $middleware
      *
      * @return void
