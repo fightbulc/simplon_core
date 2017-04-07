@@ -6,7 +6,7 @@
 
 $appRootPath = __DIR__ . '/../../..';
 
-if (getenv('APP_ENV') !== 'dev')
+if (getenv('APP_ENV') !== false && getenv('APP_ENV') !== 'dev')
 {
     $autoloadFiles = [];
 
