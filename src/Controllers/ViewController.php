@@ -61,7 +61,7 @@ abstract class ViewController extends Controller
     /**
      * @return CoreViewData
      */
-    public function getViewInitialData(): CoreViewData
+    public function getCoreViewData(): CoreViewData
     {
         return new CoreViewData($this->getLocale(), $this->getFlashMessage(), $this->getDevice());
     }
