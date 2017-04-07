@@ -46,7 +46,7 @@ class ExceptionMiddleware
         {
             return $next($request, $response);
         }
-        catch (\Error $e)
+        catch (\Throwable $e)
         {
             $whoops = new Run();
             $whoops->allowQuit(false);
