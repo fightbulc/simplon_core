@@ -15,7 +15,7 @@ class CastAway
      */
     public static function toInt($val)
     {
-        return $val ? (int)trim($val) : null;
+        return self::hasValue($val) ? (int)trim($val) : null;
     }
 
     /**
@@ -25,7 +25,7 @@ class CastAway
      */
     public static function toString($val)
     {
-        return $val ? (string)trim($val) : null;
+        return self::hasValue($val) ? (string)trim($val) : null;
     }
 
     /**
@@ -35,7 +35,7 @@ class CastAway
      */
     public static function toBool($val)
     {
-        return $val ? $val === true : null;
+        return self::hasValue($val) ? $val === true : null;
     }
 
     /**
@@ -45,7 +45,7 @@ class CastAway
      */
     public static function toFloat($val)
     {
-        return $val ? (float)trim($val) : null;
+        return self::hasValue($val) ? (float)trim($val) : null;
     }
 
     /**
@@ -55,7 +55,7 @@ class CastAway
      */
     public static function toArray($val)
     {
-        return $val ? (array)$val : null;
+        return self::hasValue($val) ? (array)$val : null;
     }
 
     /**
@@ -65,7 +65,7 @@ class CastAway
      */
     public static function toObject($val)
     {
-        return $val ? (object)$val : null;
+        return self::hasValue($val) ? (object)$val : null;
     }
 
     /**
@@ -76,7 +76,7 @@ class CastAway
      */
     public static function toDateTime($val, \DateTimeZone $dateTimeZone = null)
     {
-        return $val ? new \DateTime(trim($val), $dateTimeZone) : null;
+        return self::hasValue($val) ? new \DateTime(trim($val), $dateTimeZone) : null;
     }
 
     /**
@@ -285,5 +285,15 @@ class CastAway
         }
 
         return $word;
+    }
+
+    /**
+     * @param mixed $val
+     *
+     * @return bool
+     */
+    private static function hasValue($val)
+    {
+        return $val !== null && $val !== '';
     }
 }
