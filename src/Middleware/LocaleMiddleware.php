@@ -46,7 +46,7 @@ class LocaleMiddleware extends BaseMiddleware
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null): ResponseInterface
     {
-        if (preg_match('/\/(\w{2}|\w{2}\-\w{2})\/*/', $request->getUri()->getPath(), $match))
+        if (preg_match('/\/(\w{2}\-\w{2}|\w{2})\/*/', $request->getUri()->getPath(), $match))
         {
             if (in_array($match[1], $this->locales))
             {

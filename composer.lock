@@ -487,16 +487,16 @@
         },
         {
             "name": "piwik/device-detector",
-            "version": "3.7.6",
+            "version": "3.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/piwik/device-detector.git",
-                "reference": "f5b6ffc44e4092b1964d32f21142dc721f5a0899"
+                "reference": "f0e5d6bc159241fdfc2e02f7abd4ab5d519d2c30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/piwik/device-detector/zipball/f5b6ffc44e4092b1964d32f21142dc721f5a0899",
-                "reference": "f5b6ffc44e4092b1964d32f21142dc721f5a0899",
+                "url": "https://api.github.com/repos/piwik/device-detector/zipball/f0e5d6bc159241fdfc2e02f7abd4ab5d519d2c30",
+                "reference": "f0e5d6bc159241fdfc2e02f7abd4ab5d519d2c30",
                 "shasum": ""
             },
             "require": {
@@ -534,7 +534,7 @@
                 "parser",
                 "useragent"
             ],
-            "time": "2017-02-27T17:14:38+00:00"
+            "time": "2017-04-02T17:25:50+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1017,16 +1017,16 @@
         },
         {
             "name": "simplon/form",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_form.git",
-                "reference": "1a619e0ce0329aef95936c3a91892565c1d50c09"
+                "reference": "ef83800bf7d4839e5641a5273f72c2b44833107a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/1a619e0ce0329aef95936c3a91892565c1d50c09",
-                "reference": "1a619e0ce0329aef95936c3a91892565c1d50c09",
+                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/ef83800bf7d4839e5641a5273f72c2b44833107a",
+                "reference": "ef83800bf7d4839e5641a5273f72c2b44833107a",
                 "shasum": ""
             },
             "require": {
@@ -1066,20 +1066,20 @@
                 "templates",
                 "validation"
             ],
-            "time": "2017-03-24T19:29:49+00:00"
+            "time": "2017-04-08T07:55:33+00:00"
         },
         {
             "name": "simplon/locale",
-            "version": "0.4.0",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_locale.git",
-                "reference": "bb7cf6cb14b89a44228912a7fa9c96e10e6d9905"
+                "reference": "b78b5444a74f4723d62bef501d01c34fa7343cdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_locale/zipball/bb7cf6cb14b89a44228912a7fa9c96e10e6d9905",
-                "reference": "bb7cf6cb14b89a44228912a7fa9c96e10e6d9905",
+                "url": "https://api.github.com/repos/fightbulc/simplon_locale/zipball/b78b5444a74f4723d62bef501d01c34fa7343cdd",
+                "reference": "b78b5444a74f4723d62bef501d01c34fa7343cdd",
                 "shasum": ""
             },
             "require": {
@@ -1109,7 +1109,7 @@
                 "locales",
                 "reader"
             ],
-            "time": "2017-03-28T15:32:24+00:00"
+            "time": "2017-04-08T08:24:52+00:00"
         },
         {
             "name": "simplon/mustache",
@@ -1250,16 +1250,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "68bfa8c83f24c0ac04ea7193bcdcda4519f41892"
+                "reference": "57fdaa55827ae14d617550ebe71a820f0a5e2282"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/68bfa8c83f24c0ac04ea7193bcdcda4519f41892",
-                "reference": "68bfa8c83f24c0ac04ea7193bcdcda4519f41892",
+                "url": "https://api.github.com/repos/symfony/process/zipball/57fdaa55827ae14d617550ebe71a820f0a5e2282",
+                "reference": "57fdaa55827ae14d617550ebe71a820f0a5e2282",
                 "shasum": ""
             },
             "require": {
@@ -1295,20 +1295,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-04T12:23:14+00:00"
+            "time": "2017-03-27T18:07:02+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "1.3.10",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "83e8d98b9915de76c659ce27d683c02a0f99fa90"
+                "reference": "b03f285a333f51e58c95cce54109a4a9ed691436"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/83e8d98b9915de76c659ce27d683c02a0f99fa90",
-                "reference": "83e8d98b9915de76c659ce27d683c02a0f99fa90",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/b03f285a333f51e58c95cce54109a4a9ed691436",
+                "reference": "b03f285a333f51e58c95cce54109a4a9ed691436",
                 "shasum": ""
             },
             "require": {
@@ -1316,17 +1316,19 @@
                 "psr/http-message": "~1.0"
             },
             "provide": {
-                "psr/http-message-implementation": "~1.0.0"
+                "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
+                "ext-dom": "*",
+                "ext-libxml": "*",
                 "phpunit/phpunit": "^4.6 || ^5.5",
                 "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev",
-                    "dev-develop": "1.4-dev"
+                    "dev-master": "1.4-dev",
+                    "dev-develop": "1.5-dev"
                 }
             },
             "autoload": {
@@ -1345,7 +1347,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2017-01-23T04:53:24+00:00"
+            "time": "2017-04-06T16:18:34+00:00"
         }
     ],
     "packages-dev": [],
