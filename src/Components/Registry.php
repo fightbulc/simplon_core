@@ -1,16 +1,14 @@
 <?php
 
-namespace Simplon\Core;
+namespace Simplon\Core\Components;
 
 use Simplon\Core\Data\AuthRouteData;
 use Simplon\Core\Interfaces\EventsInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
-use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\RoutesCollection;
-use Simplon\Locale\Locale;
 
 /**
- * @package Simplon\Core
+ * @package Simplon\Core\Components
  */
 abstract class Registry implements RegistryInterface
 {
