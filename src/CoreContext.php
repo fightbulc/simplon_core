@@ -2,12 +2,14 @@
 
 namespace Simplon\Core;
 
+use Simplon\Core\Data\InstanceData;
 use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Storage\CookieStorage;
 use Simplon\Core\Storage\SessionStorage;
 use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\EventsHandler;
+use Simplon\Core\Utils\Instances;
 use Simplon\Locale\Locale;
 use Simplon\Locale\Readers\PhpFileReader;
 
@@ -28,25 +30,9 @@ abstract class CoreContext implements CoreContextInterface
      */
     protected $config;
     /**
-     * @var Locale
-     */
-    protected $locale;
-    /**
      * @var Config[]
      */
     protected $configCache;
-    /**
-     * @var SessionStorage
-     */
-    protected $sessionStorage;
-    /**
-     * @var CookieStorage
-     */
-    protected $cookieStorage;
-    /**
-     * @var EventsHandler
-     */
-    protected $eventsHandler;
 
     /**
      * @return array
@@ -104,20 +90,25 @@ abstract class CoreContext implements CoreContextInterface
      */
     public function getLocale(?string $workingDir = null): Locale
     {
-        if (!$this->locale)
+        $paths = $this->getLocalePaths();
+
+        if ($workingDir)
         {
-            $paths = $this->getLocalePaths();
-
-            if ($workingDir)
-            {
-                $paths[] = rtrim($workingDir, '/') . '/Locales';
-            }
-
-            $this->locale = new Locale($this->getLocaleFileReader($paths), [LocaleMiddleware::getLocaleCode()]);
-            $this->locale->setLocale(LocaleMiddleware::getLocaleCode());
+            $paths[] = rtrim($workingDir, '/') . '/Locales';
         }
 
-        return $this->locale;
+        $instanceData = InstanceData::create(Locale::class);
+
+        $instanceData
+            ->addParam($this->getLocaleFileReader($paths))
+            ->addParam([LocaleMiddleware::getLocaleCode()])
+            ->setAfterCallback(function (Locale $locale)
+            {
+                return $locale->setLocale(LocaleMiddleware::getLocaleCode());
+            })
+        ;
+
+        return Instances::cache($instanceData);
     }
 
     /**
@@ -125,12 +116,9 @@ abstract class CoreContext implements CoreContextInterface
      */
     public function getEventsHandler(): EventsHandler
     {
-        if (!$this->eventsHandler)
-        {
-            $this->eventsHandler = new EventsHandler();
-        }
+        $instanceData = InstanceData::create(EventsHandler::class);
 
-        return $this->eventsHandler;
+        return Instances::cache($instanceData);
     }
 
     /**
@@ -138,12 +126,9 @@ abstract class CoreContext implements CoreContextInterface
      */
     public function getSessionStorage(): SessionStorage
     {
-        if (!$this->sessionStorage)
-        {
-            $this->sessionStorage = new SessionStorage();
-        }
+        $instanceData = InstanceData::create(SessionStorage::class);
 
-        return $this->sessionStorage;
+        return Instances::cache($instanceData);
     }
 
     /**
@@ -151,12 +136,9 @@ abstract class CoreContext implements CoreContextInterface
      */
     public function getCookieStorage(): CookieStorage
     {
-        if (!$this->cookieStorage)
-        {
-            $this->cookieStorage = new CookieStorage($this->getCookieStorageNameSpace());
-        }
+        $instanceData = InstanceData::create(CookieStorage::class)->addParam($this->getCookieStorageNameSpace());
 
-        return $this->cookieStorage;
+        return Instances::cache($instanceData);
     }
 
     /**
