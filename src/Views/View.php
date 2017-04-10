@@ -18,6 +18,10 @@ use Simplon\Template\Template;
 abstract class View implements ViewInterface
 {
     /**
+     * @var CoreViewData
+     */
+    protected $coreViewData;
+    /**
      * @var Template
      */
     protected $renderer;
@@ -25,17 +29,9 @@ abstract class View implements ViewInterface
      * @var ViewInterface[]
      */
     protected $implementsView = [];
-    /**
-     * @var CoreViewData
-     */
-    private $coreViewData;
 
     /**
      * @param CoreViewData $coreViewData
-     *
-     * @internal param Locale $locale
-     * @internal param FlashMessage $flashMessage
-     * @internal param Device $device
      */
     public function __construct(CoreViewData $coreViewData)
     {
@@ -367,6 +363,32 @@ abstract class View implements ViewInterface
     }
 
     /**
+     * @param string $path
+     * @param string|null $blockId
+     *
+     * @return View
+     */
+    protected function addCss(string $path, string $blockId = null): self
+    {
+        $this->getRenderer()->addAssetCss($path, $blockId);
+
+        return $this;
+    }
+
+    /**
+     * @param string $path
+     * @param string|null $blockId
+     *
+     * @return View
+     */
+    protected function addJs(string $path, string $blockId = null): self
+    {
+        $this->getRenderer()->addAssetJs($path, $blockId);
+
+        return $this;
+    }
+
+    /**
      * @param string $code
      *
      * @return View
@@ -398,46 +420,6 @@ abstract class View implements ViewInterface
     protected function addFormCode(string $code): self
     {
         $this->getRenderer()->addAssetCode($code, 'form');
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     *
-     * @param string $code
-     *
-     * @return View
-     */
-    protected function addFooterCode(string $code): self
-    {
-        $this->addBodyEndCode($code);
-
-        return $this;
-    }
-
-    /**
-     * @param string $path
-     * @param string|null $blockId
-     *
-     * @return View
-     */
-    protected function addCss(string $path, string $blockId = null): self
-    {
-        $this->getRenderer()->addAssetCss($path, $blockId);
-
-        return $this;
-    }
-
-    /**
-     * @param string $path
-     * @param string|null $blockId
-     *
-     * @return View
-     */
-    protected function addJs(string $path, string $blockId = null): self
-    {
-        $this->getRenderer()->addAssetJs($path, $blockId);
 
         return $this;
     }
