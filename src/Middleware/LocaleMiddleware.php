@@ -32,7 +32,7 @@ class LocaleMiddleware extends BaseMiddleware
     /**
      * @param array $locales
      */
-    public function __construct(array $locales)
+    public function __construct(array $locales = ['en'])
     {
         $this->locales = $locales;
     }
