@@ -4,12 +4,14 @@ namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Data\InstanceData;
 use Simplon\Core\Interfaces\ControllerInterface;
-use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
+use Simplon\Core\Utils\EventsHandler;
 use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
+use Simplon\Core\Utils\Instances;
 
 /**
  * Class RouteMiddleware
@@ -18,21 +20,15 @@ use Simplon\Core\Utils\Exceptions\ServerException;
 class RouteMiddleware
 {
     /**
-     * @var CoreContextInterface
-     */
-    private $coreContext;
-    /**
      * @var RegistryInterface[]
      */
     private $components;
 
     /**
-     * @param CoreContextInterface $coreContext
      * @param RegistryInterface[] $components
      */
-    public function __construct(CoreContextInterface $coreContext, array $components)
+    public function __construct(array $components)
     {
-        $this->coreContext = $coreContext;
         $this->components = $components;
     }
 
@@ -196,7 +192,7 @@ class RouteMiddleware
             {
                 foreach ($register->getEvents()->getSubscriptions() as $event => $callback)
                 {
-                    $this->coreContext->getEventsHandler()->addSubscription($event, $callback);
+                    $this->getEventsHandler()->addSubscription($event, $callback);
                 }
             }
 
@@ -206,11 +202,21 @@ class RouteMiddleware
             {
                 foreach ($register->getEvents()->getOffers() as $event => $callback)
                 {
-                    $this->coreContext->getEventsHandler()->addOffer($event, $callback);
+                    $this->getEventsHandler()->addOffer($event, $callback);
                 }
             }
         }
 
         return $this;
+    }
+
+    /**
+     * @return EventsHandler
+     */
+    private function getEventsHandler(): EventsHandler
+    {
+        return Instances::cache(
+            InstanceData::create(EventsHandler::class)
+        );
     }
 }
