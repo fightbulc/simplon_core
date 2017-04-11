@@ -162,8 +162,8 @@ an `AuthConfig` object which holds all required data. Here is an example combine
 
 $authConfig = new AuthConfig(
 	$appContext->getSessionStorage(), // storage for our auth data
-	new UserSessionData(), 			  // object for a users auth data
-	AuthRoutes::toSignIn() 			  // where to send the user if auth failed
+	new UserSessionData(),            // object for a users auth data
+	AuthRoutes::toSignIn()            // where to send the user if auth failed
 );
 
 // handle a recognised temporary token in your request e.g. ?token=ABCD1234
@@ -196,3 +196,81 @@ $middleware = [
 -------------------------------------------------
 
 # Views
+
+Views only know about the stuff they receive as dependency. The first dependency, and only requirement,
+is `CoreViewData` which holds the instances of `Locale`, `FlashMessages` and `Device`. The function of `Locale`
+is clear. `FlashMessages` show messages such as warnings, errors or successes which have been defined in
+the controller. `Device` is used to detect defined templates based on `mobile`, `tablet` or `anything else`.
+A view expects a template and optional some data which will be injected into the template. The above mentioned
+instances from our `CoreViewData` are automatically injected.
+
+## Templates
+
+As already mentioned each template receives three variables by default: `$locale`, `$flash` and `$device`. The
+view class offers also a couple of static helper methods such as `View::renderWidget` which aids the need of
+rendering smaller template pieces or as we call it `widgets`. Here is a small example of a template:
+
+```php
+/**
+ * @var FlashMessage $flash
+ * @var Locale $locale
+ * @var Device $device
+ *
+ * @var string $content
+ */
+use Simplon\Core\Views\FlashMessage;
+use Simplon\Core\Views\View;
+use Simplon\Device\Device;
+use Simplon\Locale\Locale;
+
+?>
+<?php if ($flash->hasFlash()): ?>
+    <?= $flash->getFlash('huge') ?>
+<?php endif ?>
+
+<div>
+    Some content
+</div>
+
+<div>
+    <?= View::renderWidget(__DIR__ . '/SomeWidget.phtml', ['foo' => 'bar']) ?>
+</div>
+```
+
+As exepected the view uses the defined template. However, it also tries to detect device-related templates by
+looking for these specific templates. For instance, let's assume that our default template is `DefaultTemplate.phtml`
+and that we are using a `tablet device`. In that case our view would look for an existing `DefaultTemplateTablet.phtml`.
+If such a template exists it would prefer it over the defined one. Same accounts for `mobile devices`. In that case
+our view would look for `DefaultTemplateMobile.phtml`. Side note: a tablet device would also prefer a `mobile template`
+in case that a `tablet template` is absent.
+
+## Building pages
+
+Building pages is quite an important piece since we nest our views: a component has its own view but owns probably
+also a couple of sub-views. These sub-views will be `implemented` within the `component views template` as injected variable.
+The component view itself will be then implemented within an `app view` or maybe a `session wrapper view`. The principle
+is always the same: all lower views wrap the upper views and its up to you how many levels you use.
+
+This process will be handled in the controllers of our component:
+
+```php
+protected function buildPage(ViewInterface $view, ComponentViewData $componentViewData, GlobalViewData $globalViewData): ViewInterface
+{
+	$appContext = $this->getContext()->getAppContext();
+
+    $componentView = new AccountsPageView($this->getCoreViewData(), $componentViewData);
+    $componentView->implements($view, 'content');
+
+    $sessionView = new SessionPageView($this->getCoreViewData(), $appContext->getUserSessionManager()->read());
+    $sessionView->implements($componentView, 'content');
+
+    $appView = $appContext->getAppPageView($this->getCoreViewData(), $globalViewData);
+    $appView->implements($sessionView, 'content');
+
+    return $appView;
+}
+```
+
+You can also see two data classes: `ComponentViewData` and `GlobalViewData`. These are helpers to transpart data to our
+component- and app-views since its possible that we have many sub-views within our components. It helps us to structure
+and describe our data.
