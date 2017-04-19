@@ -7,15 +7,34 @@
                 |_|                                       
 </pre>
 
-# Introduction
+# Simplon/Core
 
-The simplon/core package is a strongly opinionated set of libraries which forms the core of a component based app.
-The package requires [PHP7.1+](https://github.com/tpunt/PHP7-Reference/blob/master/php71-reference.md) and is built
-against [PSR-7](http://www.php-fig.org/psr/psr-7/) in conjunction with middleware layers.
+The simplon/core package is a strongly opinionated set of libraries which forms the core of a component based app. The package requires [PHP7.1+](https://github.com/tpunt/PHP7-Reference/blob/master/php71-reference.md) and is built against [PSR-7](http://www.php-fig.org/psr/psr-7/) in conjunction with middleware layers.
 
 -------------------------------------------------
 
-# App Structure
+1. [__App structure__](#1-app-structure)  
+1.1 [Registry](#11-registry)  
+1.2 [Context](#12-context)  
+1.3 [Routes](#13-routes)  
+1.4 [Storage](#14-storage)  
+1.5 [Outgoing requests](#15-outgoing-requests)  
+2. [__Bootstrap__](#2-bootstrap)  
+3. [__Middleware__](#3-middleware)  
+3.1 [Exception](#31-exception)  
+3.2 [Locale](#32-locale)  
+3.3 [Route](#33-route)  
+3.4 [Auth](#34-auth)  
+4. [__Controllers__](#4-controllers)  
+4.1 [ViewController](#41-viewcontroller)  
+4.2 [RestController](#42-restcontroller)  
+5. [__Views__](#5-views)  
+5.1 [Templates](#51-templates)  
+5.2 [Building pages](#52-building-pages)  
+
+-------------------------------------------------
+
+# 1. App structure
 
 An app is mainly made up by some app-wide classes but mainly by its components which are tiny apps in itself.
 The general idea is that the app will be easier to communicate and to maintain if its broken down in smaller
@@ -37,38 +56,38 @@ are defined as class constants.
 It's important to note that all requests will run through a number of pre-defined `Middleware` with the
 `RouteMiddleware` as the only required one since it handles all incoming requests.
 
-## Registry
+## 1.1. Registry
 
 Each component needs to be registered via its own registry class. It requires a method for receiving
 the `Context` class and can take optionally methods for referencing `Routes`, `Authentication rules` and
 `Events` definition.
 
-## Context
+## 1.2. Context
 
 App and components have `Context` classes which hold all essential instances. Essential means instances which
 are shared among different classes within the app respectively the component. For example, if you have a storage
 for a component you would put the instance creation of that storage in the components context class. Context
 classes hold also references to your config- and locale-data.
 
-## Routes
+## 1.3. Routes
 
 All component related routes are defined in a component based `Route` class. This class holds all route
 `patterns` and static methods which are used to build corresponding routes.
 
-## Storage
+## 1.4. Storage
 
 Storage is handled via `CRUD` classes. Only `MySQL` adapter is available at the moment. A storage is
 described by its storage- and model class. If you  want to interact with your data you should go through the
 storage class and avoid direct access.
 
-## Outgoing requests
+## 1.5. Outgoing requests
 
 Component related `outgoing requests` are all collected within its own `Requests` class, mainly to aid
 transparency and structure. This class is obviously only needed if you have any type of these requests.
 
 -------------------------------------------------
 
-# Bootstrap
+# 2. Bootstrap
 
 Our bootstrap holds all registered components, middlewares and kicks-off the core. The an example taken
 from the [skeleton repo](https://github.com/fightbulc/simplon_core_skeleton):
@@ -128,29 +147,29 @@ $middleware = [
 
 -------------------------------------------------
 
-# Middleware
+# 3. Middleware
 
 Middleware helps us to handle/structure our request/response processing. It is also some sort of simplification by
 pre-processing the request e.g. for authentication reasons before it hits the actual controller. Lastly, it's a great
 tool due to its scalability and flexiblity. So far there are four classes which come with the core:
 
-## Exception
+## 3.1. Exception
 
 Wraps all following processing and handles exceptions with [Whoops](https://github.com/filp/whoops).
 
-## Locale
+## 3.2. Locale
 
 If integrated it will detect a two-letter defined locale within the requesting route (e.g. /en/) or even a region specific
 locale with additional three-letters (e.g. /en-us/). If latter is the case the region specific file (e.g. `en-us-locale.php`)
 will inherit from the main locale (e.g. `en-locale.php`). This middleware expects an array of accepted locale codes
 (e.g. `['en', 'de']`) but will fallback to `['en']` if non is given.
 
-## Route
+## 3.3. Route
 
 The RouteMiddleware will check the requested route against all defined routes (only registered components).
 It will also kick-off the `event handling` for these components.
 
-## Auth
+## 3.4. Auth
 
 AuthMiddleware aids authentication against certain `routes`, `user roles` and `temporary tokens`. It requires the
 an `AuthConfig` object which holds all required data. Here is an example combined with the middleware queue:
@@ -195,7 +214,89 @@ $middleware = [
 
 -------------------------------------------------
 
-# Views
+# 4. Controllers
+
+Each identified route ends up in a controller. There are two types of controllers which only differ in a couple of `media related methods` and their `response content type`. Both types expect an `__invoke` method which receives either an empty array or a set of possible params. These params are partial structures of your defined route which leads to the connected controller. For instance, a route such as `/some/{foo}/stuff` would match a requested route of `/some/more/stuff`. For that example your controller params would hold `['foo' => 'more']`.
+
+## 4.1. ViewController
+
+This controller type is used for all requests which result in a rendered html page.
+
+```php
+class SomeViewController extends ViewController
+{
+    /**
+    * @param array $params
+    *
+    * @return ResponseViewData
+    */
+    public function __invoke(array $params): ResponseViewData
+    {
+        // some code
+
+        //
+        // you can handle redirects
+        //
+        
+        if($shouldRedirect)
+        {
+            $this->getFlashMessage()->setFlashSuccess('Some flash message');
+
+            return $this->redirect('/some/route');
+        }
+
+        //
+        // or respond with view data
+        //
+        
+        return $this->respond(new SomeView());
+    }
+
+    /**
+    * @return SomeRegistry
+    */
+    public function getRegistry(): SomeRegistry
+    {
+        return $this->registry;
+    }
+}
+```
+
+## 4.2. RestController
+
+```php
+class SomeRestController extends RestController
+{
+    /**
+     * @param array $params
+     *
+     * @return ResponseViewData
+     */
+    public function __invoke(array $params): ResponseRestData
+    {
+        // some code
+        
+        //
+        // respond with array data which will be
+        // transformed into JSON
+        //
+        
+        return $this->respond(['foo' => 'bar']);
+    }
+
+    /**
+     * @return SomeRegistry
+     */
+    public function getRegistry(): SomeRegistry
+    {
+        return $this->registry;
+    }
+}
+```
+
+-------------------------------------------------
+
+# 5. Views
 
 Views only know about the stuff they receive as dependency. The first dependency, and only requirement,
 is `CoreViewData` which holds the instances of `Locale`, `FlashMessages` and `Device`. The function of `Locale`
@@ -204,7 +305,7 @@ the controller. `Device` is used to detect defined templates based on `mobile`, 
 A view expects a template and optional some data which will be injected into the template. The above mentioned
 instances from our `CoreViewData` are automatically injected.
 
-## Templates
+## 5.1. Templates
 
 As already mentioned each template receives three variables by default: `$locale`, `$flash` and `$device`. The
 view class offers also a couple of static helper methods such as `View::renderWidget` which aids the need of
@@ -244,7 +345,7 @@ If such a template exists it would prefer it over the defined one. Same accounts
 our view would look for `DefaultTemplateMobile.phtml`. Side note: a tablet device would also prefer a `mobile template`
 in case that a `tablet template` is absent.
 
-## Building pages
+## 5.2. Building pages
 
 Building pages is quite an important piece since we nest our views: a component has its own view but owns probably
 also a couple of sub-views. These sub-views will be `implemented` within the `component views template` as injected variable.
