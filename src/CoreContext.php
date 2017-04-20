@@ -90,11 +90,11 @@ abstract class CoreContext implements CoreContextInterface
      */
     public function getLocale(?string $workingDir = null): Locale
     {
-        $paths = $this->getLocalePaths();
+        $paths = $this->getAppLocalePaths();
 
         if ($workingDir)
         {
-            $paths[] = rtrim($workingDir, '/') . '/Locales';
+            $paths = array_merge($paths, $this->getComponentLocalePaths($workingDir));
         }
 
         $instanceData = InstanceData::create(Locale::class);
@@ -144,10 +144,22 @@ abstract class CoreContext implements CoreContextInterface
     /**
      * @return array
      */
-    protected function getLocalePaths(): array
+    protected function getAppLocalePaths(): array
     {
         return [
             self::APP_PATH . '/Locales',
+        ];
+    }
+
+    /**
+     * @param string $workingDir
+     *
+     * @return array
+     */
+    protected function getComponentLocalePaths(string $workingDir): array
+    {
+        return [
+            rtrim($workingDir, '/') . '/Locales',
         ];
     }
 
