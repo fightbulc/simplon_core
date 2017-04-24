@@ -2,8 +2,9 @@
 
 namespace Simplon\Core\Controllers;
 
-use Simplon\Core\Data\ResponseViewData;
+use Psr\Http\Message\ResponseInterface;
 use Simplon\Core\Data\CoreViewData;
+use Simplon\Core\Data\ResponseViewData;
 use Simplon\Core\Interfaces\ComponentContextInterface;
 use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
@@ -35,12 +36,18 @@ abstract class ViewController extends Controller
 
     /**
      * @param ViewInterface $view
+     * @param null|ResponseInterface $response
      *
      * @return ResponseViewData
      */
-    public function respond(ViewInterface $view): ResponseViewData
+    public function respond(ViewInterface $view, ?ResponseInterface $response = null): ResponseViewData
     {
-        $this->getResponse()->getBody()->write($view->render());
+        if (!$response)
+        {
+            $response = $this->getResponse();
+        }
+
+        $response->getBody()->write($view->render());
 
         return new ResponseViewData($this->getResponse());
     }

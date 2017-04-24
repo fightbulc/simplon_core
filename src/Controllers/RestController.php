@@ -2,6 +2,7 @@
 
 namespace Simplon\Core\Controllers;
 
+use Psr\Http\Message\ResponseInterface;
 use Simplon\Core\Data\ResponseRestData;
 
 /**
@@ -19,12 +20,18 @@ abstract class RestController extends Controller
 
     /**
      * @param array $data
+     * @param null|ResponseInterface $response
      *
      * @return ResponseRestData
      */
-    public function respond(array $data): ResponseRestData
+    public function respond(array $data, ?ResponseInterface $response = null): ResponseRestData
     {
-        $this->getResponse()->getBody()->write(json_encode($data));
+        if (!$response)
+        {
+            $response = $this->getResponse();
+        }
+
+        $response->getBody()->write(json_encode($data));
 
         return new ResponseRestData($this->getResponse());
     }
