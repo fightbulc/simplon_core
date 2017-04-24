@@ -338,12 +338,16 @@ use Simplon\Locale\Locale;
 </div>
 ```
 
-As exepected the view uses the defined template. However, it also tries to detect device-related templates by
-looking for these specific templates. For instance, let's assume that our default template is `DefaultTemplate.phtml`
+### Using device templates
+
+By default the view uses the defined template. However, it also tries to detect device-related templates by
+looking for these specific templates.
+
+For instance, let's assume that our default template is `DefaultTemplate.phtml`
 and that we are using a `tablet device`. In that case our view would look for an existing `DefaultTemplateTablet.phtml`.
-If such a template exists it would prefer it over the defined one. Same accounts for `mobile devices`. In that case
-our view would look for `DefaultTemplateMobile.phtml`. Side note: a tablet device would also prefer a `mobile template`
-in case that a `tablet template` is absent.
+If such a template exists it would prefer it over the defined one. Same accounts for `mobile devices`. In that case our view would look for `DefaultTemplateMobile.phtml`.
+
+__Side note:__ a tablet device would also prefer a `mobile template` in case that a `tablet template` is absent.
 
 ## 5.2. Building pages
 
