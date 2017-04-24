@@ -31,9 +31,17 @@ class ResponseRestData implements ResponseDataInterface
     /**
      * @return ResponseInterface
      */
+    public function getResponse(): ResponseInterface
+    {
+        return $this->response;
+    }
+
+    /**
+     * @return ResponseInterface
+     */
     public function render(): ResponseInterface
     {
-        $this->response = $this->response->withAddedHeader('Auth-Type', $this->getContentType());
+        $this->response = $this->response->withAddedHeader('Content-Type', $this->getContentType());
 
         return $this->response;
     }
