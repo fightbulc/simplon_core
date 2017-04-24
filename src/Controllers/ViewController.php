@@ -49,7 +49,7 @@ abstract class ViewController extends Controller
 
         $response->getBody()->write($view->render());
 
-        return new ResponseViewData($this->getResponse());
+        return new ResponseViewData($response);
     }
 
     /**

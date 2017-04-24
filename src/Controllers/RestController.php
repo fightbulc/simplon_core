@@ -33,6 +33,6 @@ abstract class RestController extends Controller
 
         $response->getBody()->write(json_encode($data));
 
-        return new ResponseRestData($this->getResponse());
+        return new ResponseRestData($response);
     }
 }
