@@ -14,7 +14,7 @@ class LocaleMiddleware extends BaseMiddleware
     /**
      * @var string
      */
-    private static $localeCode = 'en'; // fallback value
+    private static $localeCode;
 
     /**
      * @var array
@@ -31,10 +31,26 @@ class LocaleMiddleware extends BaseMiddleware
 
     /**
      * @param array $locales
+     * @param string $fallback
      */
-    public function __construct(array $locales = ['en'])
+    public function __construct(array $locales = ['en'], string $fallback = 'en')
     {
         $this->locales = $locales;
+
+        //
+        // make sure that the fallback is part of the locales
+        //
+
+        if (!in_array($fallback, $locales))
+        {
+            $fallback = $locales[0];
+        }
+
+        //
+        // set default
+        //
+
+        self::$localeCode = $fallback;
     }
 
     /**
