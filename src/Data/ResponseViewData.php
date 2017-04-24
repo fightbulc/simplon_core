@@ -25,6 +25,14 @@ class ResponseViewData implements ResponseDataInterface
     }
 
     /**
+     * @return ResponseInterface
+     */
+    public function getResponse(): ResponseInterface
+    {
+        return $this->response;
+    }
+
+    /**
      * @return bool
      */
     public function hasRedirect(): bool
