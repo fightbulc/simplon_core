@@ -23,6 +23,10 @@ class ExceptionMiddleware
      * @var callable|null
      */
     protected $callback;
+    /**
+     * @var bool
+     */
+    protected $isProduction = false;
 
     /**
      * @param null|HandlerInterface $handler
@@ -35,6 +39,26 @@ class ExceptionMiddleware
         }
 
         $this->handler = $handler;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProduction(): bool
+    {
+        return $this->isProduction === true;
+    }
+
+    /**
+     * @param bool $isProduction
+     *
+     * @return ExceptionMiddleware
+     */
+    public function setIsProduction(bool $isProduction): ExceptionMiddleware
+    {
+        $this->isProduction = $isProduction;
+
+        return $this;
     }
 
     /**
@@ -69,6 +93,11 @@ class ExceptionMiddleware
             if (!$callback)
             {
                 $callback = function (ResponseInterface $response, \Throwable $e) { return $this->getDefaultCallback($response, $e); };
+
+                if ($this->isProduction())
+                {
+                    $callback = $this->getDefaultProductionCallback();
+                }
             }
 
             return $callback($response, $e);
@@ -83,6 +112,16 @@ class ExceptionMiddleware
      */
     protected function getDefaultCallback(ResponseInterface $response, \Throwable $e): ResponseInterface
     {
+        //
+        // trigger error_log
+        //
+
+        $this->triggerErrorLog($e);
+
+        //
+        // handle whoops
+        //
+
         $whoops = new Run();
         $whoops->allowQuit(false);
 
@@ -97,9 +136,40 @@ class ExceptionMiddleware
         $method = Run::EXCEPTION_HANDLER;
         $whoops->$method($e);
         $errorResponse = ob_get_clean();
-
         $response->getBody()->write($errorResponse);
 
         return $response;
+    }
+
+    /**
+     * @return callable
+     */
+    protected function getDefaultProductionCallback(): callable
+    {
+        return function (ResponseInterface $response, \Throwable $e)
+        {
+            $this->triggerErrorLog($e);
+
+            return $response;
+        };
+    }
+
+    /**
+     * @param \Throwable $e
+     */
+    protected function triggerErrorLog(\Throwable $e): void
+    {
+        if ($e instanceof ClientException || $e instanceof ServerException)
+        {
+            $data = [
+                'http_status' => $e->getHttpStatusCode(),
+                'public'      => $e->getPublicData(),
+            ];
+        }
+
+        $data['message'] = $e->getMessage();
+        $data['trace'] = $e->getTrace();
+
+        error_log(json_encode($data));
     }
 }
