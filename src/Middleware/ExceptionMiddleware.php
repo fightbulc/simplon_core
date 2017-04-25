@@ -16,9 +16,13 @@ use Whoops\Run;
 class ExceptionMiddleware
 {
     /**
-     * @var HandlerInterface
+     * @var HandlerInterface|null
      */
     protected $handler;
+    /**
+     * @var callable|null
+     */
+    protected $callback;
 
     /**
      * @param null|HandlerInterface $handler
@@ -31,6 +35,18 @@ class ExceptionMiddleware
         }
 
         $this->handler = $handler;
+    }
+
+    /**
+     * @param callable $callback
+     *
+     * @return ExceptionMiddleware
+     */
+    public function setCallback(callable $callback)
+    {
+        $this->callback = $callback;
+
+        return $this;
     }
 
     /**
@@ -48,24 +64,42 @@ class ExceptionMiddleware
         }
         catch (\Throwable $e)
         {
-            $whoops = new Run();
-            $whoops->allowQuit(false);
+            $callback = $this->callback;
 
-            if ($e instanceof ClientException || $e instanceof ServerException)
+            if (!$callback)
             {
-                $this->handler->addDataTable('PUBLIC DATA', $e->getPublicData());
+                $callback = function (ResponseInterface $response, \Throwable $e) { return $this->getDefaultCallback($response, $e); };
             }
 
-            $whoops->pushHandler($this->handler);
-
-            ob_start();
-            $method = Run::EXCEPTION_HANDLER;
-            $whoops->$method($e);
-            $errorResponse = ob_get_clean();
-
-            $response->getBody()->write($errorResponse);
-
-            return $response;
+            return $callback($response, $e);
         }
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @param \Throwable $e
+     *
+     * @return ResponseInterface
+     */
+    protected function getDefaultCallback(ResponseInterface $response, \Throwable $e): ResponseInterface
+    {
+        $whoops = new Run();
+        $whoops->allowQuit(false);
+
+        if ($e instanceof ClientException || $e instanceof ServerException)
+        {
+            $this->handler->addDataTable('PUBLIC DATA', $e->getPublicData());
+        }
+
+        $whoops->pushHandler($this->handler);
+
+        ob_start();
+        $method = Run::EXCEPTION_HANDLER;
+        $whoops->$method($e);
+        $errorResponse = ob_get_clean();
+
+        $response->getBody()->write($errorResponse);
+
+        return $response;
     }
 }
