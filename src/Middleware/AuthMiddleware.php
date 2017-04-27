@@ -87,7 +87,7 @@ class AuthMiddleware
      */
     private function isAllowedGroup(AuthRouteData $route, AuthUserInterface $user): bool
     {
-        return $user->isGodAccount() || $route->inGroup($user);
+        return $user->isGod() || $route->inGroup($user);
     }
 
     /**
