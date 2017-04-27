@@ -11,9 +11,4 @@ interface AuthUserInterface extends DataInterface
      * @return string
      */
     public function getGroup(): string;
-
-    /**
-     * @return bool
-     */
-    public function isGodAccount(): bool;
 }
