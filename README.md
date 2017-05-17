@@ -633,7 +633,6 @@ class CreateViewController extends ViewController
      * @param array $params
      *
      * @return ResponseViewData
-     * @throws \Exception
      * @throws \Simplon\Form\FormError
      */
     public function __invoke(array $params): ResponseViewData
