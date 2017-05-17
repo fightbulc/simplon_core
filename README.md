@@ -31,6 +31,11 @@ The simplon/core package is a strongly opinionated set of libraries which forms 
 5. [__Views__](#5-views)  
 5.1 [Templates](#51-templates)  
 5.2 [Building pages](#52-building-pages)  
+6. [__Form helper__](#6-form-helper)  
+6.1. [Define form fields](#61-define-form-fields)  
+6.2. [Create form view](#62-create-form-view)  
+6.3. [Implement in main view](#63-implement-in-main-view)  
+6.4. [Controller implementation](#64-controller-implementation)  
 
 -------------------------------------------------
 
@@ -379,3 +384,276 @@ protected function buildPage(ViewInterface $view, ComponentViewData $componentVi
 You can also see two data classes: `ComponentViewData` and `GlobalViewData`. These are helpers to transpart data to our
 component- and app-views since its possible that we have many sub-views within our components. It helps us to structure
 and describe our data.
+
+-------------------------------------------------
+
+# 6. Form helper
+
+The core offers a couple of form helper classes to ease and structure the use within an app.
+The following paragraphs will show a fulll example of how to use these helpers.
+
+## 6.1. Define form fields
+
+```php
+namespace App;
+
+use Simplon\Core\Utils\Form\BaseFormFields;
+use Simplon\Form\Data\FormField;
+use Simplon\Form\Data\Rules\RequiredRule;
+use Simplon\Form\Data\Rules\EmailRule;
+
+class CreateFormFields extends BaseFormFields
+{
+    const NAME = 'name';
+    const EMAIL = 'email';
+
+    /**
+     * @return FormField[]
+     */
+    protected function getFields(): array
+    {
+        return [
+            $this->getName(),
+            $this->getEmail(),
+        ];
+    }
+
+    /**
+     * @return FormField
+     */
+    private function getName(): FormField
+    {
+        return (new FormField(self::NAME))->addRule(new RequiredRule());
+    }
+
+    /**
+     * @return FormField
+     */
+    private function getEmail(): FormField
+    {
+        return (new FormField(self::EMAIL))->addRule(new EmailRule());
+    }
+}
+```
+
+## 6.2. Create form view
+
+```php
+namespace App;
+
+use App\CreateFormFields;
+use Simplon\Core\Utils\Form\BaseFormView;
+use Simplon\Form\FormError;
+use Simplon\Form\View\Elements\DropDownElement;
+use Simplon\Form\View\Elements\InputTextElement;
+use Simplon\Form\View\FormViewBlock;
+use Simplon\Form\View\FormViewRow;
+
+class CreateFormView extends BaseFormView
+{
+    const BLOCK_DEFAULT = 'default';
+
+    /**
+     * @return string
+     */
+    protected function getUrl(): string
+    {
+        return '/your/url';
+    }
+
+    /**
+     * @return FormViewBlock[]
+     * @throws FormError
+     */
+    protected function getBlocks(): array
+    {
+        return [
+            (new FormViewBlock(self::BLOCK_DEFAULT))
+                ->addRow(
+                    (new FormViewRow())
+                        ->autoColumns($this->getNameElement())
+                        ->autoColumns($this->getEmailElement())
+                ),
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    protected function getSubmitLabel(): string
+    {
+        return $this->getLocale()->get('form-create-submit-label');
+    }
+
+    /**
+     * @return InputTextElement
+     * @throws FormError
+     */
+    private function getNameElement(): InputTextElement
+    {
+        $element = new InputTextElement($this->getFields()->get(CreateFormFields::NAME));
+
+        $element
+            ->setLabel($this->getLocale()->get('form-create-name-label'))
+            ->setPlaceholder($this->getLocale()->get('form-create-name-placeholder'))
+        ;
+
+        return $element;
+    }
+
+    /**
+     * @return InputTextElement
+     * @throws FormError
+     */
+    private function getEmailElement(): InputTextElement
+    {
+        $element = new InputTextElement($this->getFields()->get(CreateFormFields::EMAIL));
+
+        $element
+            ->setLabel($this->getLocale()->get('form-create-email-label'))
+            ->setPlaceholder($this->getLocale()->get('form-create-email-placeholder'))
+        ;
+
+        return $element;
+    }
+}
+```
+
+## 6.3. Implement in main view
+
+```php
+namespace App;
+
+use Simplon\Core\Utils\Form\FormViewInterface;
+use Simplon\Core\Data\CoreViewData;
+use Simplon\Core\Views\View;
+
+class CreateView extends View
+{
+    /**
+     * @var FormViewInterface
+     */
+    private $formView;
+
+    /**
+     * @param CoreViewData $coreViewData
+     * @param FormViewInterface $formView
+     */
+    public function __construct(CoreViewData $coreViewData, FormViewInterface $formView)
+    {
+        parent::__construct($coreViewData);
+        $this->addFormAssets($formView->getView());
+        $this->formView = $formView;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getTemplate(): string
+    {
+        return __DIR__ . '/CreateTemplate.phtml';
+    }
+
+    /**
+     * @return array
+     */
+    protected function getData(): array
+    {
+        return [
+            'formView' => $this->formView->getView(),
+        ];
+    }
+}
+```
+
+### 6.3.1. Main template
+
+```php
+/**
+ * @var Locale $locale
+ * @var FlashMessage $flash
+ * @var Device $device
+ *
+ * @var FormView $formView
+ */
+
+use App\AppContext;
+use Simplon\Core\Views\FlashMessage;
+use Simplon\Core\Views\View;
+use Simplon\Device\Device;
+use Simplon\Form\View\FormView;
+use Simplon\Locale\Locale;
+
+?>
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <div class="section-content">
+            <?= $formView->render(__DIR__ . '/FormTemplate.phtml', ['locale' => $locale]) ?>
+        </div>
+    </div>
+</div>
+```
+
+### 6.3.2. Form template
+
+```php
+/**
+ * @var Locale $locale
+ * @var FormView $formView
+ */
+use App\CreateFormView;
+use Simplon\Form\View\FormView;
+use Simplon\Locale\Locale;
+
+?>
+
+<div class="ui basic segment">
+    <?= $formView->getBlock(CreateFormView::BLOCK_DEFAULT)->render() ?>
+</div>
+
+<?= $formView->getSubmitElement()->renderElement() ?>
+```
+
+## 6.4. Controller implementation
+
+```php
+namespace App;
+
+use App\CreateFormFields;
+use App\CreateFormView;
+use App\CreateView;
+use Simplon\Core\Controllers\ViewController;
+use Simplon\Core\Utils\Form\FormWrapper;
+use Simplon\Core\Data\ResponseViewData;
+use Simplon\Form\FormFields;
+
+class CreateViewController extends ViewController
+{
+    /**
+     * @param array $params
+     *
+     * @return ResponseViewData
+     * @throws \Exception
+     * @throws \Simplon\Form\FormError
+     */
+    public function __invoke(array $params): ResponseViewData
+    {
+        $requestData = $this->getRequest()->getParsedBody();
+        $formFields = (new CreateFormFields($this->getLocale()))->getFormFields();
+        $formWrapper = new FormWrapper($formFields, $requestData);
+
+        if ($formWrapper->getValidator()->validate()->isValid())
+        {
+            // do something with the form data
+            
+            return $this->redirect('/some/other/url');
+        }
+
+        $formView = new CreateFormView($this->getLocale(), $formFields);
+
+        return $this->respond(
+            new CreateView($this->getCoreViewData(), $formView)
+        );
+    }
+}
+```
