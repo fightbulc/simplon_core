@@ -366,17 +366,17 @@ This process will be handled in the controllers of our component:
 ```php
 protected function buildPage(ViewInterface $view, ComponentViewData $componentViewData, GlobalViewData $globalViewData): ViewInterface
 {
-	$appContext = $this->getContext()->getAppContext();
-
+    $appContext = $this->getContext()->getAppContext();
+    
     $componentView = new AccountsPageView($this->getCoreViewData(), $componentViewData);
     $componentView->implements($view, 'content');
-
+    
     $sessionView = new SessionPageView($this->getCoreViewData(), $appContext->getUserSessionManager()->read());
     $sessionView->implements($componentView, 'content');
-
+    
     $appView = $appContext->getAppPageView($this->getCoreViewData(), $globalViewData);
     $appView->implements($sessionView, 'content');
-
+    
     return $appView;
 }
 ```
