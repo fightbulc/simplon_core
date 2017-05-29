@@ -113,7 +113,6 @@ abstract class Data implements DataInterface
      * @param bool $snakeCase
      *
      * @return string
-     * @throws ServerException
      */
     public function toJson(bool $snakeCase = true): string
     {
@@ -126,7 +125,6 @@ abstract class Data implements DataInterface
      * @param string $json
      *
      * @return static
-     * @throws ServerException
      */
     public function fromJson(string $json)
     {
