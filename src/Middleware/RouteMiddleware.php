@@ -106,7 +106,11 @@ class RouteMiddleware
                     {
                         if (isset($collect[$routeData->getPath()]))
                         {
-                            throw (new ServerException())->internalError(['reasons' => "Path is already taken by {$collect[$routeData->getPath()]}"]);
+                            throw (new ServerException())->internalError([
+                                'message' => 'Dublicate path detection',
+                                'reason'  => 'Path has already been declared',
+                                'path'    => $routeData->getPath(),
+                            ]);
                         }
 
                         $collect[$routeData->getPath()] = [
