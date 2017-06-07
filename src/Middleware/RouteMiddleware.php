@@ -23,13 +23,19 @@ class RouteMiddleware
      * @var RegistryInterface[]
      */
     private $components;
+    /**
+     * @var string
+     */
+    private $allowedRouteChars;
 
     /**
-     * @param RegistryInterface[] $components
+     * @param array $components
+     * @param string $allowedRouteChars
      */
-    public function __construct(array $components)
+    public function __construct(array $components, string $allowedRouteChars = '\w+-=%/')
     {
         $this->components = $components;
+        $this->allowedRouteChars = $allowedRouteChars;
     }
 
     /**
@@ -175,7 +181,7 @@ class RouteMiddleware
     {
         foreach ($this->getPathPlaceholders($path) as $placeholder)
         {
-            $path = str_replace('{' . $placeholder . '}', '(?<' . $placeholder . '>[\w+-/]+)', $path);
+            $path = str_replace('{' . $placeholder . '}', '(?<' . $placeholder . '>[' . $this->allowedRouteChars . ']+)', $path);
         }
 
         return rtrim($path, '/');
