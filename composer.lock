@@ -58,16 +58,16 @@
         },
         {
             "name": "fightbulc/moment",
-            "version": "1.26.2",
+            "version": "1.26.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/moment.php.git",
-                "reference": "68f3ddad3feca6d7aae5a333724401355661afbb"
+                "reference": "cdd7e35a03d2fe13e8d050c9526eaeea241f9b0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/68f3ddad3feca6d7aae5a333724401355661afbb",
-                "reference": "68f3ddad3feca6d7aae5a333724401355661afbb",
+                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/cdd7e35a03d2fe13e8d050c9526eaeea241f9b0e",
+                "reference": "cdd7e35a03d2fe13e8d050c9526eaeea241f9b0e",
                 "shasum": ""
             },
             "require": {
@@ -117,20 +117,20 @@
                 "translation",
                 "validate"
             ],
-            "time": "2017-01-19T07:57:28+00:00"
+            "time": "2017-05-15T09:09:18+00:00"
         },
         {
             "name": "filp/whoops",
-            "version": "2.1.8",
+            "version": "2.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3"
+                "reference": "b238974e1c7cc1859b0c16ddc1c02ecb70ecc07f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3",
-                "reference": "f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/b238974e1c7cc1859b0c16ddc1c02ecb70ecc07f",
+                "reference": "b238974e1c7cc1859b0c16ddc1c02ecb70ecc07f",
                 "shasum": ""
             },
             "require": {
@@ -178,7 +178,7 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2017-03-07T09:04:45+00:00"
+            "time": "2017-06-03T18:33:07+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -487,16 +487,16 @@
         },
         {
             "name": "piwik/device-detector",
-            "version": "3.7.7",
+            "version": "3.7.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/piwik/device-detector.git",
-                "reference": "f0e5d6bc159241fdfc2e02f7abd4ab5d519d2c30"
+                "reference": "2ea3108d8cdffd58d855eff3cc493c0acc4cf102"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/piwik/device-detector/zipball/f0e5d6bc159241fdfc2e02f7abd4ab5d519d2c30",
-                "reference": "f0e5d6bc159241fdfc2e02f7abd4ab5d519d2c30",
+                "url": "https://api.github.com/repos/piwik/device-detector/zipball/2ea3108d8cdffd58d855eff3cc493c0acc4cf102",
+                "reference": "2ea3108d8cdffd58d855eff3cc493c0acc4cf102",
                 "shasum": ""
             },
             "require": {
@@ -534,7 +534,7 @@
                 "parser",
                 "useragent"
             ],
-            "time": "2017-04-02T17:25:50+00:00"
+            "time": "2017-06-05T20:44:38+00:00"
         },
         {
             "name": "psr/http-message",
@@ -680,16 +680,16 @@
         },
         {
             "name": "simplon/component_form",
-            "version": "0.0.12",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_component_form.git",
-                "reference": "5ff570e3358699dfcf382ce139b05a0df8ee6c30"
+                "reference": "2625ad48e113bd657c9e64629b5c7751c4423c3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_component_form/zipball/5ff570e3358699dfcf382ce139b05a0df8ee6c30",
-                "reference": "5ff570e3358699dfcf382ce139b05a0df8ee6c30",
+                "url": "https://api.github.com/repos/fightbulc/simplon_component_form/zipball/2625ad48e113bd657c9e64629b5c7751c4423c3d",
+                "reference": "2625ad48e113bd657c9e64629b5c7751c4423c3d",
                 "shasum": ""
             },
             "require": {
@@ -718,20 +718,20 @@
                 }
             ],
             "description": "Assets required for simplon/form",
-            "time": "2017-02-27T17:39:11+00:00"
+            "time": "2017-04-11T12:36:27+00:00"
         },
         {
             "name": "simplon/component_semanticui",
-            "version": "0.0.19",
+            "version": "0.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_component_semanticui.git",
-                "reference": "3e2ff0e73244c9eaa6957aa9694fce8afd721ad8"
+                "reference": "f035e8350f2c2fe68b3c523fda7375df768f49db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_component_semanticui/zipball/3e2ff0e73244c9eaa6957aa9694fce8afd721ad8",
-                "reference": "3e2ff0e73244c9eaa6957aa9694fce8afd721ad8",
+                "url": "https://api.github.com/repos/fightbulc/simplon_component_semanticui/zipball/f035e8350f2c2fe68b3c523fda7375df768f49db",
+                "reference": "f035e8350f2c2fe68b3c523fda7375df768f49db",
                 "shasum": ""
             },
             "require": {
@@ -741,7 +741,7 @@
             "extra": {
                 "component": {
                     "files": [
-                        "jquery/3.1.x/jquery.min.js",
+                        "jquery/3.2.x/jquery.min.js",
                         "semantic-ui/2.2.x/themes/basic/assets/fonts/icons.eot",
                         "semantic-ui/2.2.x/themes/basic/assets/fonts/icons.svg",
                         "semantic-ui/2.2.x/themes/basic/assets/fonts/icons.ttf",
@@ -919,7 +919,7 @@
             ],
             "description": "Semantic empowers designers and developers by creating a shared vocabulary for UI.",
             "homepage": "http://www.semantic-ui.com",
-            "time": "2017-03-21T20:07:24+00:00"
+            "time": "2017-04-19T12:21:58+00:00"
         },
         {
             "name": "simplon/components",
@@ -1017,22 +1017,22 @@
         },
         {
             "name": "simplon/form",
-            "version": "2.0.8",
+            "version": "2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_form.git",
-                "reference": "ef83800bf7d4839e5641a5273f72c2b44833107a"
+                "reference": "a246ad936d5657a26389e2b7e2d1592dae7d85e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/ef83800bf7d4839e5641a5273f72c2b44833107a",
-                "reference": "ef83800bf7d4839e5641a5273f72c2b44833107a",
+                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/a246ad936d5657a26389e2b7e2d1592dae7d85e2",
+                "reference": "a246ad936d5657a26389e2b7e2d1592dae7d85e2",
                 "shasum": ""
             },
             "require": {
-                "fightbulc/moment": "^1.25",
+                "fightbulc/moment": "^1.26",
                 "php": ">=7.1",
-                "simplon/component_form": "^0.0",
+                "simplon/component_form": "^0.1",
                 "simplon/component_semanticui": "^0.0",
                 "simplon/phtml": "^0.2"
             },
@@ -1066,7 +1066,7 @@
                 "templates",
                 "validation"
             ],
-            "time": "2017-04-08T07:55:33+00:00"
+            "time": "2017-04-19T13:20:59+00:00"
         },
         {
             "name": "simplon/locale",
@@ -1250,16 +1250,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.2.7",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "57fdaa55827ae14d617550ebe71a820f0a5e2282"
+                "reference": "8e30690c67aafb6c7992d6d8eb0d707807dd3eaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/57fdaa55827ae14d617550ebe71a820f0a5e2282",
-                "reference": "57fdaa55827ae14d617550ebe71a820f0a5e2282",
+                "url": "https://api.github.com/repos/symfony/process/zipball/8e30690c67aafb6c7992d6d8eb0d707807dd3eaf",
+                "reference": "8e30690c67aafb6c7992d6d8eb0d707807dd3eaf",
                 "shasum": ""
             },
             "require": {
@@ -1268,7 +1268,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -1295,7 +1295,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-27T18:07:02+00:00"
+            "time": "2017-05-22T12:32:03+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
