@@ -3,7 +3,6 @@
 namespace Simplon\Core\Data;
 
 use Simplon\Core\Interfaces\DataInterface;
-use Simplon\Core\Utils\Exceptions\ServerException;
 
 /**
  * Class Data

@@ -2,14 +2,14 @@
 
 namespace Simplon\Core;
 
-use Simplon\Core\Data\InstanceData;
+use Simplon\Helper\Data\InstanceData;
 use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Storage\CookieStorage;
 use Simplon\Core\Storage\SessionStorage;
 use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\EventsHandler;
-use Simplon\Core\Utils\Instances;
+use Simplon\Helper\Instances;
 use Simplon\Locale\Locale;
 use Simplon\Locale\Readers\PhpFileReader;
 

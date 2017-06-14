@@ -4,14 +4,14 @@ namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Simplon\Core\Data\InstanceData;
+use Simplon\Helper\Data\InstanceData;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
 use Simplon\Core\Utils\EventsHandler;
 use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
-use Simplon\Core\Utils\Instances;
+use Simplon\Helper\Instances;
 
 /**
  * Class RouteMiddleware

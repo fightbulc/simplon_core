@@ -46,7 +46,7 @@ abstract class Routes
     }
 
     /**
-     * @param array $params
+     * @param array $parts
      *
      * @return string
      */

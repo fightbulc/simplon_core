@@ -4,7 +4,7 @@ namespace Simplon\Core\Utils;
 
 use Simplon\Core\Data\AuthRouteData;
 use Simplon\Core\Interfaces\AuthUserInterface;
-use Simplon\Core\Interfaces\RegisterInterface;
+use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\SessionStorageInterface;
 
 /**
@@ -130,7 +130,7 @@ class AuthConfig
     }
 
     /**
-     * @param RegisterInterface[] $components
+     * @param RegistryInterface[] $components
      *
      * @return AuthConfig
      */

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a42fd16dbaf7878eb374df9eafee87f1",
+    "content-hash": "2d7c07c10239ac631a4c543cbad42e27",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -1069,6 +1069,49 @@
             "time": "2017-04-19T13:20:59+00:00"
         },
         {
+            "name": "simplon/helper",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_helper.git",
+                "reference": "03fb093ebe22467306bc963c5537a1ffca60311d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_helper/zipball/03fb093ebe22467306bc963c5537a1ffca60311d",
+                "reference": "03fb093ebe22467306bc963c5537a1ffca60311d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Helper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Helpers for recurring requirements",
+            "homepage": "https://github.com/fightbulc/simplon_helper",
+            "keywords": [
+                "casts",
+                "passwords",
+                "tokens"
+            ],
+            "time": "2017-06-14T11:14:57+00:00"
+        },
+        {
             "name": "simplon/locale",
             "version": "0.4.1",
             "source": {
@@ -1159,6 +1202,52 @@
             "time": "2015-02-07T21:44:54+00:00"
         },
         {
+            "name": "simplon/mysql",
+            "version": "2.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_mysql.git",
+                "reference": "6cf3f9d0c06be961b2fccc11096679e6bfbf84a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_mysql/zipball/6cf3f9d0c06be961b2fccc11096679e6bfbf84a7",
+                "reference": "6cf3f9d0c06be961b2fccc11096679e6bfbf84a7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Mysql\\": "src/",
+                    "Test\\": "test/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Simplon MySQL Library",
+            "homepage": "https://github.com/fightbulc/simplon_mysql",
+            "keywords": [
+                "db",
+                "manager",
+                "mysql",
+                "pdo"
+            ],
+            "time": "2017-06-11T07:18:19+00:00"
+        },
+        {
             "name": "simplon/phtml",
             "version": "0.2.0",
             "source": {
@@ -1200,6 +1289,51 @@
                 "template"
             ],
             "time": "2017-02-23T17:14:23+00:00"
+        },
+        {
+            "name": "simplon/redis",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_redis.git",
+                "reference": "2b0c665f3a31b19b5a54fe58c56d5b8d54312721"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_redis/zipball/2b0c665f3a31b19b5a54fe58c56d5b8d54312721",
+                "reference": "2b0c665f3a31b19b5a54fe58c56d5b8d54312721",
+                "shasum": ""
+            },
+            "require": {
+                "ext-redis": "*",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Redis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Simplon Redis - phpredis wrapper",
+            "homepage": "https://github.com/fightbulc/simplon_redis",
+            "keywords": [
+                "db",
+                "phpredis",
+                "redis",
+                "wrapper"
+            ],
+            "time": "2017-03-07T20:22:10+00:00"
         },
         {
             "name": "simplon/template",

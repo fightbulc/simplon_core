@@ -3,9 +3,7 @@
 namespace Simplon\Core\Interfaces;
 
 use Simplon\Core\Data\AuthRouteData;
-use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\RoutesCollection;
-use Simplon\Locale\Locale;
 
 /**
  * @package Simplon\Core\Interfaces
