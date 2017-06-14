@@ -9,7 +9,6 @@ use Simplon\Core\Interfaces\AuthUserInterface;
 use Simplon\Core\Utils\AuthConfig;
 
 /**
- * Class AuthMiddleware
  * @package Simplon\Core\Middleware
  */
 class AuthMiddleware

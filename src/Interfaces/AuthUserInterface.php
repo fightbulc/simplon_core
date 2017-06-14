@@ -2,6 +2,8 @@
 
 namespace Simplon\Core\Interfaces;
 
+use Simplon\Helper\Interfaces\DataInterface;
+
 /**
  * @package Simplon\Core\Interfaces
  */

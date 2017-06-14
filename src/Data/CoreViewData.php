@@ -4,6 +4,7 @@ namespace Simplon\Core\Data;
 
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
+use Simplon\Helper\Data\Data;
 use Simplon\Locale\Locale;
 
 /**
