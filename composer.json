@@ -33,7 +33,6 @@
     "simplon/form": "^2.0",
     "simplon/template": "^0.8",
     "simplon/device": "^0.0",
-    "simplon/redis": "^0.1",
     "simplon/mysql": "^2.1",
     "simplon/helper": "^1.0",
     "relay/relay": "^1.1",
