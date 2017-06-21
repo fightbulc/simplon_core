@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c61e906329b8c9f53261def3440d55c",
+    "content-hash": "85667ec50c45d1ad80cb397455518dcb",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -1294,6 +1294,54 @@
                 "templates"
             ],
             "time": "2017-03-03T21:19:47+00:00"
+        },
+        {
+            "name": "simplon/url",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_url.git",
+                "reference": "b99c41dff52d7ae4ec00e92dce7d3e06541cd6e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_url/zipball/b99c41dff52d7ae4ec00e92dce7d3e06541cd6e0",
+                "reference": "b99c41dff52d7ae4ec00e92dce7d3e06541cd6e0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Url\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Simple URL",
+            "homepage": "https://github.com/fightbulc/simplon_url",
+            "keywords": [
+                "build",
+                "create",
+                "manipulation",
+                "parse",
+                "url"
+            ],
+            "time": "2017-06-21T07:35:09+00:00"
         },
         {
             "name": "symfony/process",

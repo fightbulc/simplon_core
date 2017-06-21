@@ -3,6 +3,7 @@
 namespace Simplon\Core\Utils;
 
 use Simplon\Core\Middleware\LocaleMiddleware;
+use Simplon\Url\Url;
 
 /**
  * Class Routes
@@ -13,20 +14,38 @@ abstract class Routes
     /**
      * @param string $route
      * @param array $params
-     * @param bool $withPrefix
      *
-     * @return string
+     * @return Url
      */
-    public static function render(string $route, array $params = [], bool $withPrefix = true): string
+    public static function render(string $route, array $params = []): Url
     {
-        $parts = [$route];
+        $url = new Url();
 
-        if ($withPrefix)
+        if ($prefix = static::routePrefix())
         {
-            array_unshift($parts, static::routePrefix());
+            $url->withPath($prefix);
         }
 
-        return static::routeUrl() . static::replacePlaceholders(static::trimUrl($parts), $params);
+        $url->withTrailPath($route, $params);
+
+        if ($host = self::routeHost())
+        {
+            $url->withHost($host);
+        }
+
+        return $url;
+    }
+
+    /**
+     * @param string $route
+     * @param array $params
+     * @param Url $url
+     *
+     * @return Url
+     */
+    public static function renderCustom(string $route, array $params = [], Url $url): Url
+    {
+        return $url->withTrailPath($route, $params);
     }
 
     /**
@@ -40,34 +59,8 @@ abstract class Routes
     /**
      * @return null|string
      */
-    protected static function routeUrl(): ?string
+    protected static function routeHost(): ?string
     {
-        return '/';
-    }
-
-    /**
-     * @param array $parts
-     *
-     * @return string
-     */
-    protected static function trimUrl(array $parts): string
-    {
-        return preg_replace('/\/\//', '/', implode('/', $parts));
-    }
-
-    /**
-     * @param string $url
-     * @param array $params
-     *
-     * @return string
-     */
-    protected static function replacePlaceholders(string $url, array $params = []): string
-    {
-        foreach ($params as $key => $val)
-        {
-            $url = str_replace('{' . $key . '}', $val, $url);
-        }
-
-        return $url;
+        return null;
     }
 }

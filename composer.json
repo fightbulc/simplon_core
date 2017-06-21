@@ -31,6 +31,7 @@
     "simplon/component_semanticui": "0.0.*",
     "simplon/locale": "^0.4",
     "simplon/form": "^2.1",
+    "simplon/url": "^0.4",
     "simplon/template": "^0.8",
     "simplon/device": "^0.0",
     "simplon/helper": "^1.0",
