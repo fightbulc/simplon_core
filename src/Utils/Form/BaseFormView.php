@@ -61,7 +61,7 @@ abstract class BaseFormView implements FormViewInterface
             $this->view = $this
                 ->applyOnView((new FormView())->setSubmitElement($this->getSubmitElement()))
                 ->setUrl($this->getUrl())
-                ->setBlocks($this->getBlocks())
+                ->addBlocks($this->getBlocks())
             ;
         }
 
