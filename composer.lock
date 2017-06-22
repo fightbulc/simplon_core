@@ -680,16 +680,16 @@
         },
         {
             "name": "simplon/component_form",
-            "version": "0.1.6",
+            "version": "0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_component_form.git",
-                "reference": "ae126ec64ec51ea933342740a9de27c4af525e10"
+                "reference": "72ca75ce10ccf1dcb186109fb8c745cd1e16f649"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_component_form/zipball/ae126ec64ec51ea933342740a9de27c4af525e10",
-                "reference": "ae126ec64ec51ea933342740a9de27c4af525e10",
+                "url": "https://api.github.com/repos/fightbulc/simplon_component_form/zipball/72ca75ce10ccf1dcb186109fb8c745cd1e16f649",
+                "reference": "72ca75ce10ccf1dcb186109fb8c745cd1e16f649",
                 "shasum": ""
             },
             "require": {
@@ -721,7 +721,7 @@
                 }
             ],
             "description": "Assets required for simplon/form",
-            "time": "2017-06-20T09:14:33+00:00"
+            "time": "2017-06-22T07:20:49+00:00"
         },
         {
             "name": "simplon/component_semanticui",
@@ -1020,16 +1020,16 @@
         },
         {
             "name": "simplon/form",
-            "version": "2.1.1",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_form.git",
-                "reference": "204b025b8e1a3d1b48f5e0df330cd2e61011026a"
+                "reference": "390a32f907829a0d649c43b0b829c76d7db25cfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/204b025b8e1a3d1b48f5e0df330cd2e61011026a",
-                "reference": "204b025b8e1a3d1b48f5e0df330cd2e61011026a",
+                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/390a32f907829a0d649c43b0b829c76d7db25cfa",
+                "reference": "390a32f907829a0d649c43b0b829c76d7db25cfa",
                 "shasum": ""
             },
             "require": {
@@ -1070,20 +1070,20 @@
                 "templates",
                 "validation"
             ],
-            "time": "2017-06-20T12:16:07+00:00"
+            "time": "2017-06-22T08:18:17+00:00"
         },
         {
             "name": "simplon/helper",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_helper.git",
-                "reference": "0c0c03e3c59e7e00f995a6857559c1ebf2bfb2d8"
+                "reference": "c541bd499e42a60c2c8aebfc1ecbd82d461b7360"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_helper/zipball/0c0c03e3c59e7e00f995a6857559c1ebf2bfb2d8",
-                "reference": "0c0c03e3c59e7e00f995a6857559c1ebf2bfb2d8",
+                "url": "https://api.github.com/repos/fightbulc/simplon_helper/zipball/c541bd499e42a60c2c8aebfc1ecbd82d461b7360",
+                "reference": "c541bd499e42a60c2c8aebfc1ecbd82d461b7360",
                 "shasum": ""
             },
             "require": {
@@ -1113,7 +1113,7 @@
                 "passwords",
                 "tokens"
             ],
-            "time": "2017-06-16T09:15:39+00:00"
+            "time": "2017-06-22T06:48:05+00:00"
         },
         {
             "name": "simplon/locale",
@@ -1297,16 +1297,16 @@
         },
         {
             "name": "simplon/url",
-            "version": "0.4.0",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_url.git",
-                "reference": "b99c41dff52d7ae4ec00e92dce7d3e06541cd6e0"
+                "reference": "11beb09115a30a9c2d647e7e907eaea511267cbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_url/zipball/b99c41dff52d7ae4ec00e92dce7d3e06541cd6e0",
-                "reference": "b99c41dff52d7ae4ec00e92dce7d3e06541cd6e0",
+                "url": "https://api.github.com/repos/fightbulc/simplon_url/zipball/11beb09115a30a9c2d647e7e907eaea511267cbe",
+                "reference": "11beb09115a30a9c2d647e7e907eaea511267cbe",
                 "shasum": ""
             },
             "require": {
@@ -1341,7 +1341,7 @@
                 "parse",
                 "url"
             ],
-            "time": "2017-06-21T07:35:09+00:00"
+            "time": "2017-06-21T11:33:40+00:00"
         },
         {
             "name": "symfony/process",
