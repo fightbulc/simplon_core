@@ -146,8 +146,7 @@ class ExceptionMiddleware
      */
     protected function getDefaultProductionCallback(): callable
     {
-        return function (ResponseInterface $response, \Throwable $e)
-        {
+        return function (ResponseInterface $response, \Throwable $e) {
             $this->triggerErrorLog($e);
 
             return $response;
@@ -158,6 +157,18 @@ class ExceptionMiddleware
      * @param \Throwable $e
      */
     protected function triggerErrorLog(\Throwable $e): void
+    {
+        error_log(json_encode(
+            $this->buildErrorLogData($e)
+        ));
+    }
+
+    /**
+     * @param \Throwable $e
+     *
+     * @return array
+     */
+    protected function buildErrorLogData(\Throwable $e): array
     {
         if ($e instanceof ClientException || $e instanceof ServerException)
         {
@@ -170,6 +181,6 @@ class ExceptionMiddleware
         $data['message'] = $e->getMessage();
         $data['trace'] = $e->getTrace();
 
-        error_log(json_encode($data));
+        return $data;
     }
 }
