@@ -11,24 +11,24 @@ trait TokenAwareDataTrait
     /**
      * @var string
      */
-    protected $pubToken;
+    protected $token;
 
     /**
      * @return string
      */
-    public function getPubToken(): string
+    public function getToken(): string
     {
-        return $this->pubToken;
+        return $this->token;
     }
 
     /**
-     * @param string $pubToken
+     * @param string $token
      *
      * @return static
      */
-    public function setPubToken(string $pubToken)
+    public function setToken(string $token)
     {
-        $this->pubToken = $pubToken;
+        $this->token = $token;
 
         return $this;
     }
