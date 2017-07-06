@@ -53,7 +53,7 @@ abstract class Routes
      */
     protected static function routePrefix(): ?string
     {
-        return LocaleMiddleware::getLocaleCode();
+        return null;
     }
 
     /**
