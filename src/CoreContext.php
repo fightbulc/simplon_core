@@ -2,16 +2,14 @@
 
 namespace Simplon\Core;
 
-use Simplon\Helper\Data\InstanceData;
 use Simplon\Core\Interfaces\CoreContextInterface;
-use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Storage\CookieStorage;
 use Simplon\Core\Storage\SessionStorage;
 use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\EventsHandler;
+use Simplon\Core\Utils\LocaleContextTrait;
+use Simplon\Helper\Data\InstanceData;
 use Simplon\Helper\Instances;
-use Simplon\Locale\Locale;
-use Simplon\Locale\Readers\PhpFileReader;
 
 /**
  * Class CoreContext
@@ -19,6 +17,8 @@ use Simplon\Locale\Readers\PhpFileReader;
  */
 abstract class CoreContext implements CoreContextInterface
 {
+    use LocaleContextTrait;
+
     const APP_PATH = __DIR__ . '/../../../../src';
     const APP_ENV_DEV = 'dev';
     const APP_ENV_REVIEW = 'review';
@@ -47,16 +47,6 @@ abstract class CoreContext implements CoreContextInterface
     }
 
     /**
-     * @param array $paths
-     *
-     * @return PhpFileReader
-     */
-    public function getLocaleFileReader(array $paths): PhpFileReader
-    {
-        return new PhpFileReader($paths);
-    }
-
-    /**
      * @param null|string $workingDir
      *
      * @return Config
@@ -81,34 +71,6 @@ abstract class CoreContext implements CoreContextInterface
         }
 
         return $this->config;
-    }
-
-    /**
-     * @param null|string $workingDir
-     *
-     * @return Locale
-     */
-    public function getLocale(?string $workingDir = null): Locale
-    {
-        $paths = $this->getAppLocalePaths();
-
-        if ($workingDir)
-        {
-            $paths = array_merge($paths, $this->getComponentLocalePaths($workingDir));
-        }
-
-        $instanceData = InstanceData::create(Locale::class);
-
-        $instanceData
-            ->addParam($this->getLocaleFileReader($paths))
-            ->addParam([LocaleMiddleware::getLocaleCode()])
-            ->setAfterCallback(function (Locale $locale)
-            {
-                return $locale->setLocale(LocaleMiddleware::getLocaleCode());
-            })
-        ;
-
-        return Instances::cache($instanceData);
     }
 
     /**
@@ -142,36 +104,6 @@ abstract class CoreContext implements CoreContextInterface
     }
 
     /**
-     * @return array
-     */
-    protected function getAppLocalePaths(): array
-    {
-        return [
-            self::APP_PATH . '/Locales',
-        ];
-    }
-
-    /**
-     * @param string $workingDir
-     *
-     * @return array
-     */
-    protected function getComponentLocalePaths(string $workingDir): array
-    {
-        return [
-            rtrim($workingDir, '/') . '/Locales',
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    protected function getCookieStorageNameSpace(): string
-    {
-        return 'CORE';
-    }
-
-    /**
      * @param Config $config
      * @param string $path
      *
@@ -202,5 +134,13 @@ abstract class CoreContext implements CoreContextInterface
         }
 
         return $config;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCookieStorageNameSpace(): string
+    {
+        return 'CORE';
     }
 }
