@@ -3,7 +3,6 @@
 namespace Simplon\Core\Interfaces;
 
 use Simplon\Core\Utils\Config;
-use Simplon\Locale\Locale;
 
 /**
  * Interface ComponentContextInterface
@@ -17,9 +16,4 @@ interface ComponentContextInterface
      * @return null|Config
      */
     public function getConfig(): ?Config;
-
-    /**
-     * @return null|Locale
-     */
-    public function getLocale(): ?Locale;
 }
