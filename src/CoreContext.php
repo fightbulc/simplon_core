@@ -7,7 +7,6 @@ use Simplon\Core\Storage\CookieStorage;
 use Simplon\Core\Storage\SessionStorage;
 use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\EventsHandler;
-use Simplon\Core\Utils\LocaleContextTrait;
 use Simplon\Helper\Data\InstanceData;
 use Simplon\Helper\Instances;
 
@@ -17,8 +16,6 @@ use Simplon\Helper\Instances;
  */
 abstract class CoreContext implements CoreContextInterface
 {
-    use LocaleContextTrait;
-
     const APP_PATH = __DIR__ . '/../../../../src';
     const APP_ENV_DEV = 'dev';
     const APP_ENV_REVIEW = 'review';
