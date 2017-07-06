@@ -14,9 +14,9 @@ trait TokenAwareDataTrait
     protected $token;
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getToken(): string
+    public function getToken(): ?string
     {
         return $this->token;
     }
