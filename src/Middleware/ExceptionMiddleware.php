@@ -177,8 +177,15 @@ class ExceptionMiddleware
     protected function buildErrorLogData(\Throwable $e): array
     {
         $currentUrl = new Url(Url::getCurrentUrl());
+        $env = 'unknown';
+
+        if (getenv('APP_ENV'))
+        {
+            $env = getenv('APP_ENV');
+        }
 
         $data = [
+            'env'       => $env,
             'message'   => $e->getMessage(),
             'trace'     => $e->getTrace(),
             'url'       => [
@@ -207,7 +214,6 @@ class ExceptionMiddleware
             $data['http_status'] = $e->getHttpStatusCode();
             $data['public'] = $e->getPublicData();
         }
-
 
         return $data;
     }
