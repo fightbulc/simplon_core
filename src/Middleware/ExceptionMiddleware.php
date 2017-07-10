@@ -2,10 +2,12 @@
 
 namespace Simplon\Core\Middleware;
 
+use Moment\Moment;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
+use Simplon\Url\Url;
 use Whoops\Handler\HandlerInterface;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
@@ -109,6 +111,7 @@ class ExceptionMiddleware
      * @param \Throwable $e
      *
      * @return ResponseInterface
+     * @throws \Moment\MomentException
      */
     protected function getDefaultCallback(ResponseInterface $response, \Throwable $e): ResponseInterface
     {
@@ -155,6 +158,8 @@ class ExceptionMiddleware
 
     /**
      * @param \Throwable $e
+     *
+     * @throws \Moment\MomentException
      */
     protected function triggerErrorLog(\Throwable $e): void
     {
@@ -167,19 +172,42 @@ class ExceptionMiddleware
      * @param \Throwable $e
      *
      * @return array
+     * @throws \Moment\MomentException
      */
     protected function buildErrorLogData(\Throwable $e): array
     {
-        if ($e instanceof ClientException || $e instanceof ServerException)
+        $currentUrl = new Url(Url::getCurrentUrl());
+
+        $data = [
+            'message'   => $e->getMessage(),
+            'trace'     => $e->getTrace(),
+            'url'       => [
+                'raw'   => $currentUrl->__toString(),
+                'host'  => $currentUrl->getHost(),
+                'path'  => $currentUrl->getPath(),
+                'query' => $currentUrl->getAllQueryParams(),
+            ],
+            'timestamp' => (new Moment())->format(),
+        ];
+
+        if (!empty($_SERVER['HTTP_REFERER']))
         {
-            $data = [
-                'http_status' => $e->getHttpStatusCode(),
-                'public'      => $e->getPublicData(),
+            $refererUrl = new Url($_SERVER['HTTP_REFERER']);
+
+            $data['referer'] = [
+                'raw'   => $refererUrl->__toString(),
+                'host'  => $refererUrl->getHost(),
+                'path'  => $refererUrl->getPath(),
+                'query' => $refererUrl->getAllQueryParams(),
             ];
         }
 
-        $data['message'] = $e->getMessage();
-        $data['trace'] = $e->getTrace();
+        if ($e instanceof ClientException || $e instanceof ServerException)
+        {
+            $data['http_status'] = $e->getHttpStatusCode();
+            $data['public'] = $e->getPublicData();
+        }
+
 
         return $data;
     }
