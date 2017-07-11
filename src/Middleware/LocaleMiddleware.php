@@ -11,10 +11,12 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class LocaleMiddleware extends BaseMiddleware
 {
+    const DEFAULT_LOCALE_CODE = 'en';
+
     /**
      * @var string
      */
-    private static $localeCode;
+    private static $localeCode = self::DEFAULT_LOCALE_CODE;
 
     /**
      * @var array
@@ -30,10 +32,20 @@ class LocaleMiddleware extends BaseMiddleware
     }
 
     /**
+     * @param string $code
+     *
+     * @return string
+     */
+    public static function setLocaleCode(string $code): string
+    {
+        return self::$localeCode = $code;
+    }
+
+    /**
      * @param array $locales
      * @param string $fallback
      */
-    public function __construct(array $locales = ['en'], string $fallback = 'en')
+    public function __construct(array $locales = [self::DEFAULT_LOCALE_CODE], string $fallback = self::DEFAULT_LOCALE_CODE)
     {
         $this->locales = $locales;
 
@@ -66,7 +78,7 @@ class LocaleMiddleware extends BaseMiddleware
         {
             if (in_array($match[1], $this->locales))
             {
-                self::$localeCode = $match[1];
+                self::setLocaleCode($match[1]);
                 $request = $this->removeFromUri($request, '/' . self::getLocaleCode());
             }
         }
