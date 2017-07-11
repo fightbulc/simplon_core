@@ -9,6 +9,7 @@ use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
 use Simplon\Url\Url;
 use Whoops\Handler\HandlerInterface;
+use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
@@ -107,6 +108,35 @@ class ExceptionMiddleware
     }
 
     /**
+     * @param \Throwable $e
+     *
+     * @return string
+     */
+    protected function fetchErrorResponse(\Throwable $e): string
+    {
+        $whoops = new Run();
+        $whoops->allowQuit(false);
+
+        if ($e instanceof ClientException || $e instanceof ServerException)
+        {
+            if ($this->getHandler() instanceof PrettyPageHandler)
+            {
+                /** @var PrettyPageHandler $handler */
+                $handler = $this->getHandler();
+                $handler->addDataTable('PUBLIC DATA', $e->getPublicData());
+            }
+        }
+
+        $whoops->pushHandler($this->handler);
+
+        ob_start();
+        $method = Run::EXCEPTION_HANDLER;
+        $whoops->$method($e);
+
+        return ob_get_clean();
+    }
+
+    /**
      * @param ResponseInterface $response
      * @param \Throwable $e
      *
@@ -122,23 +152,32 @@ class ExceptionMiddleware
         $this->triggerErrorLog($e);
 
         //
-        // handle whoops
+        // fetch error response
         //
 
-        $whoops = new Run();
-        $whoops->allowQuit(false);
+        $errorResponse = $this->fetchErrorResponse($e);
 
-        if ($e instanceof ClientException || $e instanceof ServerException)
+        //
+        // handle error response
+        //
+
+        if ($this->getHandler() instanceof JsonResponseHandler)
         {
-            $this->handler->addDataTable('PUBLIC DATA', $e->getPublicData());
+            $response = $response->withAddedHeader('Content-type', 'application/json; charset=utf-8');
+
+            if ($e instanceof ClientException || $e instanceof ServerException)
+            {
+                $response = $response->withAddedHeader('Status', $e->getHttpStatusCode());
+
+                $errorResponse = json_encode([
+                    'error' => [
+                        'message' => $e->getMessage(),
+                        'data'    => $e->getPublicData(),
+                    ],
+                ]);
+            }
         }
 
-        $whoops->pushHandler($this->handler);
-
-        ob_start();
-        $method = Run::EXCEPTION_HANDLER;
-        $whoops->$method($e);
-        $errorResponse = ob_get_clean();
         $response->getBody()->write($errorResponse);
 
         return $response;
@@ -216,5 +255,13 @@ class ExceptionMiddleware
         }
 
         return $data;
+    }
+
+    /**
+     * @return HandlerInterface
+     */
+    private function getHandler(): HandlerInterface
+    {
+        return $this->handler;
     }
 }
