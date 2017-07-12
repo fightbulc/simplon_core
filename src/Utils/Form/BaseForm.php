@@ -26,7 +26,7 @@ abstract class BaseForm
         {
             $this->formFields = new FormFields();
 
-            foreach ($this->getFields() as $field)
+            foreach ($this->buildFields() as $field)
             {
                 $this->formFields->add($field);
             }

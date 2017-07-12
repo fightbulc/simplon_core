@@ -2,6 +2,7 @@
 
 namespace Simplon\Core\Utils\Form;
 
+use Simplon\Form\FormError;
 use Simplon\Form\FormFields;
 use Simplon\Form\FormValidator;
 
@@ -11,30 +12,33 @@ use Simplon\Form\FormValidator;
 class FormWrapper
 {
     /**
-     * @var FormFields
+     * @var BaseForm
      */
-    private $fields;
+    private $form;
     /**
      * @var FormValidator
      */
     protected $validator;
 
     /**
-     * @param FormFields $fields
+     * @param BaseForm $form
      * @param array $requestData
+     *
+     * @throws FormError
      */
-    public function __construct(FormFields $fields, array $requestData = [])
+    public function __construct(BaseForm $form, array $requestData = [])
     {
-        $this->fields = $fields;
-        $this->validator = (new FormValidator($requestData))->addFields($fields);
+        $this->form = $form;
+        $this->validator = (new FormValidator($requestData))->addFields($this->getFields());
     }
 
     /**
      * @return FormFields
+     * @throws FormError
      */
     public function getFields(): FormFields
     {
-        return $this->fields;
+        return $this->form->getFields();
     }
 
     /**
