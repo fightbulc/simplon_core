@@ -18,62 +18,25 @@ use Whoops\Run;
  */
 class ExceptionMiddleware
 {
+    const DEFAULT_HTTP_STATUS = 500;
+
     /**
-     * @var HandlerInterface|null
+     * @var HandlerInterface
      */
     protected $handler;
-    /**
-     * @var callable|null
-     */
-    protected $callback;
     /**
      * @var bool
      */
     protected $isProduction = false;
 
     /**
-     * @param null|HandlerInterface $handler
-     */
-    public function __construct(?HandlerInterface $handler = null)
-    {
-        if ($handler === null)
-        {
-            $handler = new PrettyPageHandler();
-        }
-
-        $this->handler = $handler;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isProduction(): bool
-    {
-        return $this->isProduction === true;
-    }
-
-    /**
+     * @param HandlerInterface $handler
      * @param bool $isProduction
-     *
-     * @return ExceptionMiddleware
      */
-    public function setIsProduction(bool $isProduction): ExceptionMiddleware
+    public function __construct(HandlerInterface $handler, bool $isProduction = false)
     {
         $this->isProduction = $isProduction;
-
-        return $this;
-    }
-
-    /**
-     * @param callable $callback
-     *
-     * @return ExceptionMiddleware
-     */
-    public function setCallback(callable $callback)
-    {
-        $this->callback = $callback;
-
-        return $this;
+        $this->handler = $handler;
     }
 
     /**
@@ -91,20 +54,85 @@ class ExceptionMiddleware
         }
         catch (\Throwable $e)
         {
-            $callback = $this->callback;
+            //
+            // handle exception
+            //
 
-            if (!$callback)
+            $callback = $this->getDefaultCallback();
+
+            if ($this->isProduction === true)
             {
-                $callback = function (ResponseInterface $response, \Throwable $e) { return $this->getDefaultCallback($response, $e); };
+                $callback = $this->getDefaultProductionCallback();
+            }
 
-                if ($this->isProduction())
+            //
+            // determine http status
+            //
+
+            $httpStatus = self::DEFAULT_HTTP_STATUS;
+
+            if ($e instanceof ClientException || $e instanceof ServerException)
+            {
+                $httpStatus = $e->getHttpStatusCode();
+            }
+
+            return $callback($response->withStatus($httpStatus), $e);
+        }
+    }
+
+    /**
+     * @return callable
+     */
+    protected function getDefaultCallback(): callable
+    {
+        return function (ResponseInterface $response, \Throwable $e) {
+            //
+            // trigger error_log
+            //
+
+            $this->triggerErrorLog($response, $e);
+
+            //
+            // fetch error response
+            //
+
+            $errorResponse = $this->fetchErrorResponse($e);
+
+            //
+            // handle error response
+            //
+
+            if ($this->getHandler() instanceof JsonResponseHandler)
+            {
+                $response = $response->withAddedHeader('Content-type', 'application/json; charset=utf-8');
+
+                if ($e instanceof ClientException || $e instanceof ServerException)
                 {
-                    $callback = $this->getDefaultProductionCallback();
+                    $errorResponse = json_encode([
+                        'error' => [
+                            'message' => $e->getMessage(),
+                            'data'    => $e->getPublicData(),
+                        ],
+                    ]);
                 }
             }
 
-            return $callback($response, $e);
-        }
+            $response->getBody()->write($errorResponse);
+
+            return $response;
+        };
+    }
+
+    /**
+     * @return callable
+     */
+    protected function getDefaultProductionCallback(): callable
+    {
+        return function (ResponseInterface $response, \Throwable $e) {
+            $this->triggerErrorLog($response, $e);
+
+            return $response;
+        };
     }
 
     /**
@@ -140,80 +168,23 @@ class ExceptionMiddleware
      * @param ResponseInterface $response
      * @param \Throwable $e
      *
-     * @return ResponseInterface
      * @throws \Moment\MomentException
      */
-    protected function getDefaultCallback(ResponseInterface $response, \Throwable $e): ResponseInterface
-    {
-        //
-        // trigger error_log
-        //
-
-        $this->triggerErrorLog($e);
-
-        //
-        // fetch error response
-        //
-
-        $errorResponse = $this->fetchErrorResponse($e);
-
-        //
-        // handle error response
-        //
-
-        if ($this->getHandler() instanceof JsonResponseHandler)
-        {
-            $response = $response->withAddedHeader('Content-type', 'application/json; charset=utf-8');
-
-            if ($e instanceof ClientException || $e instanceof ServerException)
-            {
-                $response = $response->withAddedHeader('Status', $e->getHttpStatusCode());
-
-                $errorResponse = json_encode([
-                    'error' => [
-                        'message' => $e->getMessage(),
-                        'data'    => $e->getPublicData(),
-                    ],
-                ]);
-            }
-        }
-
-        $response->getBody()->write($errorResponse);
-
-        return $response;
-    }
-
-    /**
-     * @return callable
-     */
-    protected function getDefaultProductionCallback(): callable
-    {
-        return function (ResponseInterface $response, \Throwable $e) {
-            $this->triggerErrorLog($e);
-
-            return $response;
-        };
-    }
-
-    /**
-     * @param \Throwable $e
-     *
-     * @throws \Moment\MomentException
-     */
-    protected function triggerErrorLog(\Throwable $e): void
+    protected function triggerErrorLog(ResponseInterface $response, \Throwable $e): void
     {
         error_log(json_encode(
-            $this->buildErrorLogData($e)
+            $this->buildErrorLogData($response, $e)
         ));
     }
 
     /**
+     * @param ResponseInterface $response
      * @param \Throwable $e
      *
      * @return array
      * @throws \Moment\MomentException
      */
-    protected function buildErrorLogData(\Throwable $e): array
+    protected function buildErrorLogData(ResponseInterface $response, \Throwable $e): array
     {
         $currentUrl = new Url(Url::getCurrentUrl());
         $env = 'unknown';
@@ -224,16 +195,17 @@ class ExceptionMiddleware
         }
 
         $data = [
-            'env'       => $env,
-            'message'   => $e->getMessage(),
-            'trace'     => $e->getTrace(),
-            'url'       => [
+            'http_status' => $response->getStatusCode(),
+            'env'         => $env,
+            'message'     => $e->getMessage(),
+            'trace'       => $e->getTrace(),
+            'url'         => [
                 'raw'   => $currentUrl->__toString(),
                 'host'  => $currentUrl->getHost(),
                 'path'  => $currentUrl->getPath(),
                 'query' => $currentUrl->getAllQueryParams(),
             ],
-            'timestamp' => (new Moment())->format(),
+            'timestamp'   => (new Moment())->format(),
         ];
 
         if (!empty($_SERVER['HTTP_REFERER']))
@@ -250,7 +222,6 @@ class ExceptionMiddleware
 
         if ($e instanceof ClientException || $e instanceof ServerException)
         {
-            $data['http_status'] = $e->getHttpStatusCode();
             $data['public'] = $e->getPublicData();
         }
 

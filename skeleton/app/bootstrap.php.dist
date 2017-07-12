@@ -33,7 +33,7 @@ $components = [];
 //
 
 $middleware = [
-    (new ExceptionMiddleware(new JsonResponseHandler()))->setIsProduction(getenv('APP_ENV') !== CoreContext::APP_ENV_DEV),
+    new ExceptionMiddleware(new JsonResponseHandler(), false),
     new RouteMiddleware($components),
 ];
 
