@@ -865,16 +865,16 @@
         },
         {
             "name": "simplon/component_semanticui",
-            "version": "0.0.20",
+            "version": "0.0.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_component_semanticui.git",
-                "reference": "f035e8350f2c2fe68b3c523fda7375df768f49db"
+                "reference": "3129d0344e0815bd67da86532aa9ec5fea6da7db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_component_semanticui/zipball/f035e8350f2c2fe68b3c523fda7375df768f49db",
-                "reference": "f035e8350f2c2fe68b3c523fda7375df768f49db",
+                "url": "https://api.github.com/repos/fightbulc/simplon_component_semanticui/zipball/3129d0344e0815bd67da86532aa9ec5fea6da7db",
+                "reference": "3129d0344e0815bd67da86532aa9ec5fea6da7db",
                 "shasum": ""
             },
             "require": {
@@ -896,10 +896,15 @@
                         "semantic-ui/2.2.x/themes/default/assets/fonts/icons.woff",
                         "semantic-ui/2.2.x/themes/default/assets/fonts/icons.woff2",
                         "semantic-ui/2.2.x/themes/default/assets/images/flags.png",
-                        "semantic-ui/2.2.x/themes/github/assets/fonts/icons.eot",
-                        "semantic-ui/2.2.x/themes/github/assets/fonts/icons.svg",
-                        "semantic-ui/2.2.x/themes/github/assets/fonts/icons.ttf",
-                        "semantic-ui/2.2.x/themes/github/assets/fonts/icons.woff",
+                        "semantic-ui/2.2.x/themes/github/assets/fonts/octicons-local.ttf",
+                        "semantic-ui/2.2.x/themes/github/assets/fonts/octicons.svg",
+                        "semantic-ui/2.2.x/themes/github/assets/fonts/octicons.ttf",
+                        "semantic-ui/2.2.x/themes/github/assets/fonts/octicons.woff",
+                        "semantic-ui/2.2.x/themes/material/assets/fonts/icons.eot",
+                        "semantic-ui/2.2.x/themes/material/assets/fonts/icons.svg",
+                        "semantic-ui/2.2.x/themes/material/assets/fonts/icons.ttf",
+                        "semantic-ui/2.2.x/themes/material/assets/fonts/icons.woff",
+                        "semantic-ui/2.2.x/themes/material/assets/fonts/icons.woff2",
                         "semantic-ui/2.2.x/components/accordion.css",
                         "semantic-ui/2.2.x/components/accordion.js",
                         "semantic-ui/2.2.x/components/accordion.min.css",
@@ -1062,7 +1067,7 @@
             ],
             "description": "Semantic empowers designers and developers by creating a shared vocabulary for UI.",
             "homepage": "http://www.semantic-ui.com",
-            "time": "2017-04-19T12:21:58+00:00"
+            "time": "2017-07-12T08:02:11+00:00"
         },
         {
             "name": "simplon/components",
