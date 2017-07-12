@@ -161,7 +161,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageTemplate.phtml'),
+                file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageTemplate.phtml.dist'),
                 'App\View',
                 $name,
                 $srcRoot . '/Views',
@@ -360,7 +360,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageTemplate.phtml'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageTemplate.phtml.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Views',
@@ -390,7 +390,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooTemplate.phtml'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooTemplate.phtml.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Views/Foo',
