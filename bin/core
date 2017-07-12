@@ -1,15 +1,17 @@
 #!/usr/bin/env php
 <?php
 
-$path = '/../autoload.php';
+$rootPath = '/../..';
 
 if (strpos(__DIR__, '/simplon/core/bin') !== false)
 {
-    $path = '/../../../autoload.php';
+    $rootPath = '/../../../..';
 }
 
+$rootPath = __DIR__ . $rootPath;
+
 /** @noinspection PhpIncludeInspection */
-require __DIR__ . $path;
+require $rootPath . '/vendor/autoload.php';
 
 use Silly\Application;
 use Simplon\Core\CoreContext;
@@ -47,22 +49,43 @@ function writeTemplates(string $contents, string $namespace, string $name, strin
     return $destination;
 }
 
-$app->command('init name [--with-view]', function ($name, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
+$app->command('init name [--with-view]', function ($name, $withView, OutputInterface $output) use ($rootPath, $srcRoot, $componentsRoot, $skeletonRoot) {
 
-    $requiredFolders = [
-        '../src',
-        '../public',
+    $baseFolders = [
+        'src',
+        'public',
+        'public/assets',
+        'builds',
+        'builds/assets',
+        'builds/sql',
+        'builds/sql/migrations',
+        'builds/sql/seeds',
+    ];
+
+    foreach ($baseFolders as $folder)
+    {
+        $folder = $rootPath . '/' . $folder;
+
+        if (!file_exists($folder))
+        {
+            echo "creating folder... <" . $folder . ">\n";
+            mkdir($folder);
+        }
+    }
+
+    $appFolders = [
         'Components',
         'Configs',
         'Locales',
     ];
 
-    foreach ($requiredFolders as $folder)
+    foreach ($appFolders as $folder)
     {
         $folder = $srcRoot . '/' . $folder;
 
         if (!file_exists($folder))
         {
+            echo "creating folder... <" . $folder . ">\n";
             mkdir($folder);
         }
     }
@@ -161,7 +184,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageTemplate.phtml.dist'),
+                file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageTemplate.phtml'),
                 'App\View',
                 $name,
                 $srcRoot . '/Views',
@@ -360,7 +383,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageTemplate.phtml.dist'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageTemplate.phtml'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Views',
@@ -390,7 +413,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooTemplate.phtml.dist'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooTemplate.phtml'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Views/Foo',
