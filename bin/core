@@ -1,7 +1,15 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__ . '/../autoload.php';
+$path = '/../autoload.php';
+
+if (strpos(__DIR__, '/simplon/core/bin') !== false)
+{
+    $path = '/../../../autoload.php';
+}
+
+/** @noinspection PhpIncludeInspection */
+require __DIR__ . $path;
 
 use Silly\Application;
 use Simplon\Core\CoreContext;
@@ -171,6 +179,8 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
         );
     }
 });
+
+// ##############################################
 
 $app->command('component [name] [--with-rest] [--with-view]', function ($name, $withRest, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
     if ($name)
@@ -389,5 +399,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         }
     }
 });
+
+// ##############################################
 
 $app->run();
