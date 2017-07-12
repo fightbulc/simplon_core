@@ -1,0 +1,78 @@
+<?php
+
+namespace {namespace}\Controllers;
+
+use {namespace}\Data\ComponentViewData;
+use {namespace}\{name}Context;
+use {namespace}\{name}Registry;
+use {namespace}\Views\{name}PageView;
+use App\AppContext;
+use App\Data\GlobalViewData;
+use Simplon\Core\Controllers\ViewController;
+use Simplon\Core\Interfaces\ViewInterface;
+
+/**
+ * @package {namespace}\Controllers
+ */
+abstract class BaseViewController extends ViewController
+{
+    /**
+     * @return {name}Registry
+     */
+    public function getRegistry(): {name}Registry
+    {
+        return $this->registry;
+    }
+
+    /**
+     * @return {name}Context
+     */
+    protected function getContext(): {name}Context
+    {
+        return $this->getRegistry()->getContext();
+    }
+
+    /**
+     * @return AppContext
+     */
+    protected function getAppContext(): AppContext
+    {
+        return $this->getRegistry()->getContext()->getAppContext();
+    }
+
+    /**
+     * @return GlobalViewData
+     */
+    protected function getGlobalViewData(): GlobalViewData
+    {
+        return $this->getAppContext()->getGlobalViewData();
+    }
+
+    /**
+     * @return ComponentViewData
+     */
+    protected function getComponentViewData(): ComponentViewData
+    {
+        return new ComponentViewData();
+    }
+
+    /**
+     * @param ViewInterface $partialView
+     * @param ComponentViewData $componentViewData
+     * @param GlobalViewData $globalViewData
+     *
+     * @return ViewInterface
+     * @throws \Exception
+     */
+    protected function buildPage(ViewInterface $partialView, ComponentViewData $componentViewData, GlobalViewData $globalViewData): ViewInterface
+    {
+        $componentView = new {name}PageView($this->getCoreViewData(), $componentViewData);
+        $componentView->implements($partialView);
+
+        return $this
+            ->getAppContext()
+            ->getAppPageView($this->getCoreViewData(), $globalViewData)
+            ->implements($componentView)
+            ;
+    }
+}

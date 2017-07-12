@@ -50,5 +50,7 @@
       "Simplon\\Core\\": "src/"
     }
   },
-  "bin": ["bin/core"]
+  "bin": [
+    "bin/core"
+  ]
 }

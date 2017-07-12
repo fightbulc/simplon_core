@@ -1,0 +1,72 @@
+<?php
+/**
+ * @var Locale $locale
+ * @var FlashMessage $flash
+ * @var Device $device
+ *
+ * @var string $siteName
+ * @var string $cssDefault
+ * @var string $jsDefault
+ * @var string $codeHeader
+ * @var string $codeFooter
+ * @var string $codeForm
+ *
+ * @var string $partial
+ */
+
+use Simplon\Core\Views\FlashMessage;
+use Simplon\Device\Device;
+use Simplon\Locale\Locale;
+
+define('ASSET_VERSION', 'v=' . time());
+
+?>
+<!DOCTYPE html>
+<html lang="<?= $locale->getCurrentLocale() ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title><?= $locale->get('page-title') ?></title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <?php if (isset($cssDefault)): ?>
+        <?= str_replace('.css', '.css?' . ASSET_VERSION, $cssDefault); ?>
+    <?php endif ?>
+
+    <?php if (isset($cssForm)): ?>
+        <?= str_replace('.css', '.css?' . ASSET_VERSION, $cssForm); ?>
+    <?php endif ?>
+
+    <?php if (isset($codeHeader)): ?>
+        <?= $codeHeader ?>
+    <?php endif ?>
+</head>
+<body class="device-type-<?= $device->getType() ?>">
+
+    <?php if (isset($codeBodyStart)): ?>
+        <?= $codeBodyStart ?>
+    <?php endif ?>
+
+    <?= $partial ?>
+
+    <?php if (isset($codeBodyEnd)): ?>
+        <?= $codeBodyEnd ?>
+    <?php endif ?>
+
+    <?php if (isset($jsDefault)): ?>
+        <?= str_replace('.js', '.js?' . ASSET_VERSION, $jsDefault); ?>
+    <?php endif ?>
+
+    <?php if (isset($jsForm)): ?>
+        <?= str_replace('.js', '.js?' . ASSET_VERSION, $jsForm); ?>
+    <?php endif ?>
+
+    <?php if (isset($codeForm)): ?>
+        <?= $codeForm ?>
+    <?php endif ?>
+
+</body>
+</html>

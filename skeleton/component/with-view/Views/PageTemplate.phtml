@@ -1,0 +1,21 @@
+<?php
+/**
+ * @var FlashMessage $flash
+ * @var Locale $locale
+ * @var Device $device
+ *
+ * @var string $partial
+ */
+use Simplon\Core\Views\FlashMessage;
+use Simplon\Device\Device;
+use Simplon\Locale\Locale;
+
+?>
+
+<div class="ui container">
+    <?php if ($flash->hasFlash()): ?>
+        <?= $flash->getFlash() ?>
+    <?php endif ?>
+
+    <?= $partial ?>
+</div>

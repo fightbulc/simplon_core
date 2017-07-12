@@ -3,10 +3,10 @@
 namespace Simplon\Core\Controllers;
 
 use Psr\Http\Message\ResponseInterface;
+use Simplon\Core\Components\Context;
+use Simplon\Core\CoreContext;
 use Simplon\Core\Data\CoreViewData;
 use Simplon\Core\Data\ResponseViewData;
-use Simplon\Core\Interfaces\ComponentContextInterface;
-use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Core\Views\FlashMessage;
@@ -70,7 +70,13 @@ abstract class ViewController extends Controller
      */
     public function getCoreViewData(): CoreViewData
     {
-        return new CoreViewData($this->getLocale(), $this->getFlashMessage(), $this->getDevice());
+        /** @var RegistryInterface $registry */
+        $registry = $this->getRegistry();
+
+        /** @var CoreContext $context */
+        $context = $registry->getContext();
+
+        return new CoreViewData($context->getLocale(), $this->getFlashMessage(), $this->getDevice());
     }
 
     /**
@@ -83,10 +89,10 @@ abstract class ViewController extends Controller
             /** @var RegistryInterface $registry */
             $registry = $this->getRegistry();
 
-            /** @var ComponentContextInterface $context */
+            /** @var Context $context */
             $context = $registry->getContext();
 
-            /** @var CoreContextInterface $appContext */
+            /** @var CoreContext $appContext */
             $appContext = $context->getAppContext();
 
             /** @noinspection PhpUndefinedMethodInspection */

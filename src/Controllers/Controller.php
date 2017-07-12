@@ -4,10 +4,7 @@ namespace Simplon\Core\Controllers;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Simplon\Core\Interfaces\ComponentContextInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
-use Simplon\Core\Interfaces\RegistryInterface;
-use Simplon\Locale\Locale;
 
 /**
  * Class Controller
@@ -53,19 +50,5 @@ abstract class Controller implements ControllerInterface
     public function getResponse(): ResponseInterface
     {
         return $this->response;
-    }
-
-    /**
-     * @return null|Locale
-     */
-    public function getLocale(): ?Locale
-    {
-        /** @var RegistryInterface $registry */
-        $registry = $this->getRegistry();
-
-        /** @var ComponentContextInterface $context */
-        $context = $registry->getContext();
-
-        return $context->getLocale();
     }
 }

@@ -3,7 +3,7 @@
 namespace {namespace};
 
 use App\AppContext;
-use App\Components\Controllers\{name}ViewController;
+use {namespace}\Controllers\{name}ViewController;
 use Simplon\Core\Components\Registry;
 use Simplon\Core\Data\RouteData;
 use Simplon\Core\Utils\RoutesCollection;
@@ -40,6 +40,6 @@ class {name}Registry extends Registry
     public function getRoutes(): ?RoutesCollection
     {
         return (new RoutesCollection())
-            ->addRouteData(new RouteData({name}Routes::PATTERN_REGISTER, {name}ViewController::class));
+            ->addRouteData(new RouteData({name}Routes::PATTERN_FOO, {name}ViewController::class));
     }
 }

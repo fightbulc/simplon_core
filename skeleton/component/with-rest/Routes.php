@@ -5,11 +5,11 @@ namespace {namespace};
 use Simplon\Core\Utils\Routes;
 
 /**
- * @package App\Components\Auth
+ * @package {namespace}
  */
 class {name}Routes extends Routes
 {
-    const PATTERN_FOO = '/bar';
+    const PATTERN_FOO = '/rest/bar';
 
     /**
      * @return string

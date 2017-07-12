@@ -7,7 +7,7 @@ use Simplon\Core\Data\ResponseRestData;
 /**
  * @package {namespace}\Controllers
  */
-class FooRestController extends BaseRestController
+class {name}RestController extends BaseRestController
 {
     /**
      * @param array $params

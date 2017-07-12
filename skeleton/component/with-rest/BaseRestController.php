@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Components\Auth\Controllers;
+namespace {namespace}\Controllers;
 
 use App\AppContext;
-use App\Components\Auth\AuthContext;
-use App\Components\Auth\AuthRegistry;
+use {namespace}\{name}Context;
+use {namespace}\{name}Registry;
 use Simplon\Core\Controllers\RestController;
 
 /**
@@ -13,17 +13,17 @@ use Simplon\Core\Controllers\RestController;
 abstract class BaseRestController extends RestController
 {
     /**
-     * @return AuthRegistry
+     * @return {name}Registry
      */
-    public function getRegistry(): AuthRegistry
+    public function getRegistry(): {name}Registry
     {
         return $this->registry;
     }
 
     /**
-     * @return AuthContext
+     * @return {name}Context
      */
-    protected function getContext(): AuthContext
+    protected function getContext(): {name}Context
     {
         return $this->getRegistry()->getContext();
     }
@@ -34,13 +34,5 @@ abstract class BaseRestController extends RestController
     protected function getAppContext(): AppContext
     {
         return $this->getContext()->getAppContext();
-    }
-
-    /**
-     * @return array|null
-     */
-    protected function getPayload(): ?array
-    {
-        return json_decode($this->getRequest()->getBody()->getContents(), true);
     }
 }

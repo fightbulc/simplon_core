@@ -2,7 +2,6 @@
 
 namespace Simplon\Core;
 
-use Simplon\Core\Interfaces\CoreContextInterface;
 use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Storage\CookieStorage;
 use Simplon\Core\Storage\SessionStorage;
@@ -17,7 +16,7 @@ use Simplon\Locale\Readers\PhpFileReader;
  * Class CoreContext
  * @package Simplon\Core
  */
-abstract class CoreContext implements CoreContextInterface
+abstract class CoreContext
 {
     const APP_PATH = __DIR__ . '/../../../../src';
     const APP_ENV_DEV = 'dev';
@@ -102,6 +101,7 @@ abstract class CoreContext implements CoreContextInterface
 
         return Instances::cache($instanceData);
     }
+
     /**
      * @param null|string $workingDir
      *

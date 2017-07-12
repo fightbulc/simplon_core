@@ -35,4 +35,12 @@ abstract class RestController extends Controller
 
         return new ResponseRestData($response);
     }
+
+    /**
+     * @return array|null
+     */
+    protected function getJsonRequestBody(): ?array
+    {
+        return json_decode($this->getRequest()->getBody()->getContents(), true);
+    }
 }

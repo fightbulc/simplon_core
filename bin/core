@@ -1,18 +1,405 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../autoload.php';
 
 use Silly\Application;
+use Simplon\Core\CoreContext;
 use Symfony\Component\Console\Output\OutputInterface;
 
 $app = new Application();
+$srcRoot = CoreContext::APP_PATH;
+$componentsRoot = $srcRoot . '/Components';
+$skeletonRoot = $srcRoot . '/../vendor/simplon/core/skeleton';
 
-$app->command('component [namespace] [--with-view] [--with-rest] [--with-storage] [--with-config]', function ($namespace, $withView, $withRest, $withStorage, $withConfig, OutputInterface $output) {
-    if ($namespace)
+/**
+ * @param string $contents
+ * @param string $name
+ * @param string $destination
+ * @param string $fileName
+ *
+ * @return string
+ */
+function writeAppTemplates(string $contents, string $name, string $destination, string $fileName): string
+{
+    $destination = rtrim($destination, '/');
+    $fileName = trim($fileName, '/');
+    $contents = preg_replace('/{name}/iu', $name, $contents);
+
+    if (!file_exists($destination))
     {
-        $text = 'Hello, ' . $namespace;
-        $output->writeln($text);
+        mkdir($destination);
+    }
+
+    file_put_contents($destination . '/' . $fileName, $contents);
+
+    return $destination;
+}
+
+/**
+ * @param string $contents
+ * @param string $namespace
+ * @param string $name
+ * @param string $destination
+ * @param string $fileName
+ *
+ * @return string
+ */
+function writeComponentTemplates(string $contents, string $namespace, string $name, string $destination, string $fileName): string
+{
+    $contents = preg_replace('/\{namespace\}/i', $namespace, $contents);
+    $contents = preg_replace('/\{name\}/i', $name, $contents);
+    $destination = rtrim($destination, '/');
+    $fileName = trim($fileName, '/');
+    $fileName = str_replace('{name}', $name, $fileName);
+
+    if (!file_exists($destination))
+    {
+        mkdir($destination);
+    }
+
+    file_put_contents($destination . '/' . $fileName, $contents);
+
+    return $destination;
+}
+
+$app->command('init name [--with-view]', function ($name, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
+
+    $requiredFolders = [
+        '../public',
+        'Components',
+        'Configs',
+        'Locales',
+    ];
+
+    foreach ($requiredFolders as $folder)
+    {
+        $folder = $srcRoot . '/' . $folder;
+
+        if (!file_exists($folder))
+        {
+            mkdir($folder);
+        }
+    }
+
+    $output->writeln('Created...' .
+        writeAppTemplates(
+            file_get_contents($skeletonRoot . '/app/bootstrap.php'),
+            $name,
+            $srcRoot . '/../public',
+            'index.php'
+        )
+    );
+
+    $output->writeln('Created...' .
+        writeAppTemplates(
+            file_get_contents($skeletonRoot . '/app/with-config/config.php'),
+            $name,
+            $srcRoot . '/Configs',
+            'config.php'
+        )
+    );
+
+    $output->writeln('Created...' .
+        writeAppTemplates(
+            file_get_contents($skeletonRoot . '/app/with-config/config.php'),
+            $name,
+            $srcRoot . '/Configs',
+            'production.php'
+        )
+    );
+
+    $output->writeln('Created...' .
+        writeAppTemplates(
+            file_get_contents($skeletonRoot . '/app/with-locale/en-locale.php'),
+            $name,
+            $srcRoot . '/Locales',
+            'en-locale.php'
+        )
+    );
+
+    $output->writeln('Created...' .
+        writeAppTemplates(
+            file_get_contents($skeletonRoot . '/app/AppContext.php'),
+            $name,
+            $srcRoot,
+            'AppContext.php'
+        )
+    );
+
+    if ($withView)
+    {
+        $output->writeln('Created...' .
+            writeAppTemplates(
+                file_get_contents($skeletonRoot . '/app/with-view/bootstrap.php'),
+                $name,
+                $srcRoot . '/../public',
+                'index.php'
+            )
+        );
+
+        $output->writeln('Created...' .
+            writeAppTemplates(
+                file_get_contents($skeletonRoot . '/app/with-view/AppContext.php'),
+                $name,
+                $srcRoot,
+                'AppContext.php'
+            )
+        );
+
+        $output->writeln('Created...' .
+            writeAppTemplates(
+                file_get_contents($skeletonRoot . '/app/with-view/Data/GlobalViewData.php'),
+                $name,
+                $srcRoot . '/Data',
+                'GlobalViewData.php'
+            )
+        );
+
+        $output->writeln('Created...' .
+            writeAppTemplates(
+                file_get_contents($skeletonRoot . '/app/with-view/Views/AppAssets.php'),
+                $name,
+                $srcRoot . '/Views',
+                'AppAssets.php'
+            )
+        );
+
+        $output->writeln('Created...' .
+            writeAppTemplates(
+                file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageTemplate.phtml'),
+                $name,
+                $srcRoot . '/Views',
+                'AppPageTemplate.phtml'
+            )
+        );
+
+        $output->writeln('Created...' .
+            writeAppTemplates(
+                file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageView.php'),
+                $name,
+                $srcRoot . '/Views',
+                'AppPageView.php'
+            )
+        );
+    }
+});
+
+$app->command('component [name] [--with-rest] [--with-view]', function ($name, $withRest, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
+    if ($name)
+    {
+        $name = str_replace(' ', '', ucwords($name));
+        $namespace = 'App\Components\\' . $name;
+
+        if (!file_exists($componentsRoot))
+        {
+            mkdir($componentsRoot);
+        }
+
+        if (!file_exists($componentsRoot . '/' . $name))
+        {
+            mkdir($componentsRoot . '/' . $name);
+        }
+
+        $output->writeln('Created...' .
+            writeComponentTemplates(
+                file_get_contents($skeletonRoot . '/component/with-config/config.php'),
+                $namespace,
+                $name,
+                $componentsRoot . '/' . $name . '/Configs',
+                'config.php'
+            )
+        );
+
+        $output->writeln('Created...' .
+            writeComponentTemplates(
+                file_get_contents($skeletonRoot . '/component/with-config/production.php'),
+                $namespace,
+                $name,
+                $componentsRoot . '/' . $name . '/Configs',
+                'production.php'
+            )
+        );
+
+        $output->writeln('Created...' .
+            writeComponentTemplates(
+                file_get_contents($skeletonRoot . '/component/with-locale/en-locale.php'),
+                $namespace,
+                $name,
+                $componentsRoot . '/' . $name . '/Locales',
+                'en-locale.php'
+            )
+        );
+
+        $output->writeln('Created...' .
+            writeComponentTemplates(
+                file_get_contents($skeletonRoot . '/component/Context.php'),
+                $namespace,
+                $name,
+                $componentsRoot . '/' . $name,
+                '{name}Context.php'
+            )
+        );
+
+        $output->writeln('Created...' .
+            writeComponentTemplates(
+                file_get_contents($skeletonRoot . '/component/Registry.php'),
+                $namespace,
+                $name,
+                $componentsRoot . '/' . $name,
+                '{name}Registry.php'
+            )
+        );
+
+        // ######################################
+
+        if ($withRest)
+        {
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-rest/Registry.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name,
+                    '{name}Registry.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-rest/Routes.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name,
+                    '{name}Routes.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-rest/BaseRestController.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Controllers',
+                    'BaseRestController.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-rest/RestController.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Controllers',
+                    '{name}RestController.php'
+                )
+            );
+        }
+
+        // ######################################
+
+        if ($withView)
+        {
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/Registry.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name,
+                    '{name}Registry.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/Routes.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name,
+                    '{name}Routes.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/BaseViewController.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Controllers',
+                    'BaseViewController.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/ViewController.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Controllers',
+                    '{name}ViewController.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/Data/Component/ComponentViewData.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Data',
+                    'ComponentViewData.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Assets.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Views',
+                    '{name}Assets.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageTemplate.phtml'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Views',
+                    '{name}PageTemplate.phtml'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageView.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Views',
+                    '{name}PageView.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooView.php'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Views/Foo',
+                    'FooView.php'
+                )
+            );
+
+            $output->writeln('Created...' .
+                writeComponentTemplates(
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooTemplate.phtml'),
+                    $namespace,
+                    $name,
+                    $componentsRoot . '/' . $name . '/Views/Foo',
+                    'FooTemplate.phtml'
+                )
+            );
+        }
     }
 });
 
