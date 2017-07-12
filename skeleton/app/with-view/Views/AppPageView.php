@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Views;
+namespace {namespace};
 
 use App\Data\GlobalViewData;
 use Simplon\Core\Data\CoreViewData;

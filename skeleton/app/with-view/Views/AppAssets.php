@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Views;
+namespace {namespace};
 
 /**
  * @package App\Views

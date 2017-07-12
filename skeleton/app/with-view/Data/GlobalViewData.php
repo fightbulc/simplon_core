@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Data;
+namespace {namespace};
 
 use Simplon\Helper\Data\Data;
 

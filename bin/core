@@ -14,30 +14,6 @@ $skeletonRoot = $srcRoot . '/../vendor/simplon/core/skeleton';
 
 /**
  * @param string $contents
- * @param string $name
- * @param string $destination
- * @param string $fileName
- *
- * @return string
- */
-function writeAppTemplates(string $contents, string $name, string $destination, string $fileName): string
-{
-    $destination = rtrim($destination, '/');
-    $fileName = trim($fileName, '/');
-    $contents = preg_replace('/{name}/iu', $name, $contents);
-
-    if (!file_exists($destination))
-    {
-        mkdir($destination);
-    }
-
-    file_put_contents($destination . '/' . $fileName, $contents);
-
-    return $destination;
-}
-
-/**
- * @param string $contents
  * @param string $namespace
  * @param string $name
  * @param string $destination
@@ -45,7 +21,7 @@ function writeAppTemplates(string $contents, string $name, string $destination, 
  *
  * @return string
  */
-function writeComponentTemplates(string $contents, string $namespace, string $name, string $destination, string $fileName): string
+function writeTemplates(string $contents, string $namespace, string $name, string $destination, string $fileName): string
 {
     $contents = preg_replace('/\{namespace\}/i', $namespace, $contents);
     $contents = preg_replace('/\{name\}/i', $name, $contents);
@@ -83,8 +59,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
     }
 
     $output->writeln('Created...' .
-        writeAppTemplates(
+        writeTemplates(
             file_get_contents($skeletonRoot . '/app/bootstrap.php'),
+            'App',
             $name,
             $srcRoot . '/../public',
             'index.php'
@@ -92,8 +69,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
     );
 
     $output->writeln('Created...' .
-        writeAppTemplates(
+        writeTemplates(
             file_get_contents($skeletonRoot . '/app/with-config/config.php'),
+            'App',
             $name,
             $srcRoot . '/Configs',
             'config.php'
@@ -101,8 +79,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
     );
 
     $output->writeln('Created...' .
-        writeAppTemplates(
+        writeTemplates(
             file_get_contents($skeletonRoot . '/app/with-config/config.php'),
+            'App',
             $name,
             $srcRoot . '/Configs',
             'production.php'
@@ -110,8 +89,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
     );
 
     $output->writeln('Created...' .
-        writeAppTemplates(
+        writeTemplates(
             file_get_contents($skeletonRoot . '/app/with-locale/en-locale.php'),
+            'App',
             $name,
             $srcRoot . '/Locales',
             'en-locale.php'
@@ -119,8 +99,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
     );
 
     $output->writeln('Created...' .
-        writeAppTemplates(
+        writeTemplates(
             file_get_contents($skeletonRoot . '/app/AppContext.php'),
+            'App',
             $name,
             $srcRoot,
             'AppContext.php'
@@ -130,8 +111,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
     if ($withView)
     {
         $output->writeln('Created...' .
-            writeAppTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/app/with-view/bootstrap.php'),
+                'App',
                 $name,
                 $srcRoot . '/../public',
                 'index.php'
@@ -139,8 +121,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
         );
 
         $output->writeln('Created...' .
-            writeAppTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/app/with-view/AppContext.php'),
+                'App',
                 $name,
                 $srcRoot,
                 'AppContext.php'
@@ -148,8 +131,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
         );
 
         $output->writeln('Created...' .
-            writeAppTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/app/with-view/Data/GlobalViewData.php'),
+                'App\Data',
                 $name,
                 $srcRoot . '/Data',
                 'GlobalViewData.php'
@@ -157,8 +141,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
         );
 
         $output->writeln('Created...' .
-            writeAppTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/app/with-view/Views/AppAssets.php'),
+                'App\View',
                 $name,
                 $srcRoot . '/Views',
                 'AppAssets.php'
@@ -166,8 +151,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
         );
 
         $output->writeln('Created...' .
-            writeAppTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageTemplate.phtml'),
+                'App\View',
                 $name,
                 $srcRoot . '/Views',
                 'AppPageTemplate.phtml'
@@ -175,8 +161,9 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
         );
 
         $output->writeln('Created...' .
-            writeAppTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageView.php'),
+                'App\View',
                 $name,
                 $srcRoot . '/Views',
                 'AppPageView.php'
@@ -202,7 +189,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         }
 
         $output->writeln('Created...' .
-            writeComponentTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/component/with-config/config.php'),
                 $namespace,
                 $name,
@@ -212,7 +199,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         );
 
         $output->writeln('Created...' .
-            writeComponentTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/component/with-config/production.php'),
                 $namespace,
                 $name,
@@ -222,7 +209,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         );
 
         $output->writeln('Created...' .
-            writeComponentTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/component/with-locale/en-locale.php'),
                 $namespace,
                 $name,
@@ -232,7 +219,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         );
 
         $output->writeln('Created...' .
-            writeComponentTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/component/Context.php'),
                 $namespace,
                 $name,
@@ -242,7 +229,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         );
 
         $output->writeln('Created...' .
-            writeComponentTemplates(
+            writeTemplates(
                 file_get_contents($skeletonRoot . '/component/Registry.php'),
                 $namespace,
                 $name,
@@ -256,7 +243,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         if ($withRest)
         {
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-rest/Registry.php'),
                     $namespace,
                     $name,
@@ -266,7 +253,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-rest/Routes.php'),
                     $namespace,
                     $name,
@@ -276,7 +263,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-rest/BaseRestController.php'),
                     $namespace,
                     $name,
@@ -286,7 +273,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-rest/RestController.php'),
                     $namespace,
                     $name,
@@ -301,7 +288,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         if ($withView)
         {
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Registry.php'),
                     $namespace,
                     $name,
@@ -311,7 +298,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Routes.php'),
                     $namespace,
                     $name,
@@ -321,7 +308,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/BaseViewController.php'),
                     $namespace,
                     $name,
@@ -331,7 +318,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/ViewController.php'),
                     $namespace,
                     $name,
@@ -341,7 +328,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Data/Component/ComponentViewData.php'),
                     $namespace,
                     $name,
@@ -351,7 +338,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Assets.php'),
                     $namespace,
                     $name,
@@ -361,7 +348,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageTemplate.phtml'),
                     $namespace,
                     $name,
@@ -371,7 +358,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageView.php'),
                     $namespace,
                     $name,
@@ -381,7 +368,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooView.php'),
                     $namespace,
                     $name,
@@ -391,7 +378,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
             );
 
             $output->writeln('Created...' .
-                writeComponentTemplates(
+                writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooTemplate.phtml'),
                     $namespace,
                     $name,
