@@ -22,4 +22,9 @@ class AppAssets
     //
     // vendor
     //
+
+    const VENDOR_JQUERY_JS = '/assets/vendor/jquery/3.2.x/jquery.min.js';
+
+    const VENDOR_SEMANTIC_CSS = '/assets/vendor/semantic-ui/2.2.x/semantic.min.css';
+    const VENDOR_SEMANTIC_JS = '/assets/vendor/semantic-ui/2.2.x/semantic.min.js';
 }

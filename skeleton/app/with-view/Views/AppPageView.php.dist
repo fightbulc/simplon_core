@@ -25,6 +25,10 @@ class AppPageView extends View
         parent::__construct($coreViewData);
         $this->globalViewData = $globalViewData;
 
+        $this->addJs(AppAssets::VENDOR_JQUERY_JS);
+        $this->addJs(AppAssets::VENDOR_SEMANTIC_JS);
+        $this->addCss(AppAssets::VENDOR_SEMANTIC_CSS);
+
         $this->addCss(AppAssets::CSS_APP);
         $this->addJs(AppAssets::JS_APP);
     }
