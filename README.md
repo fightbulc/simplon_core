@@ -397,12 +397,12 @@ The following paragraphs will show a fulll example of how to use these helpers.
 ```php
 namespace App;
 
-use Simplon\Core\Utils\Form\BaseFormFields;
+use Simplon\Core\Utils\Form\BaseForm;
 use Simplon\Form\Data\FormField;
 use Simplon\Form\Data\Rules\RequiredRule;
 use Simplon\Form\Data\Rules\EmailRule;
 
-class CreateFormFields extends BaseFormFields
+class CreateFormFields extends BaseForm
 {
     const NAME = 'name';
     const EMAIL = 'email';

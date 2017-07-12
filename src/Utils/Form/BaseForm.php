@@ -9,7 +9,7 @@ use Simplon\Form\FormFields;
 /**
  * @package Simplon\Core\Utils\Form
  */
-abstract class BaseFormFields
+abstract class BaseForm
 {
     /**
      * @var FormFields
@@ -20,7 +20,7 @@ abstract class BaseFormFields
      * @return FormFields
      * @throws FormError
      */
-    public function getFormFields(): FormFields
+    public function getFields(): FormFields
     {
         if (!$this->formFields)
         {
@@ -36,7 +36,25 @@ abstract class BaseFormFields
     }
 
     /**
+     * @param string $fieldId
+     *
+     * @return mixed|null
+     * @throws FormError
+     */
+    public function getVal(string $fieldId)
+    {
+        $value = $this->getFields()->get($fieldId)->getValue();
+
+        if ($value !== '')
+        {
+            return $value;
+        }
+
+        return null;
+    }
+
+    /**
      * @return FormField[]
      */
-    abstract protected function getFields(): array;
+    abstract protected function buildFields(): array;
 }
