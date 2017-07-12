@@ -50,6 +50,7 @@ function writeTemplates(string $contents, string $namespace, string $name, strin
 $app->command('init name [--with-view]', function ($name, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
 
     $requiredFolders = [
+        '../src',
         '../public',
         'Components',
         'Configs',
