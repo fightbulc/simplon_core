@@ -105,7 +105,9 @@ class ExceptionMiddleware
             if ($this->getHandler() instanceof JsonResponseHandler)
             {
                 $response = $response->withAddedHeader('Content-type', 'application/json; charset=utf-8');
+
                 $errorResponse = json_decode($errorResponse, true);
+                $errorResponse['error']['trace'] = $e->getTrace();
 
                 if ($e instanceof ClientException || $e instanceof ServerException)
                 {
@@ -117,7 +119,6 @@ class ExceptionMiddleware
                     ];
                 }
 
-                $errorResponse['error']['trace'] = $e->getTrace();
                 $errorResponse = json_encode($errorResponse);
             }
 
