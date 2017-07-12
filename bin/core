@@ -68,7 +68,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
     $output->writeln('Created...' .
         writeTemplates(
-            file_get_contents($skeletonRoot . '/app/bootstrap.php'),
+            file_get_contents($skeletonRoot . '/app/bootstrap.php.dist'),
             'App',
             $name,
             $srcRoot . '/../public',
@@ -78,7 +78,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
     $output->writeln('Created...' .
         writeTemplates(
-            file_get_contents($skeletonRoot . '/app/with-config/config.php'),
+            file_get_contents($skeletonRoot . '/app/with-config/config.php.dist'),
             'App',
             $name,
             $srcRoot . '/Configs',
@@ -88,7 +88,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
     $output->writeln('Created...' .
         writeTemplates(
-            file_get_contents($skeletonRoot . '/app/with-config/config.php'),
+            file_get_contents($skeletonRoot . '/app/with-config/config.php.dist'),
             'App',
             $name,
             $srcRoot . '/Configs',
@@ -98,7 +98,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
     $output->writeln('Created...' .
         writeTemplates(
-            file_get_contents($skeletonRoot . '/app/with-locale/en-locale.php'),
+            file_get_contents($skeletonRoot . '/app/with-locale/en-locale.php.dist'),
             'App',
             $name,
             $srcRoot . '/Locales',
@@ -108,7 +108,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
     $output->writeln('Created...' .
         writeTemplates(
-            file_get_contents($skeletonRoot . '/app/AppContext.php'),
+            file_get_contents($skeletonRoot . '/app/AppContext.php.dist'),
             'App',
             $name,
             $srcRoot,
@@ -120,7 +120,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
     {
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/app/with-view/bootstrap.php'),
+                file_get_contents($skeletonRoot . '/app/with-view/bootstrap.php.dist'),
                 'App',
                 $name,
                 $srcRoot . '/../public',
@@ -130,7 +130,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/app/with-view/AppContext.php'),
+                file_get_contents($skeletonRoot . '/app/with-view/AppContext.php.dist'),
                 'App',
                 $name,
                 $srcRoot,
@@ -140,7 +140,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/app/with-view/Data/GlobalViewData.php'),
+                file_get_contents($skeletonRoot . '/app/with-view/Data/GlobalViewData.php.dist'),
                 'App\Data',
                 $name,
                 $srcRoot . '/Data',
@@ -150,7 +150,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/app/with-view/Views/AppAssets.php'),
+                file_get_contents($skeletonRoot . '/app/with-view/Views/AppAssets.php.dist'),
                 'App\View',
                 $name,
                 $srcRoot . '/Views',
@@ -170,7 +170,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageView.php'),
+                file_get_contents($skeletonRoot . '/app/with-view/Views/AppPageView.php.dist'),
                 'App\View',
                 $name,
                 $srcRoot . '/Views',
@@ -200,7 +200,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/component/with-config/config.php'),
+                file_get_contents($skeletonRoot . '/component/with-config/config.php.dist'),
                 $namespace,
                 $name,
                 $componentsRoot . '/' . $name . '/Configs',
@@ -210,7 +210,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/component/with-config/production.php'),
+                file_get_contents($skeletonRoot . '/component/with-config/production.php.dist'),
                 $namespace,
                 $name,
                 $componentsRoot . '/' . $name . '/Configs',
@@ -220,7 +220,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/component/with-locale/en-locale.php'),
+                file_get_contents($skeletonRoot . '/component/with-locale/en-locale.php.dist'),
                 $namespace,
                 $name,
                 $componentsRoot . '/' . $name . '/Locales',
@@ -230,7 +230,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/component/Context.php'),
+                file_get_contents($skeletonRoot . '/component/Context.php.dist'),
                 $namespace,
                 $name,
                 $componentsRoot . '/' . $name,
@@ -240,7 +240,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
         $output->writeln('Created...' .
             writeTemplates(
-                file_get_contents($skeletonRoot . '/component/Registry.php'),
+                file_get_contents($skeletonRoot . '/component/Registry.php.dist'),
                 $namespace,
                 $name,
                 $componentsRoot . '/' . $name,
@@ -254,7 +254,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         {
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-rest/Registry.php'),
+                    file_get_contents($skeletonRoot . '/component/with-rest/Registry.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name,
@@ -264,7 +264,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-rest/Routes.php'),
+                    file_get_contents($skeletonRoot . '/component/with-rest/Routes.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name,
@@ -274,7 +274,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-rest/BaseRestController.php'),
+                    file_get_contents($skeletonRoot . '/component/with-rest/BaseRestController.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Controllers',
@@ -284,7 +284,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-rest/RestController.php'),
+                    file_get_contents($skeletonRoot . '/component/with-rest/RestController.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Controllers',
@@ -299,7 +299,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
         {
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Registry.php'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Registry.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name,
@@ -309,7 +309,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Routes.php'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Routes.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name,
@@ -319,7 +319,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/BaseViewController.php'),
+                    file_get_contents($skeletonRoot . '/component/with-view/BaseViewController.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Controllers',
@@ -329,7 +329,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/ViewController.php'),
+                    file_get_contents($skeletonRoot . '/component/with-view/ViewController.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Controllers',
@@ -339,7 +339,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Data/Component/ComponentViewData.php'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Data/Component/ComponentViewData.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Data',
@@ -349,7 +349,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Assets.php'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Assets.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Views',
@@ -369,7 +369,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageView.php'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/PageView.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Views',
@@ -379,7 +379,7 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
 
             $output->writeln('Created...' .
                 writeTemplates(
-                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooView.php'),
+                    file_get_contents($skeletonRoot . '/component/with-view/Views/Component/Foo/FooView.php.dist'),
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Views/Foo',
