@@ -12,6 +12,7 @@ use Whoops\Handler\HandlerInterface;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
+use Zend\Diactoros\Response;
 
 /**
  * @package Simplon\Core\Middleware
@@ -28,6 +29,10 @@ class ExceptionMiddleware
      * @var bool
      */
     protected $isProduction = false;
+    /**
+     * @var string
+     */
+    protected $errorRedirectUrl;
 
     /**
      * @param HandlerInterface $handler
@@ -76,8 +81,57 @@ class ExceptionMiddleware
                 $httpStatus = $e->getHttpStatusCode();
             }
 
-            return $callback($response->withStatus($httpStatus), $e);
+            //
+            // process error
+            //
+
+            $response = $callback($response->withStatus($httpStatus), $e);
+
+            //
+            // redirect to error page if production
+            //
+
+            if ($this->isProduction && $url = $this->getErrorRedirectUrl())
+            {
+                $url = str_replace('{status}', substr($httpStatus, 0, 2) . 'x', $url);
+                $response = (new Response())->withAddedHeader('Location', $url);
+            }
+
+            return $response;
         }
+    }
+
+    /**
+     * @param null|string $errorRedirectUrl
+     *
+     * @return ExceptionMiddleware
+     */
+    public function setAsProduction(?string $errorRedirectUrl = null): self
+    {
+        $this->isProduction = true;
+        $this->errorRedirectUrl = $errorRedirectUrl;
+
+        return $this;
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return ExceptionMiddleware
+     */
+    public function redirectOnError(string $url): self
+    {
+        $this->errorRedirectUrl = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    protected function getErrorRedirectUrl(): ?string
+    {
+        return $this->errorRedirectUrl;
     }
 
     /**
@@ -203,6 +257,10 @@ class ExceptionMiddleware
             'http_status' => $response->getStatusCode(),
             'env'         => $env,
             'message'     => $e->getMessage(),
+            'source'      => [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ],
             'trace'       => $e->getTrace(),
             'url'         => [
                 'raw'   => $currentUrl->__toString(),
