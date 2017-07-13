@@ -70,7 +70,7 @@ class ClientException extends ErrorException
     {
         return $this
             ->setHttpStatusCode(StatusCodeInterface::STATUS_UNAUTHORIZED)
-            ->setMessage('Authentication is needed to access requested content')
+            ->setMessage('Authentication required for requested content')
             ->setPublicData($data)
             ;
     }
@@ -98,7 +98,7 @@ class ClientException extends ErrorException
     {
         return $this
             ->setHttpStatusCode(StatusCodeInterface::STATUS_FORBIDDEN)
-            ->setMessage('Nobody is allowed to access this content')
+            ->setMessage('Access denied for requested content')
             ->setPublicData($data)
             ;
     }
