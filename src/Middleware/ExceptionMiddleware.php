@@ -94,7 +94,11 @@ class ExceptionMiddleware
             if ($this->isProduction && $url = $this->getErrorRedirectUrl())
             {
                 $url = str_replace('{status}', substr($httpStatus, 0, 2) . 'x', $url);
-                $response = (new Response())->withAddedHeader('Location', $url);
+
+                if (strpos(Url::getCurrentUrl(), $url) === false) // prevent infinite redirect
+                {
+                    $response = (new Response())->withAddedHeader('Location', $url);
+                }
             }
 
             return $response;
