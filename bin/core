@@ -28,7 +28,7 @@ $skeletonRoot = $srcRoot . '/../vendor/simplon/core/skeleton';
  * @param string $name
  * @param string $destination
  * @param string $fileName
- * @param string $viewName
+ * @param string|null $viewName
  *
  * @return string
  */
@@ -40,9 +40,10 @@ function writeTemplates(string $contents, string $namespace, string $name, strin
     $fileName = trim($fileName, '/');
     $fileName = str_replace('{name}', $name, $fileName);
 
-    if($viewName)
+    if ($viewName)
     {
         $contents = preg_replace('/\{view\}/i', $viewName, $contents);
+        $destination = str_replace('{view}', $viewName, $destination);
         $fileName = str_replace('{view}', $viewName, $fileName);
     }
 
@@ -53,7 +54,7 @@ function writeTemplates(string $contents, string $namespace, string $name, strin
 
     file_put_contents($destination . '/' . $fileName, $contents);
 
-    return $destination;
+    return str_replace(CoreContext::APP_PATH, '', $destination . '/' . $fileName);
 }
 
 $app->command('init name [--with-view]', function ($name, $withView, OutputInterface $output) use ($rootPath, $srcRoot, $componentsRoot, $skeletonRoot) {
@@ -213,10 +214,11 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
 // ##############################################
 
-$app->command('component [name] [view] [--with-rest] [--with-view]', function ($name, $viewName, $withRest, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
-    if ($name && $viewName)
+$app->command('component [name] [view] [--with-rest] [--with-view]', function ($name, $view, $withRest, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
+    if ($name && $view)
     {
         $name = str_replace(' ', '', ucwords($name));
+        $view = str_replace(' ', '', ucwords($view));
         $namespace = 'App\Components\\' . $name;
 
         if (!file_exists($componentsRoot))
@@ -364,7 +366,8 @@ $app->command('component [name] [view] [--with-rest] [--with-view]', function ($
                     $namespace,
                     $name,
                     $componentsRoot . '/' . $name . '/Controllers',
-                    '{name}ViewController.php'
+                    '{name}ViewController.php',
+                    $view
                 )
             );
 
@@ -408,8 +411,6 @@ $app->command('component [name] [view] [--with-rest] [--with-view]', function ($
                 )
             );
 
-            $viewName = ucwords($viewName);
-
             $output->writeln('Created...' .
                 writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Views/Foo/FooView.php.dist'),
@@ -417,7 +418,7 @@ $app->command('component [name] [view] [--with-rest] [--with-view]', function ($
                     $name,
                     $componentsRoot . '/' . $name . '/Views/{view}',
                     '{view}View.php',
-                    $viewName
+                    $view
                 )
             );
 
@@ -426,9 +427,9 @@ $app->command('component [name] [view] [--with-rest] [--with-view]', function ($
                     file_get_contents($skeletonRoot . '/component/with-view/Views/Foo/FooTemplate.phtml.dist'),
                     $namespace,
                     $name,
-                    $componentsRoot . '/' . $name . '/Views/{view',
+                    $componentsRoot . '/' . $name . '/Views/{view}',
                     '{view}Template.phtml',
-                    $viewName
+                    $view
                 )
             );
         }

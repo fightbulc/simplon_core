@@ -37,7 +37,7 @@ abstract class BaseViewController extends ViewController
      */
     protected function getAppContext(): AppContext
     {
-        return $this->getRegistry()->getContext()->getAppContext();
+        return $this->getContext()->getAppContext();
     }
 
     /**
@@ -62,7 +62,6 @@ abstract class BaseViewController extends ViewController
      * @param GlobalViewData $globalViewData
      *
      * @return ViewInterface
-     * @throws \Exception
      */
     protected function buildPage(ViewInterface $partialView, ComponentViewData $componentViewData, GlobalViewData $globalViewData): ViewInterface
     {
