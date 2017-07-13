@@ -70,7 +70,7 @@ abstract class ErrorException extends \Exception
      *
      * @return static
      */
-    public function setPublicData(array $publicData)
+    protected function setPublicData(array $publicData)
     {
         $this->publicData = $publicData;
 
