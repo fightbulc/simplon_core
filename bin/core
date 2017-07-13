@@ -57,7 +57,9 @@ function writeTemplates(string $contents, string $namespace, string $name, strin
     return str_replace(CoreContext::APP_PATH, '', $destination . '/' . $fileName);
 }
 
-$app->command('init name [--with-view]', function ($name, $withView, OutputInterface $output) use ($rootPath, $srcRoot, $componentsRoot, $skeletonRoot) {
+// ##############################################
+
+$callback = function ($name, $withView, OutputInterface $output) use ($rootPath, $srcRoot, $componentsRoot, $skeletonRoot) {
 
     $baseFolders = [
         'src',
@@ -76,7 +78,7 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
         if (!file_exists($folder))
         {
-            echo "creating folder... <" . $folder . ">\n";
+            echo "Created... " . str_replace(CoreContext::APP_PATH, '', $folder) . "\n";
             mkdir($folder);
         }
     }
@@ -210,15 +212,23 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
             )
         );
     }
-});
+};
+
+$app
+    ->command('init name [--with-view]', $callback)
+    ->descriptions('Init your app', [
+        'name'        => 'App name',
+        '--with-view' => 'Enable view',
+    ])
+;
 
 // ##############################################
 
-$app->command('component [name] [view] [--with-rest] [--with-view]', function ($name, $view, $withRest, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
-    if ($name && $view)
+$callback = function ($name, $withRest, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
+    if ($name)
     {
         $name = str_replace(' ', '', ucwords($name));
-        $view = str_replace(' ', '', ucwords($view));
+        $view = str_replace(' ', '', ucwords($withView));
         $namespace = 'App\Components\\' . $name;
 
         if (!file_exists($componentsRoot))
@@ -434,7 +444,16 @@ $app->command('component [name] [view] [--with-rest] [--with-view]', function ($
             );
         }
     }
-});
+};
+
+$app
+    ->command('component name [--with-rest] [--with-view=]', $callback)
+    ->descriptions('Add a component', [
+        'name'        => 'Component name',
+        '--with-rest' => 'Enable REST',
+        '--with-view' => 'Enable view with first view name',
+    ])
+;
 
 // ##############################################
 
