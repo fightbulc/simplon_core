@@ -1,20 +1,20 @@
 <?php
 
-namespace {namespace}\Views\Foo;
+namespace {namespace}\Views\{view};
 
 use Simplon\Core\Views\View;
 
 /**
- * @package {namespace}\Views\Foo
+ * @package {namespace}\Views\{view}
  */
-class FooView extends View
+class {view}View extends View
 {
     /**
      * @return string
      */
     protected function getTemplate(): string
     {
-        return __DIR__ . '/FooTemplate.phtml';
+        return __DIR__ . '/{view}Template.phtml';
     }
 
     /**

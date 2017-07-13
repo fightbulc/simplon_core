@@ -28,16 +28,23 @@ $skeletonRoot = $srcRoot . '/../vendor/simplon/core/skeleton';
  * @param string $name
  * @param string $destination
  * @param string $fileName
+ * @param string $viewName
  *
  * @return string
  */
-function writeTemplates(string $contents, string $namespace, string $name, string $destination, string $fileName): string
+function writeTemplates(string $contents, string $namespace, string $name, string $destination, string $fileName, ?string $viewName = null): string
 {
     $contents = preg_replace('/\{namespace\}/i', $namespace, $contents);
     $contents = preg_replace('/\{name\}/i', $name, $contents);
     $destination = rtrim($destination, '/');
     $fileName = trim($fileName, '/');
     $fileName = str_replace('{name}', $name, $fileName);
+
+    if($viewName)
+    {
+        $contents = preg_replace('/\{view\}/i', $viewName, $contents);
+        $fileName = str_replace('{view}', $viewName, $fileName);
+    }
 
     if (!file_exists($destination))
     {
@@ -206,8 +213,8 @@ $app->command('init name [--with-view]', function ($name, $withView, OutputInter
 
 // ##############################################
 
-$app->command('component [name] [--with-rest] [--with-view]', function ($name, $withRest, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
-    if ($name)
+$app->command('component [name] [view] [--with-rest] [--with-view]', function ($name, $viewName, $withRest, $withView, OutputInterface $output) use ($srcRoot, $componentsRoot, $skeletonRoot) {
+    if ($name && $viewName)
     {
         $name = str_replace(' ', '', ucwords($name));
         $namespace = 'App\Components\\' . $name;
@@ -401,13 +408,16 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
                 )
             );
 
+            $viewName = ucwords($viewName);
+
             $output->writeln('Created...' .
                 writeTemplates(
                     file_get_contents($skeletonRoot . '/component/with-view/Views/Foo/FooView.php.dist'),
                     $namespace,
                     $name,
-                    $componentsRoot . '/' . $name . '/Views/Foo',
-                    'FooView.php'
+                    $componentsRoot . '/' . $name . '/Views/{view}',
+                    '{view}View.php',
+                    $viewName
                 )
             );
 
@@ -416,8 +426,9 @@ $app->command('component [name] [--with-rest] [--with-view]', function ($name, $
                     file_get_contents($skeletonRoot . '/component/with-view/Views/Foo/FooTemplate.phtml.dist'),
                     $namespace,
                     $name,
-                    $componentsRoot . '/' . $name . '/Views/Foo',
-                    'FooTemplate.phtml'
+                    $componentsRoot . '/' . $name . '/Views/{view',
+                    '{view}Template.phtml',
+                    $viewName
                 )
             );
         }

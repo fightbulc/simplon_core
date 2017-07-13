@@ -9,4 +9,4 @@ use Simplon\Device\Device;
 use Simplon\Locale\Locale;
 
 ?>
-<h1>FOO PARTIAL VIEW</h1>
+<h1>{view} PARTIAL VIEW</h1>

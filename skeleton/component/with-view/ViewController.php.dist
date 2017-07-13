@@ -2,7 +2,7 @@
 
 namespace {namespace}\Controllers;
 
-use {namespace}\Views\Foo\FooView;
+use {namespace}\Views\{view}\{view}View;
 use Simplon\Core\Data\ResponseViewData;
 
 /**
@@ -19,7 +19,7 @@ class {name}ViewController extends BaseViewController
     {
         return $this->respond(
             $this->buildPage(
-                new FooView($this->getCoreViewData()),
+                new {view}View($this->getCoreViewData()),
                 $this->getComponentViewData(),
                 $this->getGlobalViewData()
             )
