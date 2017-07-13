@@ -4,13 +4,13 @@ namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Simplon\Helper\Data\InstanceData;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
 use Simplon\Core\Utils\EventsHandler;
 use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
+use Simplon\Helper\Data\InstanceData;
 use Simplon\Helper\Instances;
 
 /**
@@ -51,19 +51,19 @@ class RouteMiddleware
     {
         $requestedPath = $request->getUri()->getPath();
 
-        foreach ($this->collectRoutes() as $path => $component)
+        foreach ($this->collectRoutes() as $component)
         {
             $isMatchedRoute =
                 $this->hasAllowedMethod($request, $component['methods'])
-                && preg_match('|^' . $this->transformPathPlaceholders($path) . '/*$|i', $requestedPath, $match);
+                && preg_match('|^' . $this->transformPathPlaceholders($component['path']) . '/*$|i', $requestedPath, $match);
 
             if ($isMatchedRoute)
             {
                 $params = [];
 
-                foreach ($this->getPathPlaceholders($path) as $placeholder)
+                foreach ($this->getPathPlaceholders($component['path']) as $placeholder)
                 {
-                    if (isset($match[$placeholder]))
+                    if (!empty($match[$placeholder]))
                     {
                         $params[$placeholder] = rtrim($match[$placeholder], '/');
                     }
@@ -110,20 +110,27 @@ class RouteMiddleware
                 {
                     foreach ($component->getRoutes()->getRouteData() as $routeData)
                     {
-                        if (isset($collect[$routeData->getPath()]))
+                        foreach ($routeData->getMethodsAllowed() as $method)
                         {
-                            throw (new ServerException())->internalError([
-                                'message' => 'Dublicate path detection',
-                                'reason'  => 'Path has already been declared',
-                                'path'    => $routeData->getPath(),
-                            ]);
-                        }
+                            $key = $method . ' ' . $routeData->getPath();
 
-                        $collect[$routeData->getPath()] = [
-                            'methods'    => $routeData->getMethodsAllowed(),
-                            'controller' => $routeData->getController(),
-                            'registry'   => $component,
-                        ];
+                            if (isset($collect[$key]))
+                            {
+                                throw (new ServerException())->internalError([
+                                    'component' => get_class($component),
+                                    'message'   => 'Dublicate path detection',
+                                    'reason'    => 'Route has already been defined',
+                                    'route'     => $key,
+                                ]);
+                            }
+
+                            $collect[$key] = [
+                                'path'       => $routeData->getPath(),
+                                'methods'    => $routeData->getMethodsAllowed(),
+                                'controller' => $routeData->getController(),
+                                'registry'   => $component,
+                            ];
+                        }
 
                         // register component events
                         $this->registerEvents($component);
