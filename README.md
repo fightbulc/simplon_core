@@ -177,14 +177,14 @@ It will also kick-off the `event handling` for these components.
 ## 3.4. Auth
 
 AuthMiddleware aids authentication against certain `routes`, `user roles` and `temporary tokens`. It requires the
-an `AuthConfig` object which holds all required data. Here is an example combined with the middleware queue:
+an `AuthContainer` object which holds all required data. Here is an example combined with the middleware queue:
 
 ```php
 //
 // Auth Config
 //
 
-$authConfig = new AuthConfig(
+$authConfig = new AuthContainer(
 	$appContext->getSessionStorage(), // storage for our auth data
 	new UserSessionData(),            // object for a users auth data
 	AuthRoutes::toSignIn()            // where to send the user if auth failed
