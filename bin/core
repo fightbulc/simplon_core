@@ -74,12 +74,12 @@ $callback = function ($name, $withView, OutputInterface $output) use ($rootPath,
 
     foreach ($baseFolders as $folder)
     {
-        $folder = $rootPath . '/' . $folder;
+        $newFolder = $srcRoot . '/' . $folder;
 
-        if (!file_exists($folder))
+        if (!file_exists($newFolder))
         {
-            echo "Created... " . str_replace(CoreContext::APP_PATH, '', $folder) . "\n";
-            mkdir($folder);
+            echo "Created... " . $folder . ">\n";
+            mkdir($newFolder);
         }
     }
 
@@ -91,12 +91,12 @@ $callback = function ($name, $withView, OutputInterface $output) use ($rootPath,
 
     foreach ($appFolders as $folder)
     {
-        $folder = $srcRoot . '/' . $folder;
+        $newFolder = $srcRoot . '/' . $folder;
 
-        if (!file_exists($folder))
+        if (!file_exists($newFolder))
         {
-            echo "creating folder... <" . $folder . ">\n";
-            mkdir($folder);
+            echo "Created... " . $folder . ">\n";
+            mkdir($newFolder);
         }
     }
 

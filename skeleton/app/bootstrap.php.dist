@@ -33,7 +33,7 @@ $components = [];
 //
 
 $middleware = [
-    new ExceptionMiddleware(new JsonResponseHandler(), false),
+    new ExceptionMiddleware(new JsonResponseHandler()),
     new RouteMiddleware($components),
 ];
 

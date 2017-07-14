@@ -12,6 +12,7 @@ use Simplon\Core\CoreContext;
 use Simplon\Core\Middleware\ExceptionMiddleware;
 use Simplon\Core\Middleware\RouteMiddleware;
 use Simplon\Core\Storage\SessionHandler\SessionRedis;
+use Whoops\Handler\PrettyPageHandler;
 
 require __DIR__ . '/../vendor/simplon/core/src/autoload.php';
 
@@ -32,7 +33,7 @@ $components = [];
 //
 
 $middleware = [
-    (new ExceptionMiddleware())->setIsProduction(getenv('APP_ENV') !== CoreContext::APP_ENV_DEV),
+    new ExceptionMiddleware(new PrettyPageHandler()),
     new RouteMiddleware($components),
 ];
 
