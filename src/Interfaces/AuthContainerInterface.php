@@ -11,21 +11,6 @@ use Psr\Http\Message\ServerRequestInterface;
 interface AuthContainerInterface
 {
     /**
-     * @return null|AuthUserInterface
-     */
-    public static function getAuthenticatedUser();
-
-    /**
-     * @return bool
-     */
-    public static function hasAuthenticatedUser(): bool;
-
-    /**
-     * @param AuthUserInterface $authUser
-     */
-    public static function setAuthenticatedUser(AuthUserInterface $authUser): void;
-
-    /**
      * @param ServerRequestInterface $request
      *
      * @return null|AuthUserInterface
@@ -53,10 +38,11 @@ interface AuthContainerInterface
 
     /**
      * @param ResponseInterface $response
+     * @param AuthUserInterface $authUser
      *
      * @return ResponseInterface
      */
-    public function runOnSuccess(ResponseInterface $response): ResponseInterface;
+    public function runOnSuccess(ResponseInterface $response, AuthUserInterface $authUser): ResponseInterface;
 
     /**
      * @param callable $callback

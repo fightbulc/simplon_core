@@ -12,10 +12,6 @@ use Simplon\Core\Interfaces\AuthUserInterface;
 abstract class AuthContainer implements AuthContainerInterface
 {
     /**
-     * @var AuthUserInterface|null
-     */
-    protected static $authenticatedUser;
-    /**
      * @var callable
      */
     protected $onSuccess;
@@ -23,30 +19,6 @@ abstract class AuthContainer implements AuthContainerInterface
      * @var callable
      */
     protected $onError;
-
-    /**
-     * @return null|AuthUserInterface
-     */
-    public static function getAuthenticatedUser()
-    {
-        return self::$authenticatedUser;
-    }
-
-    /**
-     * @return bool
-     */
-    public static function hasAuthenticatedUser(): bool
-    {
-        return self::$authenticatedUser !== null;
-    }
-
-    /**
-     * @param AuthUserInterface $authUser
-     */
-    public static function setAuthenticatedUser(AuthUserInterface $authUser): void
-    {
-        self::$authenticatedUser = $authUser;
-    }
 
     /**
      * @return bool
@@ -80,10 +52,11 @@ abstract class AuthContainer implements AuthContainerInterface
 
     /**
      * @param ResponseInterface $response
+     * @param AuthUserInterface $authUser
      *
      * @return ResponseInterface
      */
-    public function runOnSuccess(ResponseInterface $response): ResponseInterface
+    public function runOnSuccess(ResponseInterface $response, AuthUserInterface $authUser): ResponseInterface
     {
         if (!$this->onSuccess)
         {
@@ -92,7 +65,7 @@ abstract class AuthContainer implements AuthContainerInterface
             };
         }
 
-        return call_user_func($this->onSuccess, $response);
+        return call_user_func($this->onSuccess, $response, $authUser);
     }
 
     /**

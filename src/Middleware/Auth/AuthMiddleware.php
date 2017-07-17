@@ -68,7 +68,7 @@ class AuthMiddleware
                     return $this->getAuthContainer()->runOnError($response->withStatus(403));
                 }
 
-                $this->getAuthContainer()::setAuthenticatedUser($user);
+                $response = $this->getAuthContainer()->runOnSuccess($response, $user);
             }
         }
 
