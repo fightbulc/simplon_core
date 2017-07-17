@@ -5,6 +5,7 @@ namespace Simplon\Core\Middleware\Auth;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\Data\AuthRouteData;
+use Simplon\Core\Interfaces\AuthContainerInterface;
 use Simplon\Core\Interfaces\AuthUserInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 
@@ -47,19 +48,23 @@ class AuthMiddleware
         {
             if (!$this->hasValidToken($request))
             {
-                $user = $this->getAuthContainer()->fetchUser(
-                    $this->fetchAuthBearerToken($request)
-                )
-                ;
+                $bearer = $this->fetchAuthBearerToken($request);
+
+                if (!$bearer)
+                {
+                    return $this->getAuthContainer()->runOnError($response->withStatus(401));
+                }
+
+                $user = $this->getAuthContainer()->fetchUser($bearer);
 
                 if (!$user)
                 {
-                    return $this->getAuthContainer()->runOnError($response);
+                    return $this->getAuthContainer()->runOnError($response->withStatus(403));
                 }
 
                 elseif (!$this->isAllowedGroup($route, $user))
                 {
-                    return $this->getAuthContainer()->runOnError($response);
+                    return $this->getAuthContainer()->runOnError($response->withStatus(403));
                 }
 
                 // cache authenticated user
@@ -135,7 +140,7 @@ class AuthMiddleware
      */
     private function isAllowedGroup(AuthRouteData $route, AuthUserInterface $user): bool
     {
-        return $user->isGod() || $route->inGroup($user);
+        return $user->isSuperUser() || $route->inGroup($user);
     }
 
     /**

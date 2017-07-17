@@ -3,6 +3,7 @@
 namespace Simplon\Core\Middleware\Auth;
 
 use Psr\Http\Message\ResponseInterface;
+use Simplon\Core\Interfaces\AuthContainerInterface;
 use Simplon\Core\Interfaces\AuthUserInterface;
 
 /**
@@ -29,6 +30,14 @@ abstract class AuthContainer implements AuthContainerInterface
     public static function getAuthenticatedUser()
     {
         return self::$authenticatedUser;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function hasAuthenticatedUser(): bool
+    {
+        return self::$authenticatedUser !== null;
     }
 
     /**
@@ -76,7 +85,14 @@ abstract class AuthContainer implements AuthContainerInterface
      */
     public function runOnSuccess(ResponseInterface $response): ResponseInterface
     {
-        return call_user_func($this->onError, $response);
+        if (!$this->onSuccess)
+        {
+            $this->onSuccess = function (ResponseInterface $response) {
+                return $response;
+            };
+        }
+
+        return call_user_func($this->onSuccess, $response);
     }
 
     /**
@@ -98,6 +114,13 @@ abstract class AuthContainer implements AuthContainerInterface
      */
     public function runOnError(ResponseInterface $response): ResponseInterface
     {
+        if (!$this->onError)
+        {
+            $this->onError = function (ResponseInterface $response) {
+                return $response;
+            };
+        }
+
         return call_user_func($this->onError, $response);
     }
 }

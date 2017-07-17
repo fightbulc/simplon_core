@@ -63,7 +63,12 @@ class AuthRouteData
      */
     public function inGroup(AuthUserInterface $user): bool
     {
-        return !$this->hasGroups() || in_array($user->getGroup(), $this->groups);
+        if ($this->hasGroups())
+        {
+            return $user->getGroup() && in_array($user->getGroup(), $this->groups);
+        }
+
+        return true;
     }
 
     /**

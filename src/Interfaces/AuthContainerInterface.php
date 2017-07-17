@@ -1,12 +1,11 @@
 <?php
 
-namespace Simplon\Core\Middleware\Auth;
+namespace Simplon\Core\Interfaces;
 
 use Psr\Http\Message\ResponseInterface;
-use Simplon\Core\Interfaces\AuthUserInterface;
 
 /**
- * @package Simplon\Core\Middleware\Auth
+ * @package Simplon\Core\Interfaces
  */
 interface AuthContainerInterface
 {
@@ -14,6 +13,11 @@ interface AuthContainerInterface
      * @return null|AuthUserInterface
      */
     public static function getAuthenticatedUser();
+
+    /**
+     * @return bool
+     */
+    public static function hasAuthenticatedUser(): bool;
 
     /**
      * @param AuthUserInterface $authUser

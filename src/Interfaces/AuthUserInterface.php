@@ -10,12 +10,12 @@ use Simplon\Helper\Interfaces\DataInterface;
 interface AuthUserInterface extends DataInterface
 {
     /**
-     * @return string
+     * @return null|string
      */
-    public function getGroup(): string;
+    public function getGroup(): ?string;
 
     /**
      * @return bool
      */
-    public function isGod(): bool;
+    public function isSuperUser(): bool;
 }
