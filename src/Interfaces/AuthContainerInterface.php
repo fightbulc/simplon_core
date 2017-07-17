@@ -3,6 +3,7 @@
 namespace Simplon\Core\Interfaces;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * @package Simplon\Core\Interfaces
@@ -25,11 +26,11 @@ interface AuthContainerInterface
     public static function setAuthenticatedUser(AuthUserInterface $authUser): void;
 
     /**
-     * @param null|string $bearer
+     * @param ServerRequestInterface $request
      *
      * @return null|AuthUserInterface
      */
-    public function fetchUser(?string $bearer = null): ?AuthUserInterface;
+    public function fetchUser(ServerRequestInterface $request): ?AuthUserInterface;
 
     /**
      * @return bool

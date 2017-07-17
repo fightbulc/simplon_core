@@ -46,28 +46,27 @@ class AuthMiddleware
     {
         if ($route = $this->findAuthRoute($request))
         {
-            if (!$this->hasValidToken($request))
+            if ($tempToken = $this->fetchTempToken($request))
             {
-                $bearer = $this->fetchAuthBearerToken($request);
-
-                if (!$bearer)
+                if (!$this->getAuthContainer()->isValidTempToken($tempToken))
                 {
-                    return $this->getAuthContainer()->runOnError($response->withStatus(401));
+                    return $this->getAuthContainer()->runOnError($response->withStatus(403));
                 }
+            }
 
-                $user = $this->getAuthContainer()->fetchUser($bearer);
+            else
+            {
+                $user = $this->getAuthContainer()->fetchUser($request);
 
                 if (!$user)
                 {
                     return $this->getAuthContainer()->runOnError($response->withStatus(403));
                 }
 
-                elseif (!$this->isAllowedGroup($route, $user))
+                if (!$this->isAllowedGroup($route, $user))
                 {
                     return $this->getAuthContainer()->runOnError($response->withStatus(403));
                 }
-
-                // cache authenticated user
 
                 $this->getAuthContainer()::setAuthenticatedUser($user);
             }
@@ -82,23 +81,6 @@ class AuthMiddleware
     private function getAuthContainer(): AuthContainerInterface
     {
         return $this->authContainer;
-    }
-
-    /**
-     * @param ServerRequestInterface $request
-     *
-     * @return string
-     */
-    private function fetchAuthBearerToken(ServerRequestInterface $request): ?string
-    {
-        $value = $request->getHeader('Authorization');
-
-        if (!empty($value) && preg_match('/^bearer:/i', $value[0]))
-        {
-            return preg_replace('/^bearer:\s*/i', '', $value[0]);
-        }
-
-        return null;
     }
 
     /**
@@ -146,17 +128,17 @@ class AuthMiddleware
     /**
      * @param ServerRequestInterface $request
      *
-     * @return bool
+     * @return string|null
      */
-    private function hasValidToken(ServerRequestInterface $request): bool
+    private function fetchTempToken(ServerRequestInterface $request): ?string
     {
         $params = $request->getQueryParams();
 
         if ($this->getAuthContainer()->allowTempToken() && !empty($params[self::TEMP_TOKEN_KEY]))
         {
-            return $this->getAuthContainer()->isValidTempToken($params[self::TEMP_TOKEN_KEY]);
+            return $params[self::TEMP_TOKEN_KEY];
         }
 
-        return false;
+        return null;
     }
 }
