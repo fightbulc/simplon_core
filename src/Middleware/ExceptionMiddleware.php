@@ -287,6 +287,11 @@ class ExceptionMiddleware
             ];
         }
 
+        if (!empty($_SERVER['HTTP_USER_AGENT']))
+        {
+            $data['client'] = $_SERVER['HTTP_USER_AGENT'];
+        }
+
         if ($e instanceof ClientException || $e instanceof ServerException)
         {
             $data['public'] = $e->getPublicData();
