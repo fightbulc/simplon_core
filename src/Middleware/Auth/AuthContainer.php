@@ -3,6 +3,7 @@
 namespace Simplon\Core\Middleware\Auth;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\Interfaces\AuthContainerInterface;
 use Simplon\Core\Interfaces\AuthUserInterface;
 
@@ -95,5 +96,22 @@ abstract class AuthContainer implements AuthContainerInterface
         }
 
         return call_user_func($this->onError, $response);
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return null|string
+     */
+    protected function fetchAuthBearer(ServerRequestInterface $request): ?string
+    {
+        $value = $request->getHeader('Authorization');
+
+        if (!empty($value) && preg_match('/^bearer:/i', $value[0]))
+        {
+            return preg_replace('/^bearer:\s*/i', '', $value[0]);
+        }
+
+        return null;
     }
 }
