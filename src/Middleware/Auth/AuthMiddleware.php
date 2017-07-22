@@ -103,7 +103,7 @@ class AuthMiddleware
 
                     // look if pattern is part of URI
 
-                    if (preg_match('/' . $quotedPattern . '/i', $currentPath))
+                    if (preg_match('/^' . $quotedPattern . '$/i', $currentPath))
                     {
                         return $route;
                     }
