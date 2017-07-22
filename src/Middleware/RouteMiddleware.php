@@ -24,18 +24,34 @@ class RouteMiddleware
      */
     private $components;
     /**
+     * @var null|string
+     */
+    private $fallbackRoute;
+    /**
      * @var string
      */
-    private $allowedRouteChars;
+    private $allowedRouteChars = '\w+-=%/';
 
     /**
      * @param array $components
-     * @param string $allowedRouteChars
+     * @param null|string $fallbackRoute
      */
-    public function __construct(array $components, string $allowedRouteChars = '\w+-=%/')
+    public function __construct(array $components, ?string $fallbackRoute = null)
     {
         $this->components = $components;
+        $this->fallbackRoute = $fallbackRoute;
+    }
+
+    /**
+     * @param string $allowedRouteChars
+     *
+     * @return RouteMiddleware
+     */
+    public function setAllowedRouteChars(string $allowedRouteChars): RouteMiddleware
+    {
         $this->allowedRouteChars = $allowedRouteChars;
+
+        return $this;
     }
 
     /**
@@ -86,6 +102,11 @@ class RouteMiddleware
 
                 return $response;
             }
+        }
+
+        if ($this->fallbackRoute)
+        {
+            return $response->withAddedHeader('Location', $this->fallbackRoute);
         }
 
         throw (new ClientException())->contentNotFound([
