@@ -58,16 +58,16 @@
         },
         {
             "name": "fightbulc/moment",
-            "version": "1.26.7",
+            "version": "1.26.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/moment.php.git",
-                "reference": "4f7d21fb3e35222def4f26599b2ea3af382c0a14"
+                "reference": "8d164a2101e45bf1a8208ddfb3a15313f764a0f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/4f7d21fb3e35222def4f26599b2ea3af382c0a14",
-                "reference": "4f7d21fb3e35222def4f26599b2ea3af382c0a14",
+                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/8d164a2101e45bf1a8208ddfb3a15313f764a0f8",
+                "reference": "8d164a2101e45bf1a8208ddfb3a15313f764a0f8",
                 "shasum": ""
             },
             "require": {
@@ -117,7 +117,7 @@
                 "translation",
                 "validate"
             ],
-            "time": "2017-07-11T17:51:37+00:00"
+            "time": "2017-07-22T07:37:47+00:00"
         },
         {
             "name": "filp/whoops",
@@ -1165,16 +1165,16 @@
         },
         {
             "name": "simplon/form",
-            "version": "2.1.5",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_form.git",
-                "reference": "84570c9384519b1dc6948de59f4bbf7492fa30aa"
+                "reference": "17b7b714c6e052e612d48bfeaca0761a732031ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/84570c9384519b1dc6948de59f4bbf7492fa30aa",
-                "reference": "84570c9384519b1dc6948de59f4bbf7492fa30aa",
+                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/17b7b714c6e052e612d48bfeaca0761a732031ce",
+                "reference": "17b7b714c6e052e612d48bfeaca0761a732031ce",
                 "shasum": ""
             },
             "require": {
@@ -1215,7 +1215,7 @@
                 "templates",
                 "validation"
             ],
-            "time": "2017-06-27T11:37:49+00:00"
+            "time": "2017-07-22T17:24:34+00:00"
         },
         {
             "name": "simplon/helper",
@@ -1490,7 +1490,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.3.4",
+            "version": "v3.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
@@ -1559,7 +1559,7 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v3.3.4",
+            "version": "v3.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
@@ -1674,16 +1674,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.3.4",
+            "version": "v3.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "5ab8949b682b1bf9d4511a228b5e045c96758c30"
+                "reference": "07432804942b9f6dd7b7377faf9920af5f95d70a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/5ab8949b682b1bf9d4511a228b5e045c96758c30",
-                "reference": "5ab8949b682b1bf9d4511a228b5e045c96758c30",
+                "url": "https://api.github.com/repos/symfony/process/zipball/07432804942b9f6dd7b7377faf9920af5f95d70a",
+                "reference": "07432804942b9f6dd7b7377faf9920af5f95d70a",
                 "shasum": ""
             },
             "require": {
@@ -1719,7 +1719,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-07-03T08:12:02+00:00"
+            "time": "2017-07-13T13:05:09+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
