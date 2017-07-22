@@ -58,8 +58,13 @@ abstract class BaseFormView implements FormViewInterface
     {
         if (!$this->view)
         {
+            $formView = (new FormView())
+                ->setSize($this->getFormSize())
+                ->setSubmitElement($this->getSubmitElement())
+            ;
+
             $this->view = $this
-                ->applyOnView((new FormView())->setSubmitElement($this->getSubmitElement()))
+                ->applyOnView($formView)
                 ->setUrl($this->getUrl())
                 ->addBlocks($this->getBlocks())
             ;
@@ -124,5 +129,13 @@ abstract class BaseFormView implements FormViewInterface
     protected function getFormViewRow(): FormViewRow
     {
         return new FormViewRow();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFormSize(): string
+    {
+        return 'large';
     }
 }
