@@ -16,20 +16,16 @@ class AuthRouteData
     /**
      * @var array
      */
-    private $groups;
-    /**
-     * @var string|null
-     */
-    private $deniedRoute;
+    private $roles;
 
     /**
      * @param string $pattern
-     * @param array $groups
+     * @param array $roles
      */
-    public function __construct(string $pattern, array $groups = [])
+    public function __construct(string $pattern, array $roles = [])
     {
         $this->pattern = $pattern;
-        $this->groups = $groups;
+        $this->roles = $roles;
     }
 
     /**
@@ -43,17 +39,17 @@ class AuthRouteData
     /**
      * @return array
      */
-    public function getGroups(): array
+    public function getRoles(): array
     {
-        return $this->groups;
+        return $this->roles;
     }
 
     /**
      * @return bool
      */
-    public function hasGroups(): bool
+    public function hasRoles(): bool
     {
-        return empty($this->groups) === false;
+        return empty($this->roles) === false;
     }
 
     /**
@@ -61,33 +57,13 @@ class AuthRouteData
      *
      * @return bool
      */
-    public function inGroup(AuthUserInterface $user): bool
+    public function inRoles(AuthUserInterface $user): bool
     {
-        if ($this->hasGroups())
+        if ($this->hasRoles())
         {
-            return $user->getGroup() && in_array($user->getGroup(), $this->groups);
+            return $user->getRole() && in_array($user->getRole(), $this->getRoles());
         }
 
         return true;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getDeniedRoute(): ?string
-    {
-        return $this->deniedRoute;
-    }
-
-    /**
-     * @param string $deniedRoute
-     *
-     * @return AuthRouteData
-     */
-    public function setDeniedRoute(string $deniedRoute): AuthRouteData
-    {
-        $this->deniedRoute = $deniedRoute;
-
-        return $this;
     }
 }

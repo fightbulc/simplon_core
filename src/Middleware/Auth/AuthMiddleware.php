@@ -63,7 +63,7 @@ class AuthMiddleware
                     return $this->getAuthContainer()->runOnError($response->withStatus(403));
                 }
 
-                if (!$this->isAllowedGroup($route, $user))
+                if (!$this->isAllowedRole($route, $user))
                 {
                     return $this->getAuthContainer()->runOnError($response->withStatus(403));
                 }
@@ -120,9 +120,9 @@ class AuthMiddleware
      *
      * @return bool
      */
-    private function isAllowedGroup(AuthRouteData $route, AuthUserInterface $user): bool
+    private function isAllowedRole(AuthRouteData $route, AuthUserInterface $user): bool
     {
-        return $user->isSuperUser() || $route->inGroup($user);
+        return $user->isSuperUser() || $route->inRoles($user);
     }
 
     /**

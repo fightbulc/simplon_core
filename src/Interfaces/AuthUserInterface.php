@@ -12,7 +12,7 @@ interface AuthUserInterface extends DataInterface
     /**
      * @return null|string
      */
-    public function getGroup(): ?string;
+    public function getRole(): ?string;
 
     /**
      * @return bool

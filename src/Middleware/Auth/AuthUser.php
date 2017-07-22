@@ -13,7 +13,7 @@ abstract class AuthUser extends Data implements AuthUserInterface
     /**
      * @return null|string
      */
-    public function getGroup(): ?string
+    public function getRole(): ?string
     {
         return null;
     }
