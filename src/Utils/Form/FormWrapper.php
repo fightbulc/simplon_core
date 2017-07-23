@@ -23,13 +23,19 @@ class FormWrapper
     /**
      * @param BaseForm $form
      * @param array $requestData
+     * @param array $initialData
      *
      * @throws FormError
      */
-    public function __construct(BaseForm $form, array $requestData = [])
+    public function __construct(BaseForm $form, array $requestData = [], array $initialData = [])
     {
         $this->form = $form;
         $this->validator = (new FormValidator($requestData))->addFields($this->getFields());
+
+        if (!$this->validator->hasBeenSubmitted())
+        {
+            $this->getFields()->applyInitialData($initialData);
+        }
     }
 
     /**
