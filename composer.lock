@@ -1165,16 +1165,16 @@
         },
         {
             "name": "simplon/form",
-            "version": "2.2.1",
+            "version": "2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_form.git",
-                "reference": "17b7b714c6e052e612d48bfeaca0761a732031ce"
+                "reference": "92a2a803585ac745d8734cd409bb1fb354735b97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/17b7b714c6e052e612d48bfeaca0761a732031ce",
-                "reference": "17b7b714c6e052e612d48bfeaca0761a732031ce",
+                "url": "https://api.github.com/repos/fightbulc/simplon_form/zipball/92a2a803585ac745d8734cd409bb1fb354735b97",
+                "reference": "92a2a803585ac745d8734cd409bb1fb354735b97",
                 "shasum": ""
             },
             "require": {
@@ -1215,7 +1215,7 @@
                 "templates",
                 "validation"
             ],
-            "time": "2017-07-22T17:24:34+00:00"
+            "time": "2017-07-23T09:16:18+00:00"
         },
         {
             "name": "simplon/helper",

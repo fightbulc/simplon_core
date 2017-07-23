@@ -155,17 +155,18 @@ abstract class View implements ViewInterface
 
     /**
      * @param FormView $formView
+     * @param array|null $ignoreAssets
      *
      * @return static
      */
-    public function addFormAssets(FormView $formView)
+    public function addFormAssets(FormView $formView, ?array $ignoreAssets = null)
     {
-        foreach ($formView->getCssAssets() as $asset)
+        foreach ($formView->getCssAssets($ignoreAssets) as $asset)
         {
             $this->addFormCss($asset);
         }
 
-        foreach ($formView->getJsAssets() as $asset)
+        foreach ($formView->getJsAssets($ignoreAssets) as $asset)
         {
             $this->addFormJs($asset);
         }
