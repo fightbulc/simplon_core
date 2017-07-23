@@ -9,6 +9,7 @@ use Simplon\Form\View\FormView;
 use Simplon\Form\View\FormViewBlock;
 use Simplon\Form\View\FormViewRow;
 use Simplon\Locale\Locale;
+use Simplon\Url\Url;
 
 /**
  * @package Simplon\Core\Utils\Form
@@ -43,7 +44,10 @@ abstract class BaseFormView implements FormViewInterface
     /**
      * @return string
      */
-    abstract protected function getUrl(): string;
+    protected function getUrl(): string
+    {
+        return Url::getCurrentUrl();
+    }
 
     /**
      * @return FormViewBlock[]
