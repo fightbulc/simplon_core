@@ -402,7 +402,7 @@ use Simplon\Form\Data\FormField;
 use Simplon\Form\Data\Rules\RequiredRule;
 use Simplon\Form\Data\Rules\EmailRule;
 
-class CreateFormFields extends BaseForm
+class CreateForm extends BaseForm
 {
     const NAME = 'name';
     const EMAIL = 'email';
@@ -410,7 +410,7 @@ class CreateFormFields extends BaseForm
     /**
      * @return FormField[]
      */
-    protected function getFields(): array
+    protected function buildFields(): array
     {
         return [
             $this->getName(),
@@ -451,16 +451,6 @@ use Simplon\Form\View\FormViewRow;
 
 class CreateFormView extends BaseFormView
 {
-    const BLOCK_DEFAULT = 'default';
-
-    /**
-     * @return string
-     */
-    protected function getUrl(): string
-    {
-        return '/your/url';
-    }
-
     /**
      * @return FormViewBlock[]
      * @throws FormError
@@ -468,9 +458,9 @@ class CreateFormView extends BaseFormView
     protected function getBlocks(): array
     {
         return [
-            (new FormViewBlock(self::BLOCK_DEFAULT))
+            $this->buildFormViewBlock(self::BLOCK_DEFAULT)
                 ->addRow(
-                    (new FormViewRow())
+                    $this->>buildFormViewRow()
                         ->autoColumns($this->getNameElement())
                         ->autoColumns($this->getEmailElement())
                 ),
@@ -524,44 +514,16 @@ class CreateFormView extends BaseFormView
 ```php
 namespace App;
 
-use Simplon\Core\Utils\Form\FormViewInterface;
-use Simplon\Core\Data\CoreViewData;
-use Simplon\Core\Views\View;
+use Simplon\Core\Utils\Form\ViewWithForm;
 
-class CreateView extends View
+class CreateView extends ViewWithForm
 {
-    /**
-     * @var FormViewInterface
-     */
-    private $formView;
-
-    /**
-     * @param CoreViewData $coreViewData
-     * @param FormViewInterface $formView
-     */
-    public function __construct(CoreViewData $coreViewData, FormViewInterface $formView)
-    {
-        parent::__construct($coreViewData);
-        $this->addFormAssets($formView->getView());
-        $this->formView = $formView;
-    }
-
     /**
      * @return string
      */
     protected function getTemplate(): string
     {
         return __DIR__ . '/CreateTemplate.phtml';
-    }
-
-    /**
-     * @return array
-     */
-    protected function getData(): array
-    {
-        return [
-            'formView' => $this->formView->getView(),
-        ];
     }
 }
 ```
@@ -619,7 +581,7 @@ use Simplon\Locale\Locale;
 ```php
 namespace App;
 
-use App\CreateFormFields;
+use App\CreateForm;
 use App\CreateFormView;
 use App\CreateView;
 use Simplon\Core\Controllers\ViewController;
@@ -637,9 +599,10 @@ class CreateViewController extends ViewController
      */
     public function __invoke(array $params): ResponseViewData
     {
+        $initialData = [];
         $requestData = $this->getRequest()->getParsedBody();
-        $formFields = (new CreateFormFields($this->getLocale()))->getFormFields();
-        $formWrapper = new FormWrapper($formFields, $requestData);
+        $form = new CreateForm($this->getLocale());
+        $formWrapper = new FormWrapper($form, $requestData, $initialData);
 
         if ($formWrapper->getValidator()->validate()->isValid())
         {
@@ -648,7 +611,7 @@ class CreateViewController extends ViewController
             return $this->redirect('/some/other/url');
         }
 
-        $formView = new CreateFormView($this->getLocale(), $formFields);
+        $formView = new CreateFormView($this->getLocale(), $formWrapper->getFields());
 
         return $this->respond(
             new CreateView($this->getCoreViewData(), $formView)
