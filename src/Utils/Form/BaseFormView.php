@@ -128,9 +128,19 @@ abstract class BaseFormView implements FormViewInterface
     }
 
     /**
+     * @param string $id
+     *
+     * @return FormViewBlock
+     */
+    protected function buildFormViewBlock(string $id): FormViewBlock
+    {
+        return new FormViewBlock($id);
+    }
+
+    /**
      * @return FormViewRow
      */
-    protected function getFormViewRow(): FormViewRow
+    protected function buildFormViewRow(): FormViewRow
     {
         return new FormViewRow();
     }
