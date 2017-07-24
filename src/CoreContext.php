@@ -6,7 +6,7 @@ use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Storage\CookieStorage;
 use Simplon\Core\Storage\SessionStorage;
 use Simplon\Core\Utils\Config;
-use Simplon\Core\Utils\EventsHandler;
+use Simplon\Core\Utils\Events;
 use Simplon\Helper\Data\InstanceData;
 use Simplon\Helper\Instances;
 use Simplon\Locale\Locale;
@@ -73,11 +73,11 @@ abstract class CoreContext
     }
 
     /**
-     * @return EventsHandler
+     * @return Events
      */
-    public function getEventsHandler(): EventsHandler
+    public function getEvents(): Events
     {
-        $instanceData = InstanceData::create(EventsHandler::class);
+        $instanceData = InstanceData::create(Events::class);
 
         return Instances::cache($instanceData);
     }

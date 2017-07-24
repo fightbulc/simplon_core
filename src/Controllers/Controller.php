@@ -9,7 +9,7 @@ use Simplon\Core\CoreContext;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Utils\Config;
-use Simplon\Core\Utils\EventsHandler;
+use Simplon\Core\Utils\Events;
 use Simplon\Core\Utils\Form\BaseForm;
 use Simplon\Core\Utils\Form\FormWrapper;
 use Simplon\Locale\Locale;
@@ -89,9 +89,9 @@ abstract class Controller implements ControllerInterface
     }
 
     /**
-     * @return EventsHandler
+     * @return Events
      */
-    public function getEvents(): EventsHandler
+    public function getEvents(): Events
     {
         /** @var RegistryInterface $registry */
         $registry = $this->registry;
@@ -102,7 +102,7 @@ abstract class Controller implements ControllerInterface
         /** @var CoreContext $appContext */
         $appContext = $context->getAppContext();
 
-        return $appContext->getEventsHandler();
+        return $appContext->getEvents();
     }
 
     /**

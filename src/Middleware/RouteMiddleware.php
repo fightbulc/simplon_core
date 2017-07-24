@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
-use Simplon\Core\Utils\EventsHandler;
+use Simplon\Core\Utils\Events;
 use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
 use Simplon\Helper\Data\InstanceData;
@@ -249,12 +249,12 @@ class RouteMiddleware
     }
 
     /**
-     * @return EventsHandler
+     * @return Events
      */
-    private function getEventsHandler(): EventsHandler
+    private function getEventsHandler(): Events
     {
         return Instances::cache(
-            InstanceData::create(EventsHandler::class)
+            InstanceData::create(Events::class)
         );
     }
 }

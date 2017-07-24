@@ -3,10 +3,10 @@
 namespace Simplon\Core\Utils;
 
 /**
- * Class EventsHandler
+ * Class Events
  * @package Simplon\Core\Utils
  */
-class EventsHandler
+class Events
 {
     /**
      * @var array
@@ -21,7 +21,7 @@ class EventsHandler
      * @param string $event
      * @param callable $callback
      *
-     * @return EventsHandler
+     * @return Events
      */
     public function addSubscription(string $event, callable $callback): self
     {
@@ -39,7 +39,7 @@ class EventsHandler
      * @param string $event
      * @param callable $callback
      *
-     * @return EventsHandler
+     * @return Events
      */
     public function removeSubscription(string $event, callable $callback): self
     {
@@ -59,7 +59,7 @@ class EventsHandler
     /**
      * @param string $event
      *
-     * @return EventsHandler
+     * @return Events
      */
     public function removeAllSubscriptions(string $event = null): self
     {
@@ -89,7 +89,7 @@ class EventsHandler
      * @param string $event
      * @param array $params
      *
-     * @return EventsHandler
+     * @return Events
      */
     public function trigger(string $event, array $params = []): self
     {
@@ -105,7 +105,7 @@ class EventsHandler
      * @param string $event
      * @param callable $callback
      *
-     * @return EventsHandler
+     * @return Events
      */
     public function addOffer(string $event, callable $callback): self
     {
