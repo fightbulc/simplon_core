@@ -1,7 +1,5 @@
 <?php
 
-use Simplon\Core\CoreContext;
-
 Class TemplateUtil
 {
     /**
@@ -89,6 +87,7 @@ Class TemplateUtil
             foreach ($this->params as $k => $v)
             {
                 $this->contents = preg_replace('/\{' . $k . '\}/iu', $v, $this->contents);
+                $this->destination = str_replace('{' . $k . '}', $v, $this->destination);
                 $this->fileName = str_replace('{' . $k . '}', $v, $this->fileName);
             }
 
@@ -97,9 +96,11 @@ Class TemplateUtil
                 mkdir($this->destination);
             }
 
-            file_put_contents($this->destination . '/' . $this->fileName, $this->contents);
+            $pathDestination = $this->destination . '/' . $this->fileName;
+            list($_, $pathWithoutRoot) = explode('vendor/../', $pathDestination);
+            file_put_contents($pathDestination, $this->contents);
 
-            return str_replace(CoreContext::APP_PATH, '', $this->destination . '/' . $this->fileName);
+            return $pathWithoutRoot;
         }
 
         throw new \Exception('Make sure you have set contents, destination and fileName');

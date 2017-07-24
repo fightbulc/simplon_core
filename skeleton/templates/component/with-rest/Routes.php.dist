@@ -2,7 +2,7 @@
 
 namespace {namespace};
 
-use Simplon\Core\Utils\Routes;
+use Simplon\Core\Utils\Routing\Routes;
 
 /**
  * @package {namespace}

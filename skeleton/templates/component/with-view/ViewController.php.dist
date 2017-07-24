@@ -8,7 +8,7 @@ use Simplon\Core\Data\ResponseViewData;
 /**
  * @package {namespace}\Controllers
  */
-class {name}ViewController extends BaseViewController
+class {view}ViewController extends BaseViewController
 {
     /**
      * @param array $params

@@ -12,11 +12,20 @@ use Simplon\Core\Data\CoreViewData;
  */
 class AppContext extends CoreContext
 {
+    /**
+     * @param CoreViewData $coreViewData
+     * @param GlobalViewData $globalViewData
+     *
+     * @return AppPageView
+     */
     public function getAppPageView(CoreViewData $coreViewData, GlobalViewData $globalViewData): AppPageView
     {
         return new AppPageView($coreViewData, $globalViewData);
     }
 
+    /**
+     * @return GlobalViewData
+     */
     public function getGlobaViewData(): GlobalViewData
     {
         return new GlobalViewData();

@@ -7,7 +7,7 @@ use Simplon\Mysql\Crud\CrudModel;
 /**
  * @package {namespace}
  */
-class {name}Model extends CrudModel
+class {model}Model extends CrudModel
 {
     const COL_ID = 'id';
     const COL_TOKEN = 'token';

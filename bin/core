@@ -16,18 +16,22 @@ require $rootPath . '/vendor/autoload.php';
 use Silly\Application;
 use Simplon\Core\CoreContext;
 
-$app = new Application();
-$pathRoot = CoreContext::APP_PATH;
-$pathSkeleton = $pathRoot . '/../vendor/simplon/core/skeleton';
+list($pathComposer, $_) = explode('/simplon/core/src', CoreContext::APP_PATH);
+$pathPackage = $pathComposer . '/simplon/core';
+$pathSkeleton = $pathPackage . '/skeleton';
+$pathApp = $pathComposer . '/..';
 
 require $pathSkeleton . '/utils/TemplateUtil.php';
-require $pathSkeleton . '/utils/ComponentSkeleton.php';
 require $pathSkeleton . '/utils/InitSkeleton.php';
+require $pathSkeleton . '/utils/ComponentSkeleton.php';
+require $pathSkeleton . '/utils/StoreSkeleton.php';
+
+$app = new Application();
 
 // ##############################################
 
 $app
-    ->command('init name [--with-view]', InitSkeleton::process($pathRoot, $pathSkeleton))
+    ->command('init name [--with-view]', InitSkeleton::process($pathApp, $pathSkeleton))
     ->descriptions('Init your app', [
         'name'        => 'App name',
         '--with-view' => 'Enable view',
@@ -37,7 +41,7 @@ $app
 // ##############################################
 
 $app
-    ->command('component name [--with-rest] [--with-view=]', ComponentSkeleton::process($pathRoot, $pathSkeleton))
+    ->command('component name [--with-rest] [--with-view=]', ComponentSkeleton::process($pathApp, $pathSkeleton))
     ->descriptions('Add a component', [
         'name'        => 'Component name',
         '--with-rest' => 'Enable REST',
@@ -48,7 +52,7 @@ $app
 // ##############################################
 
 $app
-    ->command('store component store model [--with-token]', ComponentSkeleton::process($pathRoot, $pathSkeleton))
+    ->command('store component store model [--with-token]', StoreSkeleton::process($pathApp, $pathSkeleton))
     ->descriptions('Add a store/model to an existing component', [
         'component'    => 'Component name',
         'store'        => 'Store name',
