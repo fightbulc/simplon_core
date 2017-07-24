@@ -1,0 +1,13 @@
+<?php
+
+namespace {namespace};
+
+use Simplon\Mysql\Crud\CrudModel;
+
+/**
+ * @package {namespace}
+ */
+class {name}Model extends CrudModel
+{
+    const COL_ID = 'id';
+}

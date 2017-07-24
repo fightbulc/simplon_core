@@ -1,0 +1,115 @@
+<?php
+
+namespace {namespace};
+
+use Simplon\Mysql\Crud\CrudStore;
+use Simplon\Mysql\MysqlException;
+use Simplon\Mysql\QueryBuilder\CreateQueryBuilder;
+use Simplon\Mysql\QueryBuilder\DeleteQueryBuilder;
+use Simplon\Mysql\QueryBuilder\ReadQueryBuilder;
+use Simplon\Mysql\QueryBuilder\UpdateQueryBuilder;
+use Simplon\Mysql\Utils\StorageUtil;
+
+/**
+ * @package {namespace}
+ */
+class {name}Store extends CrudStore
+{
+    const TABLE_NAME = '{table_name}';
+
+    /**
+     * @return string
+     */
+    public function getTableName(): string
+    {
+        return self::TABLE_NAME;
+    }
+
+    /**
+     * @return {model_name}Model
+     */
+    public function getModel(): {model_name}Model
+    {
+        return new {model_name}Model();
+    }
+
+    /**
+     * @return string
+     */
+    public function getUniqueToken(): string
+    {
+        return StorageUtil::getUniqueToken($this);
+    }
+
+    /**
+     * @param CreateQueryBuilder $builder
+     *
+     * @return {model_name}Model
+     * @throws MysqlException
+     */
+    public function create(CreateQueryBuilder $builder): {model_name}Model
+    {
+        /** @var {model_name}Model $model */
+        $model = $this->crudCreate($builder);
+
+        return $model;
+    }
+
+    /**
+     * @param ReadQueryBuilder|null $builder
+     *
+     * @return {model_name}Model[]|null
+     * @throws MysqlException
+     */
+    public function read(?ReadQueryBuilder $builder = null): ?array
+    {
+        /** @var {model_name}Model[] $models */
+        $models = $this->crudRead($builder);
+
+        if ($models)
+        {
+            return $models;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param ReadQueryBuilder $builder
+     *
+     * @return {model_name}Model|null
+     * @throws MysqlException
+     */
+    public function readOne(ReadQueryBuilder $builder): ?{model_name}Model
+    {
+        /** @var {model_name}Model $model */
+        $model = $this->crudReadOne($builder);
+
+        return $model;
+    }
+
+    /**
+     * @param UpdateQueryBuilder $builder
+     *
+     * @return {model_name}Model
+     * @throws MysqlException
+     */
+    public function update(UpdateQueryBuilder $builder): {model_name}Model
+    {
+        /** @var {model_name}Model $model */
+        $model = $this->crudUpdate($builder);
+
+        return $model;
+    }
+
+    /**
+     * @param DeleteQueryBuilder $builder
+     *
+     * @return bool
+     * @throws MysqlException
+     */
+    public function delete(DeleteQueryBuilder $builder): bool
+    {
+        return $this->crudDelete($builder);
+    }
+}

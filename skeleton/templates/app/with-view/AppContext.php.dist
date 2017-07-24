@@ -1,6 +1,6 @@
 <?php
 
-namespace {namespace};
+namespace App;
 
 use App\Data\GlobalViewData;
 use App\Views\AppPageView;

@@ -38,13 +38,7 @@ $middleware = [
 ];
 
 //
-// Redis session handler
-//
-
-$sessionHandler = getenv('REDIS_HOST') ? new SessionRedis(getenv('REDIS_HOST'), (int)getenv('REDIS_PORT')) : null;
-
-//
 // run core with app data
 //
 
-(new Core())->withSession(60, $sessionHandler)->run($middleware);
+(new Core())->run($middleware);
