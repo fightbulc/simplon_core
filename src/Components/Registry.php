@@ -2,10 +2,12 @@
 
 namespace Simplon\Core\Components;
 
-use Simplon\Core\Data\AuthRouteData;
+use Simplon\Core\Data\AuthRoute;
+use Simplon\Core\Data\Route;
 use Simplon\Core\Interfaces\EventsInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
-use Simplon\Core\Utils\RoutesCollection;
+use Simplon\Core\Utils\Routing\AuthRoutesCollection;
+use Simplon\Core\Utils\Routing\RoutesCollection;
 
 /**
  * @package Simplon\Core\Components
@@ -23,9 +25,9 @@ abstract class Registry implements RegistryInterface
     }
 
     /**
-     * @return null|AuthRouteData[]
+     * @return null|AuthRoutesCollection
      */
-    public function getAuthRoutes(): ?array
+    public function getAuthRoutes(): ?AuthRoutesCollection
     {
         return null;
     }
@@ -36,5 +38,43 @@ abstract class Registry implements RegistryInterface
     public function getEvents(): ?EventsInterface
     {
         return null;
+    }
+
+    /**
+     * @return RoutesCollection
+     */
+    public function buildRoutesCollection(): RoutesCollection
+    {
+        return new RoutesCollection();
+    }
+
+    /**
+     * @param string $path
+     * @param string $controller
+     *
+     * @return Route
+     */
+    public function buildRoute(string $path, string $controller): Route
+    {
+        return new Route($path, $controller);
+    }
+
+    /**
+     * @return AuthRoutesCollection
+     */
+    public function buildAuthRoutesCollection(): AuthRoutesCollection
+    {
+        return new AuthRoutesCollection();
+    }
+
+    /**
+     * @param string $path
+     * @param array $roles
+     *
+     * @return AuthRoute
+     */
+    public function buildAuthRoute(string $path, array $roles = []): AuthRoute
+    {
+        return new AuthRoute($path, $roles);
     }
 }

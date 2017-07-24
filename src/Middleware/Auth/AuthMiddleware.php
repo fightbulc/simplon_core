@@ -4,7 +4,7 @@ namespace Simplon\Core\Middleware\Auth;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Simplon\Core\Data\AuthRouteData;
+use Simplon\Core\Data\AuthRoute;
 use Simplon\Core\Interfaces\AuthContainerInterface;
 use Simplon\Core\Interfaces\AuthUserInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
@@ -65,6 +65,11 @@ class AuthMiddleware
 
                 if (!$this->isAllowedRole($route, $user))
                 {
+                    if ($fallbackRoute = $route->getFallbackRoute())
+                    {
+                        $response = $response->withAddedHeader('Location', $fallbackRoute);
+                    }
+
                     return $this->getAuthContainer()->runOnError($response->withStatus(403));
                 }
 
@@ -86,9 +91,9 @@ class AuthMiddleware
     /**
      * @param ServerRequestInterface $request
      *
-     * @return null|AuthRouteData
+     * @return null|AuthRoute
      */
-    private function findAuthRoute(ServerRequestInterface $request): ?AuthRouteData
+    private function findAuthRoute(ServerRequestInterface $request): ?AuthRoute
     {
         $currentPath = $request->getUri()->getPath();
 
@@ -115,12 +120,12 @@ class AuthMiddleware
     }
 
     /**
-     * @param AuthRouteData $route
+     * @param AuthRoute $route
      * @param AuthUserInterface $user
      *
      * @return bool
      */
-    private function isAllowedRole(AuthRouteData $route, AuthUserInterface $user): bool
+    private function isAllowedRole(AuthRoute $route, AuthUserInterface $user): bool
     {
         return $user->isSuperUser() || $route->inRoles($user);
     }

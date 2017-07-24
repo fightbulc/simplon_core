@@ -2,8 +2,8 @@
 
 namespace Simplon\Core\Interfaces;
 
-use Simplon\Core\Data\AuthRouteData;
-use Simplon\Core\Utils\RoutesCollection;
+use Simplon\Core\Utils\Routing\AuthRoutesCollection;
+use Simplon\Core\Utils\Routing\RoutesCollection;
 
 /**
  * @package Simplon\Core\Interfaces
@@ -18,9 +18,9 @@ interface RegistryInterface
     public function getRoutes(): ?RoutesCollection;
 
     /**
-     * @return null|AuthRouteData[]
+     * @return null|AuthRoutesCollection
      */
-    public function getAuthRoutes(): ?array;
+    public function getAuthRoutes(): ?AuthRoutesCollection;
 
     /**
      * @return null|EventsInterface

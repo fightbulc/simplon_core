@@ -5,10 +5,10 @@ namespace Simplon\Core\Data;
 use Fig\Http\Message\RequestMethodInterface;
 
 /**
- * Class RouteData
+ * Class Route
  * @package Simplon\Core\Data
  */
-class RouteData implements RequestMethodInterface
+class Route implements RequestMethodInterface
 {
     /**
      * @var string
@@ -64,7 +64,7 @@ class RouteData implements RequestMethodInterface
     }
 
     /**
-     * @return RouteData
+     * @return Route
      */
     public function withGet(): self
     {
@@ -72,7 +72,7 @@ class RouteData implements RequestMethodInterface
     }
 
     /**
-     * @return RouteData
+     * @return Route
      */
     public function withOption(): self
     {
@@ -80,7 +80,7 @@ class RouteData implements RequestMethodInterface
     }
 
     /**
-     * @return RouteData
+     * @return Route
      */
     public function withHead(): self
     {
@@ -88,7 +88,7 @@ class RouteData implements RequestMethodInterface
     }
 
     /**
-     * @return RouteData
+     * @return Route
      */
     public function withPost(): self
     {
@@ -96,7 +96,7 @@ class RouteData implements RequestMethodInterface
     }
 
     /**
-     * @return RouteData
+     * @return Route
      */
     public function withPut(): self
     {
@@ -104,7 +104,7 @@ class RouteData implements RequestMethodInterface
     }
 
     /**
-     * @return RouteData
+     * @return Route
      */
     public function withPatch(): self
     {
@@ -112,7 +112,7 @@ class RouteData implements RequestMethodInterface
     }
 
     /**
-     * @return RouteData
+     * @return Route
      */
     public function withDelete(): self
     {
@@ -122,7 +122,7 @@ class RouteData implements RequestMethodInterface
     /**
      * @param string $method
      *
-     * @return RouteData
+     * @return Route
      */
     private function addMethodAllowed(string $method): self
     {

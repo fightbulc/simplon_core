@@ -5,7 +5,6 @@ namespace {namespace};
 use App\AppContext;
 use {namespace}\Controllers\{name}RestController;
 use Simplon\Core\Components\Registry;
-use Simplon\Core\Data\RouteData;
 use Simplon\Core\Utils\RoutesCollection;
 
 /**
@@ -39,7 +38,8 @@ class {name}Registry extends Registry
      */
     public function getRoutes(): ?RoutesCollection
     {
-        return (new RoutesCollection())
-            ->addRouteData(new RouteData({name}Routes::PATTERN_FOO, {name}RestController::class));
+        return $this->buildRoutesCollection()->addRoute(
+            $this->buildRoute({name}Routes::PATTERN_FOO, {name}RestController::class)
+        );
     }
 }

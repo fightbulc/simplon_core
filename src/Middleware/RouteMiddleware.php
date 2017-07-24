@@ -129,11 +129,11 @@ class RouteMiddleware
             {
                 if ($component->getRoutes())
                 {
-                    foreach ($component->getRoutes()->getRouteData() as $routeData)
+                    foreach ($component->getRoutes()->getRoutes() as $route)
                     {
-                        foreach ($routeData->getMethodsAllowed() as $method)
+                        foreach ($route->getMethodsAllowed() as $method)
                         {
-                            $key = $method . ' ' . $routeData->getPath();
+                            $key = $method . ' ' . $route->getPath();
 
                             if (isset($collect[$key]))
                             {
@@ -146,9 +146,9 @@ class RouteMiddleware
                             }
 
                             $collect[$key] = [
-                                'path'       => $routeData->getPath(),
-                                'methods'    => $routeData->getMethodsAllowed(),
-                                'controller' => $routeData->getController(),
+                                'path'       => $route->getPath(),
+                                'methods'    => $route->getMethodsAllowed(),
+                                'controller' => $route->getController(),
                                 'registry'   => $component,
                             ];
                         }

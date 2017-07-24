@@ -7,7 +7,7 @@ use Simplon\Core\Interfaces\AuthUserInterface;
 /**
  * @package Simplon\Core\Data
  */
-class AuthRouteData
+class AuthRoute
 {
     /**
      * @var string
@@ -17,15 +17,21 @@ class AuthRouteData
      * @var array
      */
     private $roles;
+    /**
+     * @var string|null
+     */
+    private $fallbackRoute;
 
     /**
      * @param string $pattern
      * @param array $roles
+     * @param string|null $fallbackRoute
      */
-    public function __construct(string $pattern, array $roles = [])
+    public function __construct(string $pattern, array $roles = [], ?string $fallbackRoute = null)
     {
         $this->pattern = $pattern;
         $this->roles = $roles;
+        $this->fallbackRoute = $fallbackRoute;
     }
 
     /**
@@ -65,5 +71,13 @@ class AuthRouteData
         }
 
         return true;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFallbackRoute(): ?string
+    {
+        return $this->fallbackRoute;
     }
 }
