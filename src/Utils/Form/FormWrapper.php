@@ -48,6 +48,24 @@ class FormWrapper
     }
 
     /**
+     * @param string $fieldId
+     *
+     * @return mixed|null
+     * @throws FormError
+     */
+    public function getVal(string $fieldId)
+    {
+        $value = $this->getFields()->get($fieldId)->getValue();
+
+        if ($value !== '')
+        {
+            return $value;
+        }
+
+        return null;
+    }
+
+    /**
      * @return FormValidator
      */
     public function getValidator(): FormValidator

@@ -9,6 +9,8 @@ use Simplon\Core\CoreContext;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Utils\EventsHandler;
+use Simplon\Core\Utils\Form\BaseForm;
+use Simplon\Core\Utils\Form\FormWrapper;
 
 /**
  * Class Controller
@@ -71,5 +73,16 @@ abstract class Controller implements ControllerInterface
         $appContext = $context->getAppContext();
 
         return $appContext->getEventsHandler();
+    }
+
+    /**
+     * @param BaseForm $form
+     * @param array $initials
+     *
+     * @return FormWrapper
+     */
+    public function buildFormWrapper(BaseForm $form, array $initials = []): FormWrapper
+    {
+        return new FormWrapper($form, $this->getRequest()->getParsedBody(), $initials);
     }
 }
