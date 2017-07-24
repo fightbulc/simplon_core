@@ -2,11 +2,11 @@
 
 namespace Simplon\Core;
 
+use Simplon\Core\Events\Events;
 use Simplon\Core\Middleware\LocaleMiddleware;
 use Simplon\Core\Storage\CookieStorage;
 use Simplon\Core\Storage\SessionStorage;
 use Simplon\Core\Utils\Config;
-use Simplon\Core\Utils\Events;
 use Simplon\Helper\Data\InstanceData;
 use Simplon\Helper\Instances;
 use Simplon\Locale\Locale;

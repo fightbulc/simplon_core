@@ -1,12 +1,11 @@
 <?php
 
-namespace Simplon\Core\Utils;
+namespace Simplon\Core\Events;
 
 use Simplon\Core\Utils\Exceptions\ServerException;
 
 /**
- * Class Events
- * @package Simplon\Core\Utils
+ * @package Simplon\Core\Events
  */
 class Events
 {

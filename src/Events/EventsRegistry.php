@@ -3,7 +3,6 @@
 namespace Simplon\Core\Events;
 
 use Simplon\Core\Interfaces\RegistryInterface;
-use Simplon\Core\Utils\Events;
 use Simplon\Core\Utils\Exceptions\ServerException;
 use Simplon\Helper\Data\InstanceData;
 use Simplon\Helper\Instances;
