@@ -7,11 +7,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
-use Simplon\Core\Utils\Events;
 use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
-use Simplon\Helper\Data\InstanceData;
-use Simplon\Helper\Instances;
 
 /**
  * Class RouteMiddleware
@@ -152,9 +149,6 @@ class RouteMiddleware
                                 'registry'   => $component,
                             ];
                         }
-
-                        // register component events
-                        $this->registerEvents($component);
                     }
                 }
             }
@@ -213,48 +207,5 @@ class RouteMiddleware
         }
 
         return rtrim($path, '/');
-    }
-
-    /**
-     * @param RegistryInterface $register
-     *
-     * @return RouteMiddleware
-     */
-    private function registerEvents(RegistryInterface $register): self
-    {
-        if ($register->getEvents())
-        {
-            // add subscriptions
-
-            if (empty($register->getEvents()->getSubscriptions()) === false)
-            {
-                foreach ($register->getEvents()->getSubscriptions() as $event => $callback)
-                {
-                    $this->getEventsHandler()->addSubscription($event, $callback);
-                }
-            }
-
-            // add offers
-
-            if (empty($register->getEvents()->getOffers()) === false)
-            {
-                foreach ($register->getEvents()->getOffers() as $event => $callback)
-                {
-                    $this->getEventsHandler()->addOffer($event, $callback);
-                }
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Events
-     */
-    private function getEventsHandler(): Events
-    {
-        return Instances::cache(
-            InstanceData::create(Events::class)
-        );
     }
 }

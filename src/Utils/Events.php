@@ -2,6 +2,8 @@
 
 namespace Simplon\Core\Utils;
 
+use Simplon\Core\Utils\Exceptions\ServerException;
+
 /**
  * Class Events
  * @package Simplon\Core\Utils
@@ -106,9 +108,18 @@ class Events
      * @param callable $callback
      *
      * @return Events
+     * @throws ServerException
      */
     public function addOffer(string $event, callable $callback): self
     {
+        if (!empty($this->pulls[$event]))
+        {
+            throw (new ServerException())->internalError([
+                'reason'     => 'offer event name exists already',
+                'event_name' => $event,
+            ]);
+        }
+
         $this->pulls[$event] = $callback;
 
         return $this;

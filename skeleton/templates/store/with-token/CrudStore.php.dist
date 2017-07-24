@@ -50,6 +50,20 @@ class {store}Store extends CrudStore
     public function create(CreateQueryBuilder $builder): {model}Model
     {
         /** @var {model}Model $model */
+        $model = $builder->getModel();
+
+        //
+        // set token if not available
+        //
+
+        if (!$model->getToken())
+        {
+            $builder->setModel(
+                $model->setToken($this->getUniqueToken())
+            );
+        }
+
+        /** @var {model}Model $model */
         $model = $this->crudCreate($builder);
 
         return $model;
