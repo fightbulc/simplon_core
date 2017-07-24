@@ -8,7 +8,6 @@ use Simplon\Mysql\QueryBuilder\CreateQueryBuilder;
 use Simplon\Mysql\QueryBuilder\DeleteQueryBuilder;
 use Simplon\Mysql\QueryBuilder\ReadQueryBuilder;
 use Simplon\Mysql\QueryBuilder\UpdateQueryBuilder;
-use Simplon\Mysql\Utils\StorageUtil;
 
 /**
  * @package {namespace}

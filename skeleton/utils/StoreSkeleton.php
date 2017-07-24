@@ -35,7 +35,7 @@ class StoreSkeleton
                 }
 
                 $output->writeln('Creating file... ' .
-                    TemplateUtil::createFrom($pathSkeleton . '/templates/stores/CrudStore.php.dist')
+                    TemplateUtil::createFrom($pathSkeleton . '/templates/store/CrudStore.php.dist')
                                 ->withDestination($pathApp)
                                 ->withFileName('{store}Store.php')
                                 ->withParams($params)
@@ -43,7 +43,7 @@ class StoreSkeleton
                 );
 
                 $output->writeln('Creating file... ' .
-                    TemplateUtil::createFrom($pathSkeleton . '/templates/stores/CrudModel.php.dist')
+                    TemplateUtil::createFrom($pathSkeleton . '/templates/store/CrudModel.php.dist')
                                 ->withDestination($pathApp)
                                 ->withFileName('{model}Model.php')
                                 ->withParams($params)
@@ -54,7 +54,7 @@ class StoreSkeleton
                 {
 
                     $output->writeln('Creating file... ' .
-                        TemplateUtil::createFrom($pathSkeleton . '/templates/stores/with-token/CrudStore.php.dist')
+                        TemplateUtil::createFrom($pathSkeleton . '/templates/store/with-token/CrudStore.php.dist')
                                     ->withDestination($pathApp)
                                     ->withFileName('{store}Store.php')
                                     ->withParams($params)
@@ -62,7 +62,7 @@ class StoreSkeleton
                     );
 
                     $output->writeln('Creating file... ' .
-                        TemplateUtil::createFrom($pathSkeleton . '/templates/stores/with-token/CrudModel.php.dist')
+                        TemplateUtil::createFrom($pathSkeleton . '/templates/store/with-token/CrudModel.php.dist')
                                     ->withDestination($pathApp)
                                     ->withFileName('{model}Model.php')
                                     ->withParams($params)
