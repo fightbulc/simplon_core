@@ -8,9 +8,11 @@ use Simplon\Core\Components\Context;
 use Simplon\Core\CoreContext;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
+use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\EventsHandler;
 use Simplon\Core\Utils\Form\BaseForm;
 use Simplon\Core\Utils\Form\FormWrapper;
+use Simplon\Locale\Locale;
 
 /**
  * Class Controller
@@ -56,6 +58,34 @@ abstract class Controller implements ControllerInterface
     public function getResponse(): ResponseInterface
     {
         return $this->response;
+    }
+
+    /**
+     * @return Config
+     */
+    public function getConfig(): Config
+    {
+        /** @var RegistryInterface $registry */
+        $registry = $this->registry;
+
+        /** @var Context $context */
+        $context = $registry->getContext();
+
+        return $context->getConfig();
+    }
+
+    /**
+     * @return Locale
+     */
+    public function getLocale(): Locale
+    {
+        /** @var RegistryInterface $registry */
+        $registry = $this->registry;
+
+        /** @var Context $context */
+        $context = $registry->getContext();
+
+        return $context->getLocale();
     }
 
     /**
