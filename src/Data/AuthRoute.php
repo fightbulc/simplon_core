@@ -18,20 +18,18 @@ class AuthRoute
      */
     private $roles;
     /**
-     * @var string|null
+     * @var string
      */
     private $fallbackRoute;
 
     /**
      * @param string $pattern
      * @param array $roles
-     * @param string|null $fallbackRoute
      */
-    public function __construct(string $pattern, array $roles = [], ?string $fallbackRoute = null)
+    public function __construct(string $pattern, array $roles = [])
     {
         $this->pattern = $pattern;
         $this->roles = $roles;
-        $this->fallbackRoute = $fallbackRoute;
     }
 
     /**
@@ -79,5 +77,17 @@ class AuthRoute
     public function getFallbackRoute(): ?string
     {
         return $this->fallbackRoute;
+    }
+
+    /**
+     * @param string $fallbackRoute
+     *
+     * @return AuthRoute
+     */
+    public function withFallbackRoute(string $fallbackRoute): AuthRoute
+    {
+        $this->fallbackRoute = $fallbackRoute;
+
+        return $this;
     }
 }
