@@ -38,8 +38,13 @@ class ExceptionMiddleware
      * @param HandlerInterface $handler
      * @param bool $isProduction
      */
-    public function __construct(HandlerInterface $handler, bool $isProduction = false)
+    public function __construct(?HandlerInterface $handler = null, bool $isProduction = false)
     {
+        if (!$handler)
+        {
+            $handler = new PrettyPageHandler();
+        }
+
         $this->isProduction = $isProduction;
         $this->handler = $handler;
     }
