@@ -4,7 +4,11 @@ namespace Simplon\Core\Controllers;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Components\Context;
+use Simplon\Core\CoreContext;
 use Simplon\Core\Interfaces\ControllerInterface;
+use Simplon\Core\Interfaces\RegistryInterface;
+use Simplon\Core\Utils\EventsHandler;
 
 /**
  * Class Controller
@@ -50,5 +54,22 @@ abstract class Controller implements ControllerInterface
     public function getResponse(): ResponseInterface
     {
         return $this->response;
+    }
+
+    /**
+     * @return EventsHandler
+     */
+    public function getEvents(): EventsHandler
+    {
+        /** @var RegistryInterface $registry */
+        $registry = $this->registry;
+
+        /** @var Context $context */
+        $context = $registry->getContext();
+
+        /** @var CoreContext $appContext */
+        $appContext = $context->getAppContext();
+
+        return $appContext->getEventsHandler();
     }
 }
