@@ -14,7 +14,7 @@ use Simplon\Mysql\QueryBuilder\UpdateQueryBuilder;
  */
 class {store}Store extends CrudStore
 {
-    const TABLE_NAME = '{table_name}';
+    const TABLE_NAME = '{table}';
 
     /**
      * @return string

@@ -12,12 +12,22 @@ class StoreSkeleton
      */
     public static function process(string $pathApp, string $pathSkeleton): callable
     {
-        return function ($component, $store, $model, $withToken, OutputInterface $output) use ($pathApp, $pathSkeleton) {
-            if ($component && $store && $model)
+        return function ($component, $store, $withModel, $withTable, $withToken, OutputInterface $output) use ($pathApp, $pathSkeleton) {
+            if (empty($withModel))
+            {
+                $withModel = substr($store, 0, -1); // generate model name
+            }
+
+            if (empty($withTable))
+            {
+                $withTable = strtolower($store);
+            }
+
+            if ($component && $store && $withModel)
             {
                 $component = str_replace(' ', '', ucwords($component));
                 $store = str_replace(' ', '', ucwords($store));
-                $model = str_replace(' ', '', ucwords($model));
+                $withModel = str_replace(' ', '', ucwords($withModel));
                 $namespace = 'App\Components\\' . $component . '\Stores';
                 $prefix = 'src/Components/' . $component . '/Stores';
                 $pathApp = $pathApp . '/' . $prefix;
@@ -25,7 +35,8 @@ class StoreSkeleton
                 $params = [
                     'namespace' => $namespace,
                     'store'     => $store,
-                    'model'     => $model,
+                    'table'     => $withTable,
+                    'model'     => $withModel,
                 ];
 
                 if (!file_exists($pathApp))
@@ -50,7 +61,7 @@ class StoreSkeleton
                                 ->build()
                 );
 
-                if($withToken)
+                if ($withToken)
                 {
 
                     $output->writeln('Creating file... ' .
