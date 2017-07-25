@@ -22,20 +22,6 @@ class Core
     const BODY_CHUNKSIZE = 2048;
 
     /**
-     * @var ComponentsCollection
-     */
-    private $componentsCollection;
-
-    /**
-     * @param ComponentsCollection $collection
-     */
-    public function __construct(ComponentsCollection $collection)
-    {
-        new RegisterEvents($collection->get());
-        $this->componentsCollection = $collection;
-    }
-
-    /**
      * @param int $timeoutInMinuntes
      * @param null|SessionHandlerInterface $sessionHandler
      *
@@ -49,12 +35,23 @@ class Core
     }
 
     /**
+     * @param ComponentsCollection $components
      * @param MiddlewareCollection $middleware
      */
-    public function run(MiddlewareCollection $middleware): void
+    public function run(ComponentsCollection $components, MiddlewareCollection $middleware): void
     {
+        //
+        // register component events
+        //
+
+        new RegisterEvents($components->get());
+
+        //
+        // kick off middleware queue
+        //
+
         $relay = (new RelayBuilder())->newInstance(
-            $this->buildMiddleware($middleware)
+            $this->buildMiddleware($components, $middleware)
         );
 
         /** @var Response $response */
@@ -64,11 +61,12 @@ class Core
     }
 
     /**
+     * @param ComponentsCollection $components
      * @param MiddlewareCollection $middleware
      *
      * @return array
      */
-    private function buildMiddleware(MiddlewareCollection $middleware): array
+    private function buildMiddleware(ComponentsCollection $components, MiddlewareCollection $middleware): array
     {
         $final = [];
 
@@ -76,7 +74,7 @@ class Core
         {
             if ($item instanceof \Closure)
             {
-                $item = $item($this->componentsCollection->get());
+                $item = $item($components->get());
             }
 
             $final[] = $item;
