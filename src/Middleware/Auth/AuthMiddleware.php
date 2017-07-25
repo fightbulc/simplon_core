@@ -99,7 +99,7 @@ class AuthMiddleware
 
         foreach ($this->components as $component)
         {
-            if ($routes = $component->getAuthRoutes())
+            if ($routes = $component->getAuthRoutes()->getRoutes())
             {
                 foreach ($routes as $route)
                 {
