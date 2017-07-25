@@ -722,8 +722,9 @@ class CreateViewController extends ViewController
      */
     public function __invoke(array $params): ResponseViewData
     {
-        $form = new CreateForm($this->getLocale());
-        $formWrapper = $this->buildFormWrapper($form);
+        $formWrapper = $this->buildFormWrapper(
+            new CreateForm($this->getLocale())
+        );
 
         if ($formWrapper->getValidator()->validate()->isValid())
         {
