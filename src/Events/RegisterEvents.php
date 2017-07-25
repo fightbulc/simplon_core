@@ -10,7 +10,7 @@ use Simplon\Helper\Instances;
 /**
  * @package Simplon\Core\Events
  */
-class EventsRegistry
+class RegisterEvents
 {
     /**
      * @param RegistryInterface[] $components
