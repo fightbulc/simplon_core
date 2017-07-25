@@ -52,7 +52,7 @@ $app
 // ##############################################
 
 $app
-    ->command('store component [--with-store] [--with-model=] [--with-table=] [--with-token]', StoreSkeleton::process($pathApp, $pathSkeleton))
+    ->command('store component [--with-store=] [--with-model=] [--with-table=] [--with-token]', StoreSkeleton::process($pathApp, $pathSkeleton))
     ->descriptions('Add a store/model to an existing component', [
         'component'    => 'Component name',
         '--with-store' => 'Store name if cannot derived from component name',
