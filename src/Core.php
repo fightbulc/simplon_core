@@ -74,7 +74,7 @@ class Core
         {
             if ($item instanceof \Closure)
             {
-                $item = $item($components->get());
+                $item = $item($components);
             }
 
             $final[] = $item;

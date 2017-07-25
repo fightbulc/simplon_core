@@ -4,6 +4,7 @@ namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Components\ComponentsCollection;
 use Simplon\Core\Interfaces\ControllerInterface;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
@@ -17,7 +18,7 @@ use Simplon\Core\Utils\Exceptions\ServerException;
 class RouteMiddleware
 {
     /**
-     * @var RegistryInterface[]
+     * @var ComponentsCollection
      */
     private $components;
     /**
@@ -30,10 +31,10 @@ class RouteMiddleware
     private $allowedRouteChars = '\w+-=%/';
 
     /**
-     * @param array $components
+     * @param ComponentsCollection $components
      * @param null|string $fallbackRoute
      */
-    public function __construct(array $components, ?string $fallbackRoute = null)
+    public function __construct(ComponentsCollection $components, ?string $fallbackRoute = null)
     {
         $this->components = $components;
         $this->fallbackRoute = $fallbackRoute;
@@ -64,7 +65,7 @@ class RouteMiddleware
     {
         $requestedPath = $request->getUri()->getPath();
 
-        foreach ($this->collectRoutes() as $component)
+        foreach ($this->buildRouteMetaData() as $component)
         {
             $isMatchedRoute =
                 $this->hasAllowedMethod($request, $component['methods'])
@@ -116,11 +117,11 @@ class RouteMiddleware
      * @return array
      * @throws ServerException
      */
-    private function collectRoutes(): array
+    private function buildRouteMetaData(): array
     {
         $collect = [];
 
-        foreach ($this->components as $component)
+        foreach ($this->components->get() as $component)
         {
             if ($component instanceof RegistryInterface)
             {

@@ -4,10 +4,10 @@ namespace Simplon\Core\Middleware\Auth;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Components\ComponentsCollection;
 use Simplon\Core\Data\AuthRoute;
 use Simplon\Core\Interfaces\AuthContainerInterface;
 use Simplon\Core\Interfaces\AuthUserInterface;
-use Simplon\Core\Interfaces\RegistryInterface;
 
 /**
  * @package Simplon\Core\Middleware\Auth
@@ -21,15 +21,15 @@ class AuthMiddleware
      */
     private $authContainer;
     /**
-     * @var RegistryInterface[]
+     * @var ComponentsCollection
      */
     private $components;
 
     /**
      * @param AuthContainerInterface $authContainer
-     * @param RegistryInterface[] $components
+     * @param ComponentsCollection $components
      */
-    public function __construct(AuthContainerInterface $authContainer, array $components)
+    public function __construct(AuthContainerInterface $authContainer, ComponentsCollection $components)
     {
         $this->authContainer = $authContainer;
         $this->components = $components;
@@ -97,7 +97,7 @@ class AuthMiddleware
     {
         $currentPath = $request->getUri()->getPath();
 
-        foreach ($this->components as $component)
+        foreach ($this->components->get() as $component)
         {
             if ($routes = $component->getAuthRoutes()->getRoutes())
             {
