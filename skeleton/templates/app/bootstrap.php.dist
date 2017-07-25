@@ -13,6 +13,8 @@ use Simplon\Core\Middleware\ExceptionMiddleware;
 use Simplon\Core\Middleware\RouteMiddleware;
 use Simplon\Core\Storage\SessionHandler\SessionRedis;
 use Whoops\Handler\JsonResponseHandler;
+use Simplon\Core\Components\ComponentsCollection;
+use Simplon\Core\Middleware\MiddlewareCollection;
 
 require __DIR__ . '/../vendor/simplon/core/src/autoload.php';
 
@@ -26,19 +28,19 @@ $appContext = new AppContext();
 // components queue
 //
 
-$components = [];
+$components = new ComponentsCollection();
 
 //
 // middleware queue
 //
 
-$middleware = [
-    new ExceptionMiddleware(new JsonResponseHandler()),
-    new RouteMiddleware($components),
-];
+$middleware = (new MiddlewareCollection())
+    ->add(new ExceptionMiddleware(new JsonResponseHandler()))
+    ->add(function(array $components) { return new RouteMiddleware($components) }
+;
 
 //
 // run core with app data
 //
 
-(new Core())->run($middleware);
+(new Core())->run($components, $middleware);

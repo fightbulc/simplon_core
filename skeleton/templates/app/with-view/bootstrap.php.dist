@@ -13,6 +13,8 @@ use Simplon\Core\Middleware\ExceptionMiddleware;
 use Simplon\Core\Middleware\RouteMiddleware;
 use Simplon\Core\Storage\SessionHandler\SessionRedis;
 use Whoops\Handler\PrettyPageHandler;
+use Simplon\Core\Components\ComponentsCollection;
+use Simplon\Core\Middleware\MiddlewareCollection;
 
 require __DIR__ . '/../vendor/simplon/core/src/autoload.php';
 
@@ -26,16 +28,16 @@ $appContext = new AppContext();
 // components queue
 //
 
-$components = [];
+$components = new ComponentsCollection();
 
 //
 // middleware queue
 //
 
-$middleware = [
-    new ExceptionMiddleware(new PrettyPageHandler()),
-    new RouteMiddleware($components),
-];
+$middleware = (new MiddlewareCollection())
+    ->add(new ExceptionMiddleware(new PrettyPageHandler()))
+    ->add(function(array $components) { return new RouteMiddleware($components) }
+;
 
 //
 // Redis session handler
@@ -47,4 +49,4 @@ $sessionHandler = getenv('REDIS_HOST') ? new SessionRedis(getenv('REDIS_HOST'), 
 // run core with app data
 //
 
-(new Core())->withSession(60, $sessionHandler)->run($middleware);
+(new Core())->withSession(60, $sessionHandler)->run($components, $middleware);
