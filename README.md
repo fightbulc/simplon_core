@@ -103,8 +103,8 @@ components or part of your component such as `CrudStore`/`CrudModel` classes.
 You can find all possible commands by running the following command from your terminal after you installed
 `simplon/core` with `composer install`:
 
-```php
-vendor/bin/core
+```bash
+vendor/bin/core -h
 ```
  
 ## 2.1. Generate a default app
@@ -112,7 +112,7 @@ vendor/bin/core
 Let's create a default app called `MyApp`. We want to use `Views` for our app so we will use the option `--with-view`.
 This is not needed if you only want to use a `REST` interface. 
 
-```php
+```bash
 vendor/bin/core init MyApp --with-view 
 ```
 
@@ -121,19 +121,19 @@ vendor/bin/core init MyApp --with-view
 Since core is component based we need to have at least one component. Let's add one and name it `Cars`.
 Again, we wanna use `Views` so we have to add that option but this time we have to add the name of our first `ViewController`.
 
-```php
+```bash
 vendor/bin/core component Cars --with-view=Car
 ```
 
 There is also an option for a `REST` interface:
 
-```php
+```bash
 vendor/bin/core component Cars --with-rest
 ```
 
 It's also possible to combine both options:
 
-```php
+```bash
 vendor/bin/core component Cars --with-view=Car --with-rest
 ```
 
@@ -143,7 +143,7 @@ If any of your components needs a `CrudStore` you can run the following command 
 a default set of a store/model class. You can add the options for setting the names of the `store`, `model`
 and `database table`. By default it will derive it from the `component name`.
 
-```php
+```bash
 vendor/bin/core store Cars
 ```
 
