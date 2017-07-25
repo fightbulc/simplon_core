@@ -19,7 +19,10 @@ The simplon/core package is a strongly opinionated set of libraries which forms 
 1.3 [Routes](#13-routes)  
 1.4 [Storage](#14-storage)  
 1.5 [Outgoing requests](#15-outgoing-requests)  
-2. [__Bootstrap__](#2-bootstrap)  
+2. [__Skeletons__](#2-skeletons)  
+2.1 [Generate a default app](#21-generate-a-default-app)  
+2.2 [Add a component](#22-add-a-component)  
+2.3 [Add a store to a component](#23-add-a-store-to-a-component)  
 3. [__Middleware__](#3-middleware)  
 3.1 [Exception](#31-exception)  
 3.2 [Locale](#32-locale)  
@@ -92,62 +95,56 @@ transparency and structure. This class is obviously only needed if you have any 
 
 -------------------------------------------------
 
-# 2. Bootstrap
+# 2. Skeletons
 
-Our bootstrap holds all registered components, middlewares and kicks-off the core. The an example taken
-from the [skeleton repo](https://github.com/fightbulc/simplon_core_skeleton):
+Core has a command line tool which lets your create code skeletons in order to help you setting up your app,
+components or part of your component such as `CrudStore`/`CrudModel` classes.
+
+You can find all possible commands by running the following command from your terminal after you installed
+`simplon/core` with `composer install`:
 
 ```php
-//
-// enforce typed
-//
+vendor/bin/core
+```
+ 
+## 2.1. Generate a default app
 
-declare(strict_types=1);
+Let's create a default app called `MyApp`. We want to use `Views` for our app so we will use the option `--with-view`.
+This is not needed if you only want to use a `REST` interface. 
 
-use App\AppContext;
-use App\Components\Contents\ContentsRegistry;
-use App\Components\Simple\SimpleRegistry;
-use Simplon\Core\Core;
-use Simplon\Core\Middleware\ExceptionMiddleware;
-use Simplon\Core\Middleware\LocaleMiddleware;
-use Simplon\Core\Middleware\RouteMiddleware;
+```php
+vendor/bin/core init MyApp --with-view 
+```
 
-//
-// loads optimised composer when getenv('APP_ENV') !== 'dev'
-//
+## 2.2. Add a component
 
-require __DIR__ . '/../vendor/simplon/core/src/autoload.php';
+Since core is component based we need to have at least one component. Let's add one and name it `Cars`.
+Again, we wanna use `Views` so we have to add that option but this time we have to add the name of our first `ViewController`.
 
-//
-// instantiate AppContext
-//
+```php
+vendor/bin/core component Cars --with-view=Car
+```
 
-$appContext = new AppContext();
+There is also an option for a `REST` interface:
 
-//
-// components queue
-//
+```php
+vendor/bin/core component Cars --with-rest
+```
 
-$components = [
-    new ContentsRegistry($appContext),
-    new SimpleRegistry($appContext),
-];
+It's also possible to combine both options:
 
-//
-// middleware queue
-//
+```php
+vendor/bin/core component Cars --with-view=Car --with-rest
+```
 
-$middleware = [
-    new ExceptionMiddleware(),
-    new LocaleMiddleware(),
-    new RouteMiddleware($components),
-];
+## 2.3. Add a store to a component
 
-//
-// run core with app data
-//
+If any of your components needs a `CrudStore` you can run the following command which will build
+a default set of a store/model class. You can add the options for setting the names of the `store`, `model`
+and `database table`. By default it will derive it from the `component name`.
 
-(new Core())->withSession(60)->run($middleware);
+```php
+vendor/bin/core store Cars
 ```
 
 -------------------------------------------------

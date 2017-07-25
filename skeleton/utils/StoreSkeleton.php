@@ -12,29 +12,50 @@ class StoreSkeleton
      */
     public static function process(string $pathApp, string $pathSkeleton): callable
     {
-        return function ($component, $store, $withModel, $withTable, $withToken, OutputInterface $output) use ($pathApp, $pathSkeleton) {
-            if (empty($withModel))
+        return function ($component, $withStore, $withModel, $withTable, $withToken, OutputInterface $output) use ($pathApp, $pathSkeleton) {
+            if ($component)
             {
-                $withModel = substr($store, 0, -1); // generate model name
-            }
+                //
+                // format names
+                //
 
-            if (empty($withTable))
-            {
-                $withTable = strtolower($store);
-            }
-
-            if ($component && $store && $withModel)
-            {
                 $component = str_replace(' ', '', ucwords($component));
-                $store = str_replace(' ', '', ucwords($store));
-                $withModel = str_replace(' ', '', ucwords($withModel));
                 $namespace = 'App\Components\\' . $component . '\Stores';
                 $prefix = 'src/Components/' . $component . '/Stores';
                 $pathApp = $pathApp . '/' . $prefix;
 
+                if ($withStore)
+                {
+                    $withStore = str_replace(' ', '', ucwords($withStore));
+                }
+
+                if ($withModel)
+                {
+                    $withModel = str_replace(' ', '', ucwords($withModel));
+                }
+
+                //
+                // auto derive names
+                //
+
+                if (empty($withStore))
+                {
+                    $withStore = $component; // generate model name
+                }
+
+                if (empty($withModel))
+                {
+                    $withModel = substr($withStore, 0, -1); // generate model name
+                }
+
+                if (empty($withTable))
+                {
+                    $withTable = strtolower($withStore);
+                }
+
                 $params = [
                     'namespace' => $namespace,
-                    'store'     => $store,
+                    'store'     => $withStore,
                     'table'     => $withTable,
                     'model'     => $withModel,
                 ];
