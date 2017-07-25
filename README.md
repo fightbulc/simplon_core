@@ -196,11 +196,7 @@ $components->add(new FooRegistry($appContext());
 $authContainer = new AuthContainer();
 
 $middleware = new MiddlewareCollection();
-$middleware->add(
-    function(array $components) use ($authContainer) {
-        return new AuthMiddleware($authContainer, $components);
-    }
-);
+$middleware->add(new AuthMiddleware($authContainer, $components));
 
 (new Core())->run($components, $middleware);
 ```

@@ -36,7 +36,7 @@ $components = new ComponentsCollection();
 
 $middleware = (new MiddlewareCollection())
     ->add(new ExceptionMiddleware(new JsonResponseHandler()))
-    ->add(function(array $components) { return new RouteMiddleware($components) }
+    ->add(new RouteMiddleware($components))
 ;
 
 //
