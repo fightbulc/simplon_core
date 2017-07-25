@@ -103,7 +103,7 @@ class AuthMiddleware
             {
                 foreach ($routes as $route)
                 {
-                    $quotedPattern = preg_quote($route->getPattern(), '/');
+                    $quotedPattern = preg_quote(rtrim($route->getPattern(), '/'), '/');
                     $quotedPattern = preg_replace('/\\\{\w+\\\}/i', '.*?', $quotedPattern);
 
                     // look if pattern is part of URI
