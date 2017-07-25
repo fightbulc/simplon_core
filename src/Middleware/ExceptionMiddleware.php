@@ -5,6 +5,7 @@ namespace Simplon\Core\Middleware;
 use Moment\Moment;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Interfaces\MiddlewareInterface;
 use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
 use Simplon\Url\Url;
@@ -17,7 +18,7 @@ use Zend\Diactoros\Response;
 /**
  * @package Simplon\Core\Middleware
  */
-class ExceptionMiddleware
+class ExceptionMiddleware implements MiddlewareInterface
 {
     const DEFAULT_HTTP_STATUS = 500;
 
@@ -52,11 +53,11 @@ class ExceptionMiddleware
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
-     * @param callable $next
+     * @param callable|null $next
      *
      * @return ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?callable $next = null): ResponseInterface
     {
         try
         {

@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Relay\RelayBuilder;
 use Simplon\Core\Components\ComponentsCollection;
 use Simplon\Core\Events\RegisterEvents;
+use Simplon\Core\Interfaces\MiddlewareInterface;
 use Simplon\Core\Interfaces\SessionHandlerInterface;
 use Simplon\Core\Middleware\MiddlewareCollection;
 use Simplon\Core\Storage\SessionStorage;
@@ -53,7 +54,7 @@ class Core
     public function run(MiddlewareCollection $middleware): void
     {
         $relay = (new RelayBuilder())->newInstance(
-            $this->prepareMiddleware($middleware)
+            $this->buildMiddleware($middleware)
         );
 
         /** @var Response $response */
@@ -67,13 +68,13 @@ class Core
      *
      * @return array
      */
-    private function prepareMiddleware(MiddlewareCollection $middleware): array
+    private function buildMiddleware(MiddlewareCollection $middleware): array
     {
         $final = [];
 
         foreach ($middleware->get() as $item)
         {
-            if (is_callable($item))
+            if ($item instanceof \Closure)
             {
                 $item = $item($this->componentsCollection->get());
             }

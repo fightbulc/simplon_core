@@ -60,7 +60,7 @@ class RouteMiddleware
      * @throws ClientException
      * @throws ServerException
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?callable $next = null): ResponseInterface
     {
         $requestedPath = $request->getUri()->getPath();
 

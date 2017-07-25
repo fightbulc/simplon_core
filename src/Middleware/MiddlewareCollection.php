@@ -27,7 +27,7 @@ class MiddlewareCollection
      */
     public function add($middleware): MiddlewareCollection
     {
-        $this->middleware[get_class($middleware)] = $middleware;
+        $this->middleware[] = $middleware;
 
         return $this;
     }

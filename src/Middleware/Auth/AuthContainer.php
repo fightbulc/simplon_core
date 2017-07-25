@@ -59,14 +59,16 @@ abstract class AuthContainer implements AuthContainerInterface
      */
     public function runOnSuccess(ResponseInterface $response, AuthUserInterface $authUser): ResponseInterface
     {
-        if (!$this->onSuccess)
+        $onSuccess = $this->getOnSuccess();
+
+        if (!$onSuccess)
         {
-            $this->onSuccess = function (ResponseInterface $response) {
+            $onSuccess = function (ResponseInterface $response) {
                 return $response;
             };
         }
 
-        return call_user_func($this->onSuccess, $response, $authUser);
+        return call_user_func($onSuccess, $response, $authUser);
     }
 
     /**
@@ -88,14 +90,32 @@ abstract class AuthContainer implements AuthContainerInterface
      */
     public function runOnError(ResponseInterface $response): ResponseInterface
     {
-        if (!$this->onError)
+        $onError = $this->getOnError();
+
+        if (!$onError)
         {
-            $this->onError = function (ResponseInterface $response) {
+            $onError = function (ResponseInterface $response) {
                 return $response;
             };
         }
 
-        return call_user_func($this->onError, $response);
+        return call_user_func($onError, $response);
+    }
+
+    /**
+     * @return callable|null
+     */
+    protected function getOnSuccess(): ?callable
+    {
+        return $this->onSuccess;
+    }
+
+    /**
+     * @return callable|null
+     */
+    protected function getOnError(): ?callable
+    {
+        return $this->onError;
     }
 
     /**
