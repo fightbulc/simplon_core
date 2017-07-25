@@ -4,7 +4,10 @@ namespace Simplon\Core;
 
 use Psr\Http\Message\ResponseInterface;
 use Relay\RelayBuilder;
+use Simplon\Core\Components\ComponentsCollection;
+use Simplon\Core\Events\RegisterEvents;
 use Simplon\Core\Interfaces\SessionHandlerInterface;
+use Simplon\Core\Middleware\MiddlewareCollection;
 use Simplon\Core\Storage\SessionStorage;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
@@ -16,6 +19,20 @@ use Zend\Diactoros\ServerRequestFactory;
 class Core
 {
     const BODY_CHUNKSIZE = 2048;
+
+    /**
+     * @var ComponentsCollection
+     */
+    private $componentsCollection;
+
+    /**
+     * @param ComponentsCollection $collection
+     */
+    public function __construct(ComponentsCollection $collection)
+    {
+        new RegisterEvents($collection->get());
+        $this->componentsCollection = $collection;
+    }
 
     /**
      * @param int $timeoutInMinuntes
@@ -31,18 +48,40 @@ class Core
     }
 
     /**
-     * @param array $middleware
-     *
-     * @return void
+     * @param MiddlewareCollection $middleware
      */
-    public function run(array $middleware)
+    public function run(MiddlewareCollection $middleware): void
     {
-        $relay = (new RelayBuilder())->newInstance($middleware);
+        $relay = (new RelayBuilder())->newInstance(
+            $this->prepareMiddleware($middleware)
+        );
 
         /** @var Response $response */
         $response = $relay(ServerRequestFactory::fromGlobals(), new Response());
 
         $this->response($response);
+    }
+
+    /**
+     * @param MiddlewareCollection $middleware
+     *
+     * @return array
+     */
+    private function prepareMiddleware(MiddlewareCollection $middleware): array
+    {
+        $final = [];
+
+        foreach ($middleware->get() as $item)
+        {
+            if (is_callable($item))
+            {
+                $item = $item($this->componentsCollection->get());
+            }
+
+            $final[] = $item;
+        }
+
+        return $final;
     }
 
     /**
