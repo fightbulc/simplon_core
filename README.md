@@ -173,45 +173,171 @@ It will also kick-off the `event handling` for these components.
 
 ## 3.4. Auth
 
-AuthMiddleware aids authentication against certain `routes`, `user roles` and `temporary tokens`. It requires the
-an `AuthContainer` object which holds all required data. Here is an example combined with the middleware queue:
+AuthMiddleware aids authentication against certain `routes`, `user roles` and `temporary tokens`. To make this work
+we need to create an `AuthContainer` which is required for the `AuthMiddleware` as is the `ComponentsCollection`.
+The later is required since all authentication rules are defined by each component.
+
+`AuthContainer` is a class you have to setup which should be extended from the core's abstact `AuthContainer` class.
+The AuthMiddleware will use this container to authenticate the current request by calling `fetchUser` which should handle
+the actual authentication. Hence, you are free to choose how you want to authenticate the request.
+
+The AuthMiddlware will call `onSuccess` or `onError` callbacks if available. Both callbacks will receive a
+`ResponseInterface` object while `onSuccess` will receive `AuthUserInterface` as second parameter. Make sure to return
+the `ResponseInterface` object for both cases.
+
+Eventually, you need to knit everything together. Following a rough example of your bootstrap:
 
 ```php
-//
-// Auth Config
-//
+$appContext = new AppContext();
 
-$authConfig = new AuthContainer(
-	$appContext->getSessionStorage(), // storage for our auth data
-	new UserSessionData(),            // object for a users auth data
-	AuthRoutes::toSignIn()            // where to send the user if auth failed
+$components = new ComponentsCollection();
+$components->add(new FooRegistry($appContext());
+
+$authContainer = new AuthContainer();
+
+$middleware = new MiddlewareCollection();
+$middleware->add(
+    function(array $components) use ($authContainer) {
+        return new AuthMiddleware($authContainer, $components);
+    }
 );
 
-// handle a recognised temporary token in your request e.g. ?token=ABCD1234
-// is used to give one-time access to the app for 3rd-party services such as facebook
+(new Core())->run($components, $middleware);
+```
 
-$authConfig->setCallbackVerifyToken(
-	function(string $token)
-	{
-		// check token if valid and
-		// return bool to indicate result
-	}
-);
+### 3.4.1. Example session based AuthContainer
 
-// load defined authenticated routes from registries
+This is just a rough example to clarify discussed content:
 
-$authConfig->loadRoutesFromComponents($components);
+```php
+namespace App\Components\Auth\Managers;
 
-//
-// middleware queue
-//
+use App\Components\Auth\AuthRoutes;
+use App\Components\Auth\Data\AuthSessionUser;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Interfaces\AuthUserInterface;
+use Simplon\Core\Middleware\Auth\AuthContainer;
 
-$middleware = [
-    new ExceptionMiddleware(),
-    new LocaleMiddleware(),
-    new AuthMiddleware($authConfig),
-    new RouteMiddleware($components),
-];
+/**
+ * @package App\Components\Auth\Managers
+ */
+class AuthViewContainer extends AuthContainer
+{
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return null|AuthUserInterface
+     */
+    public function fetchUser(ServerRequestInterface $request): ?AuthUserInterface
+    {    
+        if (!empty($_SESSION['session']))
+        {                    
+            return new AuthSessionUser($_SESSION['session']);
+        }
+
+        return null;
+    }
+
+    /**
+     * @return callable|null
+     */
+    protected function getOnError(): ?callable
+    {
+        return function (ResponseInterface $response) {
+            if (empty($response->getHeaderLine('Location')))
+            {
+                $response = $response->withAddedHeader('Location', AuthRoutes::toSignIn());
+            }
+
+            return $response;
+        };
+    }
+}
+```
+
+### 3.4.2. Example REST based AuthContainer
+
+Here is a rough example with a `bearer token` and a lookup in a user database:
+
+```php
+namespace App\Components\Auth\Managers;
+
+use App\Components\Auth\AuthRoutes;
+use App\Components\Auth\Data\AuthRestUser;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Simplon\Core\Interfaces\AuthUserInterface;
+use Simplon\Core\Middleware\Auth\AuthContainer;
+use Simplon\Mysql\Mysql;
+use Simplon\Mysql\MysqlException;
+
+/**
+ * @package App\Components\Auth\Managers
+ */
+class AuthRestContainer extends AuthContainer
+{
+    /**
+     * @var Mysql
+     */
+    private $mysql;
+
+    /**
+     * @param Mysql $mysql
+     */
+    public function __construct(Mysql $mysql)
+    {
+        $this->mysql = $mysql;
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return null|AuthUserInterface
+     * @throws MysqlException
+     */
+    public function fetchUser(ServerRequestInterface $request): ?AuthUserInterface
+    {    
+        if ($bearer = $this->fetchAuthBearer($request))
+        {
+            list($token, $secret) = explode(':', $bearer);
+
+            $query = '
+            -- noinspection SqlDialectInspection
+            select * from ' . AuthStore::TABLE_NAME . ' where ' . AuthModel::COLUMN_TOKEN . ' = :token
+            ';
+
+            if ($row = $this->mysql->fetchRow($query, ['token' => $token]))
+            {
+                $authUser = new AuthRestUser($row);
+
+                if ($secret)
+                {
+                    $authUser->validateSecret($secret);
+                }
+
+                return $authUser;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @return callable|null
+     */
+    protected function getOnError(): ?callable
+    {
+        return function (ResponseInterface $response) {
+            if (empty($response->getHeaderLine('Location')))
+            {
+                $response = $response->withAddedHeader('Location', AuthRoutes::toSignIn());
+            }
+
+            return $response;
+        };
+    }
+}
 ```
 
 -------------------------------------------------
