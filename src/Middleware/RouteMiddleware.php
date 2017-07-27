@@ -77,6 +77,8 @@ class RouteMiddleware
 
                 foreach ($this->getPathPlaceholders($component['path']) as $placeholder)
                 {
+                    $placeholder = str_replace('*', '', $placeholder);
+
                     if (!empty($match[$placeholder]))
                     {
                         $params[$placeholder] = rtrim($match[$placeholder], '/');
@@ -204,7 +206,16 @@ class RouteMiddleware
     {
         foreach ($this->getPathPlaceholders($path) as $placeholder)
         {
-            $path = str_replace('{' . $placeholder . '}', '(?<' . $placeholder . '>[' . $this->allowedRouteChars . ']+)', $path);
+            $optional = null;
+
+            if (strpos($placeholder, '*') !== false)
+            {
+                $optional = '*';
+                $placeholder = str_replace('*', '', $placeholder);
+                $path = str_replace($placeholder . '*', $placeholder, $path);
+            }
+
+            $path = str_replace('{' . $placeholder . '}', $optional . '(?<' . $placeholder . '>[' . $this->allowedRouteChars . ']+)' . $optional, $path);
         }
 
         return rtrim($path, '/');
