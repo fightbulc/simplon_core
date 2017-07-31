@@ -26,6 +26,12 @@ abstract class Routes
 
         $url->withTrailPath($route, $params);
 
+        // remove unset optional params
+
+        $url->withPath(
+            preg_replace('/\{.*?\*\}/i', '', $url->getPath())
+        );
+
         if ($host = self::routeHost())
         {
             $url->withHost($host);
