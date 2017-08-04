@@ -21,7 +21,7 @@ class Route implements RequestMethodInterface
     /**
      * @var array
      */
-    protected $methodsAllowed = [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_OPTIONS, RequestMethodInterface::METHOD_HEAD];
+    protected $methodsAllowed = [RequestMethodInterface::METHOD_OPTIONS, RequestMethodInterface::METHOD_HEAD];
 
     /**
      * @param string $path
