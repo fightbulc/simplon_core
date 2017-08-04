@@ -72,4 +72,13 @@ class FormWrapper
     {
         return $this->validator;
     }
+
+    /**
+     * @return bool
+     * @throws FormError
+     */
+    public function isValid(): bool
+    {
+        return $this->validator->validate()->isValid();
+    }
 }
