@@ -99,9 +99,9 @@ class AuthMiddleware
 
         foreach ($this->components->get() as $component)
         {
-            if ($routes = $component->getAuthRoutes()->getRoutes())
+            if ($authRoutes = $component->getAuthRoutes())
             {
-                foreach ($routes as $route)
+                foreach ($authRoutes->getRoutes() as $route)
                 {
                     $quotedPattern = preg_quote(rtrim($route->getPattern(), '/'), '/');
                     $quotedPattern = preg_replace('/\\\{\w+\\\}/i', '.*?', $quotedPattern);
