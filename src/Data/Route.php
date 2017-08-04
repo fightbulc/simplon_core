@@ -21,22 +21,16 @@ class Route implements RequestMethodInterface
     /**
      * @var array
      */
-    protected $methodsAllowed = [RequestMethodInterface::METHOD_OPTIONS, RequestMethodInterface::METHOD_HEAD];
+    protected $methodsAllowed = [];
 
     /**
      * @param string $path
      * @param string $controller
-     * @param bool $removeDefaults
      */
-    public function __construct(string $path, string $controller, bool $removeDefaults = false)
+    public function __construct(string $path, string $controller)
     {
         $this->path = $path;
         $this->controller = $controller;
-
-        if ($removeDefaults)
-        {
-            $this->methodsAllowed = [];
-        }
     }
 
     /**
@@ -74,22 +68,6 @@ class Route implements RequestMethodInterface
     /**
      * @return Route
      */
-    public function withOption(): self
-    {
-        return $this->addMethodAllowed(RequestMethodInterface::METHOD_OPTIONS);
-    }
-
-    /**
-     * @return Route
-     */
-    public function withHead(): self
-    {
-        return $this->addMethodAllowed(RequestMethodInterface::METHOD_HEAD);
-    }
-
-    /**
-     * @return Route
-     */
     public function withPost(): self
     {
         return $this->addMethodAllowed(RequestMethodInterface::METHOD_POST);
@@ -117,6 +95,22 @@ class Route implements RequestMethodInterface
     public function withDelete(): self
     {
         return $this->addMethodAllowed(RequestMethodInterface::METHOD_DELETE);
+    }
+
+    /**
+     * @return Route
+     */
+    public function withOption(): self
+    {
+        return $this->addMethodAllowed(RequestMethodInterface::METHOD_OPTIONS);
+    }
+
+    /**
+     * @return Route
+     */
+    public function withHead(): self
+    {
+        return $this->addMethodAllowed(RequestMethodInterface::METHOD_HEAD);
     }
 
     /**
