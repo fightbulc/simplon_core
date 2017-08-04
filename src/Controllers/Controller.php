@@ -119,7 +119,7 @@ abstract class Controller implements ControllerInterface
     /**
      * @return array|null|object
      */
-    public function getRequestBody()
+    protected function getRequestBody()
     {
         return $this->getRequest()->getParsedBody();
     }

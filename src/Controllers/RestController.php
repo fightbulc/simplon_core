@@ -39,7 +39,7 @@ abstract class RestController extends Controller
     /**
      * @return array|null|object
      */
-    public function getRequestBody()
+    protected function getRequestBody()
     {
         return json_decode($this->getRequest()->getBody()->getContents(), true);
     }
