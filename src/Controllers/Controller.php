@@ -113,6 +113,14 @@ abstract class Controller implements ControllerInterface
      */
     public function buildFormWrapper(BaseForm $form, array $initialData = []): FormWrapper
     {
-        return new FormWrapper($form, $this->getRequest()->getParsedBody(), $initialData);
+        return new FormWrapper($form, $this->getRequestBody(), $initialData);
+    }
+
+    /**
+     * @return array|null|object
+     */
+    public function getRequestBody()
+    {
+        return $this->getRequest()->getParsedBody();
     }
 }
