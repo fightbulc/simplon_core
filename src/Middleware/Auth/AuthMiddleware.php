@@ -95,7 +95,7 @@ class AuthMiddleware
      */
     private function findAuthRoute(ServerRequestInterface $request): ?AuthRoute
     {
-        $currentPath = $request->getUri()->getPath();
+        $currentPath = rtrim($request->getUri()->getPath(), '/');
 
         foreach ($this->components->get() as $component)
         {
