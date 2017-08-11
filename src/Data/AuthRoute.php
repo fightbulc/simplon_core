@@ -4,9 +4,6 @@ namespace Simplon\Core\Data;
 
 use Simplon\Core\Interfaces\AuthUserInterface;
 
-/**
- * @package Simplon\Core\Data
- */
 class AuthRoute
 {
     /**

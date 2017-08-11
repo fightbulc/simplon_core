@@ -7,9 +7,6 @@ use Simplon\Core\Utils\Exceptions\ServerException;
 use Simplon\Helper\Data\InstanceData;
 use Simplon\Helper\Instances;
 
-/**
- * @package Simplon\Core\Events
- */
 class RegisterEvents
 {
     /**

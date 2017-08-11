@@ -15,9 +15,6 @@ use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 use Zend\Diactoros\Response;
 
-/**
- * @package Simplon\Core\Middleware
- */
 class ExceptionMiddleware implements MiddlewareInterface
 {
     const DEFAULT_HTTP_STATUS = 500;

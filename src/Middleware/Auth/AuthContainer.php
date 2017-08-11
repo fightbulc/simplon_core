@@ -7,9 +7,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\Interfaces\AuthContainerInterface;
 use Simplon\Core\Interfaces\AuthUserInterface;
 
-/**
- * @package Simplon\Core\Middleware\Auth
- */
 abstract class AuthContainer implements AuthContainerInterface
 {
     /**

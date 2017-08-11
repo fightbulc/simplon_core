@@ -12,10 +12,6 @@ use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
 
-/**
- * Class ViewController
- * @package Simplon\Core\Controllers
- */
 abstract class ViewController extends Controller
 {
     /**

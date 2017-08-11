@@ -2,9 +2,6 @@
 
 namespace Simplon\Core\Middleware;
 
-/**
- * @package Simplon\Core\Middleware
- */
 class MiddlewareCollection
 {
     /**

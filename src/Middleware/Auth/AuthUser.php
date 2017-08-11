@@ -5,9 +5,6 @@ namespace Simplon\Core\Middleware\Auth;
 use Simplon\Core\Interfaces\AuthUserInterface;
 use Simplon\Helper\Data\Data;
 
-/**
- * @package Simplon\Core\Middleware\Auth
- */
 abstract class AuthUser extends Data implements AuthUserInterface
 {
     /**

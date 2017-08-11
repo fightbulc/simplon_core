@@ -4,10 +4,6 @@ namespace Simplon\Core\Utils\DataFields;
 
 use Simplon\Helper\CastAway;
 
-/**
- * Trait IdAwareDataTrait
- * @package Simplon\Core\Utils\DataFields
- */
 trait IdAwareDataTrait
 {
     /**

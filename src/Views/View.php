@@ -11,10 +11,6 @@ use Simplon\Phtml\Phtml;
 use Simplon\Phtml\PhtmlException;
 use Simplon\Template\Template;
 
-/**
- * Class View
- * @package Simplon\Core\Views
- */
 abstract class View implements ViewInterface
 {
     /**

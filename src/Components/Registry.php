@@ -9,9 +9,6 @@ use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Utils\Routing\AuthRoutesCollection;
 use Simplon\Core\Utils\Routing\RoutesCollection;
 
-/**
- * @package Simplon\Core\Components
- */
 abstract class Registry implements RegistryInterface
 {
     abstract public function getContext();

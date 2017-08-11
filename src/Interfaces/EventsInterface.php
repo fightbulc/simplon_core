@@ -2,10 +2,6 @@
 
 namespace Simplon\Core\Interfaces;
 
-/**
- * Interface EventsInterface
- * @package Simplon\Core\Interfaces
- */
 interface EventsInterface
 {
     /**

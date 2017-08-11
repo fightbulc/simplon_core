@@ -5,9 +5,6 @@ namespace Simplon\Core\Interfaces;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @package Simplon\Core\Interfaces
- */
 interface MiddlewareInterface
 {
     /**

@@ -7,10 +7,6 @@ use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
 use Simplon\Locale\Locale;
 
-/**
- * Interface ViewInterface
- * @package Simplon\Core\Interfaces
- */
 interface ViewInterface
 {
     /**

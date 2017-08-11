@@ -14,10 +14,6 @@ use Simplon\Core\Utils\Form\BaseForm;
 use Simplon\Core\Utils\Form\FormWrapper;
 use Simplon\Locale\Locale;
 
-/**
- * Class Controller
- * @package Simplon\Core\Controllers
- */
 abstract class Controller implements ControllerInterface
 {
     protected $registry;

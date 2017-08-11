@@ -2,10 +2,6 @@
 
 namespace Simplon\Core\Utils\DataFields;
 
-/**
- * Trait TokenAwareDataTrait
- * @package Simplon\Core\Utils\DataFields
- */
 trait TokenAwareDataTrait
 {
     /**

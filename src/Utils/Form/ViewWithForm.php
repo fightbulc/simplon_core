@@ -5,9 +5,6 @@ namespace Simplon\Core\Utils\Form;
 use Simplon\Core\Data\CoreViewData;
 use Simplon\Core\Views\View;
 
-/**
- * @package Simplon\Core\Utils\Form
- */
 abstract class ViewWithForm extends View
 {
     /**

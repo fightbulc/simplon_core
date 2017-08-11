@@ -6,9 +6,6 @@ use Simplon\Form\Data\FormField;
 use Simplon\Form\FormError;
 use Simplon\Form\FormFields;
 
-/**
- * @package Simplon\Core\Utils\Form
- */
 abstract class BaseForm
 {
     /**

@@ -4,9 +4,6 @@ namespace Simplon\Core\Components;
 
 use Simplon\Core\Interfaces\RegistryInterface;
 
-/**
- * @package Simplon\Core\Components
- */
 class ComponentsCollection
 {
     /**

@@ -6,9 +6,6 @@ use Simplon\Form\FormError;
 use Simplon\Form\FormFields;
 use Simplon\Form\FormValidator;
 
-/**
- * @package Simplon\Core\Utils\Form
- */
 class FormWrapper
 {
     /**

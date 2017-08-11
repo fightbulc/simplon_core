@@ -5,10 +5,6 @@ namespace Simplon\Core\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * Class LocaleMiddleware
- * @package Simplon\Core\Middleware
- */
 class LocaleMiddleware extends BaseMiddleware
 {
     const DEFAULT_LOCALE_CODE = 'en';

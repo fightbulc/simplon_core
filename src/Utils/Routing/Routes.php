@@ -4,9 +4,6 @@ namespace Simplon\Core\Utils\Routing;
 
 use Simplon\Url\Url;
 
-/**
- * @package Simplon\Core\Utils\Routing
- */
 abstract class Routes
 {
     /**

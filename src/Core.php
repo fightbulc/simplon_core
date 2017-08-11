@@ -6,17 +6,12 @@ use Psr\Http\Message\ResponseInterface;
 use Relay\RelayBuilder;
 use Simplon\Core\Components\ComponentsCollection;
 use Simplon\Core\Events\RegisterEvents;
-use Simplon\Core\Interfaces\MiddlewareInterface;
 use Simplon\Core\Interfaces\SessionHandlerInterface;
 use Simplon\Core\Middleware\MiddlewareCollection;
 use Simplon\Core\Storage\SessionStorage;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 
-/**
- * Class Core
- * @package Simplon\Core
- */
 class Core
 {
     const BODY_CHUNKSIZE = 2048;

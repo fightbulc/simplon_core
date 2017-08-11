@@ -4,10 +4,6 @@ namespace Simplon\Core\Data;
 
 use Fig\Http\Message\RequestMethodInterface;
 
-/**
- * Class Route
- * @package Simplon\Core\Data
- */
 class Route implements RequestMethodInterface
 {
     /**

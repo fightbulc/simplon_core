@@ -7,9 +7,6 @@ use Simplon\Device\Device;
 use Simplon\Helper\Data\Data;
 use Simplon\Locale\Locale;
 
-/**
- * @package Simplon\Core\Data
- */
 class CoreViewData extends Data
 {
     /**

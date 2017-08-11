@@ -2,10 +2,6 @@
 
 namespace Simplon\Core\Utils;
 
-/**
- * Class Config
- * @package Simplon\Core\Utils
- */
 class Config
 {
     /**

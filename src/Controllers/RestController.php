@@ -5,10 +5,6 @@ namespace Simplon\Core\Controllers;
 use Psr\Http\Message\ResponseInterface;
 use Simplon\Core\Data\ResponseRestData;
 
-/**
- * Class RestController
- * @package Simplon\Core\Controllers
- */
 abstract class RestController extends Controller
 {
     /**

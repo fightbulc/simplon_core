@@ -4,9 +4,6 @@ namespace Simplon\Core\Utils\Routing;
 
 use Simplon\Core\Data\AuthRoute;
 
-/**
- * @package Simplon\Core\Utils\Routing
- */
 class AuthRoutesCollection
 {
     /**

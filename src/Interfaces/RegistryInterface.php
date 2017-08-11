@@ -5,9 +5,6 @@ namespace Simplon\Core\Interfaces;
 use Simplon\Core\Utils\Routing\AuthRoutesCollection;
 use Simplon\Core\Utils\Routing\RoutesCollection;
 
-/**
- * @package Simplon\Core\Interfaces
- */
 interface RegistryInterface
 {
     public function getContext();

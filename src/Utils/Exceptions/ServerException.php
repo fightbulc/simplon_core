@@ -4,10 +4,6 @@ namespace Simplon\Core\Utils\Exceptions;
 
 use Fig\Http\Message\StatusCodeInterface;
 
-/**
- * Class ServerException
- * @package Simplon\Core\Utils\Exceptions
- */
 class ServerException extends ErrorException
 {
     /**

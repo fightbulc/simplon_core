@@ -2,10 +2,6 @@
 
 namespace Simplon\Core\Utils\Exceptions;
 
-/**
- * Class ErrorException
- * @package Simplon\Error
- */
 abstract class ErrorException extends \Exception
 {
     /**

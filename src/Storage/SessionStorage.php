@@ -5,10 +5,6 @@ namespace Simplon\Core\Storage;
 use Simplon\Core\Interfaces\SessionHandlerInterface;
 use Simplon\Core\Interfaces\SessionStorageInterface;
 
-/**
- * Class SessionStorage
- * @package Simplon\Core\Storage
- */
 class SessionStorage implements SessionStorageInterface
 {
     /**

@@ -6,9 +6,6 @@ use App\AppContext;
 use Simplon\Core\Utils\Config;
 use Simplon\Locale\Locale;
 
-/**
- * @package Simplon\Core\Components
- */
 abstract class Context
 {
     /**

@@ -9,9 +9,6 @@ use Simplon\Core\Data\AuthRoute;
 use Simplon\Core\Interfaces\AuthContainerInterface;
 use Simplon\Core\Interfaces\AuthUserInterface;
 
-/**
- * @package Simplon\Core\Middleware\Auth
- */
 class AuthMiddleware
 {
     const TEMP_TOKEN_KEY = 'temp_token';

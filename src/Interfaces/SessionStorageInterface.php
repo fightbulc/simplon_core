@@ -2,10 +2,6 @@
 
 namespace Simplon\Core\Interfaces;
 
-/**
- * Interface SessionStorageInterface
- * @package Simplon\Core\Interfaces
- */
 interface SessionStorageInterface
 {
     /**

@@ -11,10 +11,6 @@ use Simplon\Core\Interfaces\ResponseDataInterface;
 use Simplon\Core\Utils\Exceptions\ClientException;
 use Simplon\Core\Utils\Exceptions\ServerException;
 
-/**
- * Class RouteMiddleware
- * @package Simplon\Core\Middleware
- */
 class RouteMiddleware
 {
     /**

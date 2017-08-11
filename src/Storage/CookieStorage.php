@@ -2,10 +2,6 @@
 
 namespace Simplon\Core\Storage;
 
-/**
- * Class CookieStorage
- * @package Simplon\Core\Storage
- */
 class CookieStorage
 {
     /**

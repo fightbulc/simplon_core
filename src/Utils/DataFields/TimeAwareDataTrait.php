@@ -4,10 +4,6 @@ namespace Simplon\Core\Utils\DataFields;
 
 use Simplon\Helper\CastAway;
 
-/**
- * Trait TimeAwareDataTrait
- * @package Simplon\Core\Utils\DataFields
- */
 trait TimeAwareDataTrait
 {
     /**

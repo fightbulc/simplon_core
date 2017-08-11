@@ -11,9 +11,6 @@ use Simplon\Form\View\FormViewRow;
 use Simplon\Locale\Locale;
 use Simplon\Url\Url;
 
-/**
- * @package Simplon\Core\Utils\Form
- */
 abstract class BaseFormView implements FormViewInterface
 {
     const BLOCK_DEFAULT = 'default';

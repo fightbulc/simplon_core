@@ -2,10 +2,6 @@
 
 namespace Simplon\Core\Utils\DataFields;
 
-/**
- * Trait StatusIntAwareDataTrait
- * @package Simplon\Core\Utils\DataFields
- */
 trait StatusIntAwareDataTrait
 {
     /**

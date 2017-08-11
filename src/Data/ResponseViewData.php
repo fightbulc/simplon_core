@@ -5,10 +5,6 @@ namespace Simplon\Core\Data;
 use Psr\Http\Message\ResponseInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
 
-/**
- * Class ResponseViewData
- * @package Simplon\Core\Data
- */
 class ResponseViewData implements ResponseDataInterface
 {
     /**

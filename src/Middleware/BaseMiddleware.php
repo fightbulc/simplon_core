@@ -5,9 +5,6 @@ namespace Simplon\Core\Middleware;
 use Psr\Http\Message\ServerRequestInterface;
 use Simplon\Core\Interfaces\MiddlewareInterface;
 
-/**
- * @package Simplon\Core\Middleware
- */
 abstract class BaseMiddleware implements MiddlewareInterface
 {
     const HEADER_ORIGINAL_REQUEST_PATH = 'X-Original-Request-Path';

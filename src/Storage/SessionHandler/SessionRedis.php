@@ -4,10 +4,6 @@ namespace Simplon\Core\Storage\SessionHandler;
 
 use Simplon\Core\Interfaces\SessionHandlerInterface;
 
-/**
- * Class SessionRedis
- * @package Simplon\Core\Storage\SessionHandler
- */
 class SessionRedis implements SessionHandlerInterface
 {
     /**

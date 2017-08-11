@@ -4,9 +4,6 @@ namespace Simplon\Core\Events;
 
 use Simplon\Core\Utils\Exceptions\ServerException;
 
-/**
- * @package Simplon\Core\Events
- */
 class Events
 {
     /**

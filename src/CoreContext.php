@@ -12,10 +12,6 @@ use Simplon\Helper\Instances;
 use Simplon\Locale\Locale;
 use Simplon\Locale\Readers\PhpFileReader;
 
-/**
- * Class CoreContext
- * @package Simplon\Core
- */
 abstract class CoreContext
 {
     const APP_PATH = __DIR__ . '/../../../../src';

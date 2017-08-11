@@ -4,10 +4,6 @@ namespace Simplon\Core\Views;
 
 use Simplon\Core\Interfaces\SessionStorageInterface;
 
-/**
- * Class FlashMessage
- * @package Simplon\Core\Views
- */
 class FlashMessage
 {
     const SESSION_KEY = 'FLASHMESSAGE';
