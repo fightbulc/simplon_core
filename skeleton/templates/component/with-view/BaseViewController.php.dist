@@ -11,9 +11,6 @@ use App\Data\GlobalViewData;
 use Simplon\Core\Controllers\ViewController;
 use Simplon\Core\Interfaces\ViewInterface;
 
-/**
- * @package {namespace}\Controllers
- */
 abstract class BaseViewController extends ViewController
 {
     /**

@@ -5,9 +5,6 @@ namespace {namespace}\Controllers;
 use {namespace}\Views\{view}\{view}View;
 use Simplon\Core\Data\ResponseViewData;
 
-/**
- * @package {namespace}\Controllers
- */
 class {view}ViewController extends BaseViewController
 {
     /**

@@ -37,7 +37,7 @@ class ViewSkeleton
 
                 $output->writeln('Creating file... ' .
                     TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/ViewController.php.dist')
-                                ->withDestination($pathApp . '/' . $view . '/Controllers')
+                                ->withDestination($pathApp . '/Controllers')
                                 ->withFileName('{view}ViewController.php')
                                 ->withParams($params)
                                 ->build()
@@ -45,7 +45,7 @@ class ViewSkeleton
 
                 $output->writeln('Creating file... ' .
                     TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Views/Foo/FooView.php.dist')
-                                ->withDestination($pathApp . '/' . $component . '/Views/{view}')
+                                ->withDestination($pathApp . '/Views/{view}')
                                 ->withFileName('{view}View.php')
                                 ->withParams($params)
                                 ->build()
@@ -53,7 +53,7 @@ class ViewSkeleton
 
                 $output->writeln('Creating file... ' .
                     TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Views/Foo/FooTemplate.phtml.dist')
-                                ->withDestination($pathApp . '/' . $component . '/Views/{view}')
+                                ->withDestination($pathApp . '/Views/{view}')
                                 ->withFileName('{view}Template.phtml')
                                 ->withParams($params)
                                 ->build()
