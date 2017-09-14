@@ -7,9 +7,6 @@ use Simplon\Core\Views\View;
 use Simplon\Core\Data\CoreViewData;
 use Simplon\Phtml\PhtmlException;
 
-/**
- * @package {namespace}\Views
- */
 class {name}PageView extends View
 {
     /**

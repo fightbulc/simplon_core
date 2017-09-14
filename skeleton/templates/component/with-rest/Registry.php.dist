@@ -7,9 +7,6 @@ use {namespace}\Controllers\{name}RestController;
 use Simplon\Core\Components\Registry;
 use Simplon\Core\Utils\Routing\RoutesCollection;
 
-/**
- * @package {namespace}
- */
 class {name}Registry extends Registry
 {
     /**

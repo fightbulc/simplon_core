@@ -5,9 +5,6 @@ namespace {namespace};
 use App\AppContext;
 use Simplon\Core\Components\Registry;
 
-/**
- * @package {namespace}
- */
 class {name}Registry extends Registry
 {
     /**

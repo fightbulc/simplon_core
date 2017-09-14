@@ -7,9 +7,6 @@ use App\Views\AppPageView;
 use Simplon\Core\CoreContext;
 use Simplon\Core\Data\CoreViewData;
 
-/**
- * @package App
- */
 class AppContext extends CoreContext
 {
     /**

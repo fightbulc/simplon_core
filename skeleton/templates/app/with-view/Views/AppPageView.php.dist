@@ -6,9 +6,6 @@ use App\Data\GlobalViewData;
 use Simplon\Core\Data\CoreViewData;
 use Simplon\Core\Views\View;
 
-/**
- * @package App\Views
- */
 class AppPageView extends View
 {
     /**

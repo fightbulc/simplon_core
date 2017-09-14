@@ -7,9 +7,6 @@ use {namespace}\{name}Context;
 use {namespace}\{name}Registry;
 use Simplon\Core\Controllers\RestController;
 
-/**
- * @package App\Components\Auth\Controllers
- */
 abstract class BaseRestController extends RestController
 {
     /**

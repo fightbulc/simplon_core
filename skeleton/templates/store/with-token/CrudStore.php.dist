@@ -10,9 +10,6 @@ use Simplon\Mysql\QueryBuilder\ReadQueryBuilder;
 use Simplon\Mysql\QueryBuilder\UpdateQueryBuilder;
 use Simplon\Mysql\Utils\StorageUtil;
 
-/**
- * @package {namespace}
- */
 class {store}Store extends CrudStore
 {
     const TABLE_NAME = '{table}';

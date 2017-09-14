@@ -22,7 +22,8 @@ The simplon/core package is a strongly opinionated set of libraries which forms 
 2. [__Skeletons__](#2-skeletons)  
 2.1 [Generate a default app](#21-generate-a-default-app)  
 2.2 [Add a component](#22-add-a-component)  
-2.3 [Add a store to a component](#23-add-a-store-to-a-component)  
+2.3 [Add a view to a component](#23-add-a-view-to-a-component)  
+2.4 [Add a store to a component](#24-add-a-store-to-a-component)  
 3. [__Middleware__](#3-middleware)  
 3.1 [Exception](#31-exception)  
 3.2 [Locale](#32-locale)  
@@ -137,7 +138,25 @@ It's also possible to combine both options:
 vendor/bin/core component Cars --with-view=Car --with-rest
 ```
 
-## 2.3. Add a store to a component
+## 2.3. Add a view to a component
+
+If any of your components needs another `View` you can run the following command which will add a new `ViewController`
+and a default set of a `View` and a `Template`.
+
+For the following example let's assume that we have a component called `Team`. Now we want to add a skeleton view for resources:
+
+```bash
+vendor/bin/core view Team Resources 
+```
+
+This should create the following files:
+- `App/Components/Team/Controllers/TeamViewController.php`
+- `App/Components/Team/Views/Resources/ResourcesView.php`
+- `App/Components/Team/Views/Resources/ResourcesTemplate.phtml`
+
+You still need to add a `Route` and register this route within the `Registry`.
+
+## 2.4. Add a store to a component
 
 If any of your components needs a `CrudStore` you can run the following command which will build
 a default set of a store/model class. You can add the options for setting the names of the `store`, `model`

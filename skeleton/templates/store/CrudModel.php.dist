@@ -4,9 +4,6 @@ namespace {namespace};
 
 use Simplon\Mysql\Crud\CrudModel;
 
-/**
- * @package {namespace}
- */
 class {model}Model extends CrudModel
 {
     const COL_ID = 'id';

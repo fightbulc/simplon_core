@@ -4,9 +4,6 @@ namespace {namespace}\Controllers;
 
 use Simplon\Core\Data\ResponseRestData;
 
-/**
- * @package {namespace}\Controllers
- */
 class {name}RestController extends BaseRestController
 {
     /**

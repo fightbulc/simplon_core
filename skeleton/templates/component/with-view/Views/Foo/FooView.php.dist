@@ -4,9 +4,6 @@ namespace {namespace}\Views\{view};
 
 use Simplon\Core\Views\View;
 
-/**
- * @package {namespace}\Views\{view}
- */
 class {view}View extends View
 {
     /**

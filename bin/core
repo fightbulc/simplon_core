@@ -24,6 +24,7 @@ $pathApp = $pathComposer . '/..';
 require $pathSkeleton . '/utils/TemplateUtil.php';
 require $pathSkeleton . '/utils/InitSkeleton.php';
 require $pathSkeleton . '/utils/ComponentSkeleton.php';
+require $pathSkeleton . '/utils/ViewSkeleton.php';
 require $pathSkeleton . '/utils/StoreSkeleton.php';
 
 $app = new Application();
@@ -46,6 +47,16 @@ $app
         'name'        => 'Component name',
         '--with-rest' => 'Enable REST',
         '--with-view' => 'Enable view with first view name',
+    ])
+;
+
+// ##############################################
+
+$app
+    ->command('view component name', ViewSkeleton::process($pathApp, $pathSkeleton))
+    ->descriptions('Add a view', [
+        'component' => 'Component name',
+        'name'      => 'View name',
     ])
 ;
 

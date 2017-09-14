@@ -4,9 +4,6 @@ namespace App;
 
 use Simplon\Core\CoreContext;
 
-/**
- * @package App
- */
 class AppContext extends CoreContext
 {
     /**
