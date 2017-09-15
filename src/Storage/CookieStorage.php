@@ -41,7 +41,7 @@ class CookieStorage
      *
      * @return array|null
      */
-    public function get(string $key, $fallback = null): array
+    public function get(string $key, $fallback = null): ?array
     {
         if ($this->has($key))
         {
