@@ -12,6 +12,13 @@ class InitSkeleton
      */
     public static function process(string $pathApp, string $pathSkeleton): callable
     {
+        /**
+         * @param $name
+         * @param $withView
+         * @param OutputInterface $output
+         *
+         * @throws Exception
+         */
         return function ($name, $withView, OutputInterface $output) use ($pathApp, $pathSkeleton) {
 
             $baseFolders = [

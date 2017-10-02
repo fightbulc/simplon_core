@@ -42,11 +42,11 @@ $app
 // ##############################################
 
 $app
-    ->command('component name [--with-rest] [--with-view=]', ComponentSkeleton::process($pathApp, $pathSkeleton))
+    ->command('component name [--with-rest=] [--with-view=]', ComponentSkeleton::process($pathApp, $pathSkeleton))
     ->descriptions('Add a component', [
         'name'        => 'Component name',
-        '--with-rest' => 'Enable REST',
-        '--with-view' => 'Enable view with first view name',
+        '--with-rest' => 'Enable REST; Set REST names separated by comma',
+        '--with-view' => 'Enable view; Set view names separated by comma',
     ])
 ;
 

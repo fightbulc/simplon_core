@@ -4,7 +4,7 @@ namespace {namespace}\Controllers;
 
 use Simplon\Core\Data\ResponseRestData;
 
-class {name}RestController extends BaseRestController
+class {rest}RestController extends BaseRestController
 {
     /**
      * @param array $params

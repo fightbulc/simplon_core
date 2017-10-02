@@ -12,6 +12,16 @@ class StoreSkeleton
      */
     public static function process(string $pathApp, string $pathSkeleton): callable
     {
+        /**
+         * @param $component
+         * @param $withStore
+         * @param $withModel
+         * @param $withTable
+         * @param $withToken
+         * @param OutputInterface $output
+         *
+         * @throws Exception
+         */
         return function ($component, $withStore, $withModel, $withTable, $withToken, OutputInterface $output) use ($pathApp, $pathSkeleton) {
             if ($component)
             {
