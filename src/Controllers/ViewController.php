@@ -105,7 +105,7 @@ abstract class ViewController extends Controller
     {
         if (!$this->device)
         {
-            $this->device = new Device();
+            $this->device = new Device(null, true);
         }
 
         return $this->device;

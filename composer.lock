@@ -7,6 +7,80 @@
     "content-hash": "d00e43ef8af73a5c628f1cc0882a2db7",
     "packages": [
         {
+            "name": "doctrine/cache",
+            "version": "v1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/cache.git",
+                "reference": "b3217d58609e9c8e661cd41357a54d926c4a2a1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/b3217d58609e9c8e661cd41357a54d926c4a2a1a",
+                "reference": "b3217d58609e9c8e661cd41357a54d926c4a2a1a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.1"
+            },
+            "conflict": {
+                "doctrine/common": ">2.2,<2.4"
+            },
+            "require-dev": {
+                "alcaeus/mongo-php-adapter": "^1.1",
+                "mongodb/mongodb": "^1.1",
+                "phpunit/phpunit": "^5.7",
+                "predis/predis": "~1.0"
+            },
+            "suggest": {
+                "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.7.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Caching library offering an object-oriented API for many cache backends",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "cache",
+                "caching"
+            ],
+            "time": "2017-08-25T07:02:50+00:00"
+        },
+        {
             "name": "dusank/knapsack",
             "version": "10.0.0",
             "source": {
@@ -636,16 +710,16 @@
         },
         {
             "name": "piwik/device-detector",
-            "version": "3.8.1",
+            "version": "3.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/piwik/device-detector.git",
-                "reference": "91e17ecbd7ad6fe3085d5508aacdf858281087e5"
+                "reference": "4415a46defb7644869e17aac143c8eb46ae9e49f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/piwik/device-detector/zipball/91e17ecbd7ad6fe3085d5508aacdf858281087e5",
-                "reference": "91e17ecbd7ad6fe3085d5508aacdf858281087e5",
+                "url": "https://api.github.com/repos/piwik/device-detector/zipball/4415a46defb7644869e17aac143c8eb46ae9e49f",
+                "reference": "4415a46defb7644869e17aac143c8eb46ae9e49f",
                 "shasum": ""
             },
             "require": {
@@ -683,7 +757,7 @@
                 "parser",
                 "useragent"
             ],
-            "time": "2017-07-25T21:21:36+00:00"
+            "time": "2017-10-02T08:22:37+00:00"
         },
         {
             "name": "psr/container",
@@ -878,16 +952,16 @@
         },
         {
             "name": "simplon/component_form",
-            "version": "0.1.12",
+            "version": "0.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_component_form.git",
-                "reference": "5a54ebcf1c90c38569ea547581aeaaa83d734fe8"
+                "reference": "47d566eb42627a23cd8893c4ddfd55c34e0e5264"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_component_form/zipball/5a54ebcf1c90c38569ea547581aeaaa83d734fe8",
-                "reference": "5a54ebcf1c90c38569ea547581aeaaa83d734fe8",
+                "url": "https://api.github.com/repos/fightbulc/simplon_component_form/zipball/47d566eb42627a23cd8893c4ddfd55c34e0e5264",
+                "reference": "47d566eb42627a23cd8893c4ddfd55c34e0e5264",
                 "shasum": ""
             },
             "require": {
@@ -919,7 +993,7 @@
                 }
             ],
             "description": "Assets required for simplon/form",
-            "time": "2017-09-27T12:53:05+00:00"
+            "time": "2017-10-04T10:27:19+00:00"
         },
         {
             "name": "simplon/component_semanticui",
@@ -1177,21 +1251,22 @@
         },
         {
             "name": "simplon/device",
-            "version": "0.0.3",
+            "version": "0.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_device.git",
-                "reference": "b6301ab6a4facfe967bc04b615ebb8f8becfa925"
+                "reference": "810b1d3a5c07642b205287505f1ac8f82d84d25e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_device/zipball/b6301ab6a4facfe967bc04b615ebb8f8becfa925",
-                "reference": "b6301ab6a4facfe967bc04b615ebb8f8becfa925",
+                "url": "https://api.github.com/repos/fightbulc/simplon_device/zipball/810b1d3a5c07642b205287505f1ac8f82d84d25e",
+                "reference": "810b1d3a5c07642b205287505f1ac8f82d84d25e",
                 "shasum": ""
             },
             "require": {
+                "doctrine/cache": "^1.7",
                 "php": ">=7.0",
-                "piwik/device-detector": "^3.7"
+                "piwik/device-detector": "^3.8"
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.0"
@@ -1219,7 +1294,7 @@
                 "detection",
                 "device"
             ],
-            "time": "2017-02-07T14:40:16+00:00"
+            "time": "2017-10-13T14:10:32+00:00"
         },
         {
             "name": "simplon/form",
@@ -1549,16 +1624,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "a1e1b01293a090cb9ae2ddd221a3251a4a7e4abf"
+                "reference": "116bc56e45a8e5572e51eb43ab58c769a352366c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/a1e1b01293a090cb9ae2ddd221a3251a4a7e4abf",
-                "reference": "a1e1b01293a090cb9ae2ddd221a3251a4a7e4abf",
+                "url": "https://api.github.com/repos/symfony/console/zipball/116bc56e45a8e5572e51eb43ab58c769a352366c",
+                "reference": "116bc56e45a8e5572e51eb43ab58c769a352366c",
                 "shasum": ""
             },
             "require": {
@@ -1613,20 +1688,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-06T16:40:18+00:00"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "8beb24eec70b345c313640962df933499373a944"
+                "reference": "eb95d9ce8f18dcc1b3dfff00cb624c402be78ffd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/8beb24eec70b345c313640962df933499373a944",
-                "reference": "8beb24eec70b345c313640962df933499373a944",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/eb95d9ce8f18dcc1b3dfff00cb624c402be78ffd",
+                "reference": "eb95d9ce8f18dcc1b3dfff00cb624c402be78ffd",
                 "shasum": ""
             },
             "require": {
@@ -1669,7 +1744,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-01T13:23:39+00:00"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1732,16 +1807,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "b7666e9b438027a1ea0e1ee813ec5042d5d7f6f0"
+                "reference": "fdf89e57a723a29baf536e288d6e232c059697b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/b7666e9b438027a1ea0e1ee813ec5042d5d7f6f0",
-                "reference": "b7666e9b438027a1ea0e1ee813ec5042d5d7f6f0",
+                "url": "https://api.github.com/repos/symfony/process/zipball/fdf89e57a723a29baf536e288d6e232c059697b1",
+                "reference": "fdf89e57a723a29baf536e288d6e232c059697b1",
                 "shasum": ""
             },
             "require": {
@@ -1777,20 +1852,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-07-29T21:54:42+00:00"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "2faa791b66bac33ca40031d8bce03b7dc8143490"
+                "reference": "c8664b92a6d5bc229e48b0923486c097e45a7877"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/2faa791b66bac33ca40031d8bce03b7dc8143490",
-                "reference": "2faa791b66bac33ca40031d8bce03b7dc8143490",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/c8664b92a6d5bc229e48b0923486c097e45a7877",
+                "reference": "c8664b92a6d5bc229e48b0923486c097e45a7877",
                 "shasum": ""
             },
             "require": {
@@ -1829,7 +1904,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2017-09-13T14:47:08+00:00"
+            "time": "2017-10-12T15:24:51+00:00"
         }
     ],
     "packages-dev": [],
