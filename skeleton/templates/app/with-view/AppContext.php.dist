@@ -23,7 +23,7 @@ class AppContext extends CoreContext
     /**
      * @return GlobalViewData
      */
-    public function getGlobaViewData(): GlobalViewData
+    public function getGlobalViewData(): GlobalViewData
     {
         return new GlobalViewData();
     }
