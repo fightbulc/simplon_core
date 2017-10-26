@@ -1251,16 +1251,16 @@
         },
         {
             "name": "simplon/device",
-            "version": "0.0.4",
+            "version": "0.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_device.git",
-                "reference": "810b1d3a5c07642b205287505f1ac8f82d84d25e"
+                "reference": "2fae5518e330e361946db4d86550a3f21e29c875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_device/zipball/810b1d3a5c07642b205287505f1ac8f82d84d25e",
-                "reference": "810b1d3a5c07642b205287505f1ac8f82d84d25e",
+                "url": "https://api.github.com/repos/fightbulc/simplon_device/zipball/2fae5518e330e361946db4d86550a3f21e29c875",
+                "reference": "2fae5518e330e361946db4d86550a3f21e29c875",
                 "shasum": ""
             },
             "require": {
@@ -1294,7 +1294,7 @@
                 "detection",
                 "device"
             ],
-            "time": "2017-10-13T14:10:32+00:00"
+            "time": "2017-10-26T06:01:47+00:00"
         },
         {
             "name": "simplon/form",
