@@ -2,6 +2,7 @@
 
 namespace Simplon\Core\Controllers;
 
+use Doctrine\Common\Cache\CacheProvider;
 use Psr\Http\Message\ResponseInterface;
 use Simplon\Core\Components\Context;
 use Simplon\Core\CoreContext;
@@ -105,9 +106,25 @@ abstract class ViewController extends Controller
     {
         if (!$this->device)
         {
-            $this->device = new Device(null, true);
+            $this->device = new Device($this->getUserAgent(), $this->getCacheProvider());
         }
 
         return $this->device;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUserAgent(): string
+    {
+        return $_SERVER['HTTP_USER_AGENT'];
+    }
+
+    /**
+     * @return CacheProvider|null
+     */
+    protected function getCacheProvider(): ?CacheProvider
+    {
+        return null;
     }
 }
