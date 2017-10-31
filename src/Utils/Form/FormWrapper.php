@@ -46,16 +46,22 @@ class FormWrapper
 
     /**
      * @param string $fieldId
+     * @param null|string $castType
      *
      * @return mixed|null
      * @throws FormError
      */
-    public function getVal(string $fieldId)
+    public function getVal(string $fieldId, ?string $castType = null)
     {
         $value = $this->getFields()->get($fieldId)->getValue();
 
         if ($value !== '')
         {
+            if ($castType)
+            {
+                $value = $this->castValue($value, $castType);
+            }
+
             return $value;
         }
 
@@ -77,5 +83,30 @@ class FormWrapper
     public function isValid(): bool
     {
         return $this->validator->validate()->isValid();
+    }
+
+    /**
+     * @param $value
+     * @param string $type
+     *
+     * @return mixed
+     */
+    private function castValue($value, string $type)
+    {
+        switch ($type)
+        {
+            case 'int':
+                $value = (int)$value;
+                break;
+            case 'float':
+                $value = (float)$value;
+                break;
+            case 'bool':
+                $value = (bool)$value;
+                break;
+            default:
+        }
+
+        return $value;
     }
 }
