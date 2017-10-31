@@ -40,7 +40,8 @@
     "fig/http-message-util": "^1.1",
     "filp/whoops": "^2.1",
     "guzzlehttp/guzzle": "^6.2",
-    "mnapoli/silly": "^1.6"
+    "mnapoli/silly": "^1.6",
+    "spatie/array-to-xml": "^2.7"
   },
   "config": {
     "component-dir": "public/assets/vendor"

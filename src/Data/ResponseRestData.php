@@ -4,6 +4,7 @@ namespace Simplon\Core\Data;
 
 use Psr\Http\Message\ResponseInterface;
 use Simplon\Core\Interfaces\ResponseDataInterface;
+use Simplon\Core\Response\ResponseEncoder;
 
 class ResponseRestData implements ResponseDataInterface
 {
@@ -12,16 +13,18 @@ class ResponseRestData implements ResponseDataInterface
      */
     private $response;
     /**
-     * @var string
+     * @var ResponseEncoder
      */
-    private $contentType = 'application/json; charset=UTF-8';
+    private $encoder;
 
     /**
+     * @param ResponseEncoder $encoder
      * @param ResponseInterface $response
      */
-    public function __construct(ResponseInterface $response)
+    public function __construct(ResponseEncoder $encoder, ResponseInterface $response)
     {
         $this->response = $response;
+        $this->encoder = $encoder;
     }
 
     /**
@@ -37,28 +40,9 @@ class ResponseRestData implements ResponseDataInterface
      */
     public function render(): ResponseInterface
     {
-        $this->response = $this->response->withAddedHeader('Content-Type', $this->getContentType());
+        $this->response = $this->response->withAddedHeader('Content-Type', $this->encoder->getContentType());
+        $this->response->getBody()->write($this->encoder->encodeData());
 
         return $this->response;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentType(): string
-    {
-        return $this->contentType;
-    }
-
-    /**
-     * @param string $contentType
-     *
-     * @return static
-     */
-    public function setContentType(string $contentType)
-    {
-        $this->contentType = $contentType;
-
-        return $this;
     }
 }
