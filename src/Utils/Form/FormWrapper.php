@@ -8,6 +8,10 @@ use Simplon\Form\FormValidator;
 
 class FormWrapper
 {
+    const CAST_TYPE_INT = 'int';
+    const CAST_TYPE_FLOAT = 'float';
+    const CAST_TYPE_BOOL = 'bool';
+
     /**
      * @var BaseForm
      */
@@ -95,13 +99,13 @@ class FormWrapper
     {
         switch ($type)
         {
-            case 'int':
+            case self::CAST_TYPE_INT:
                 $value = (int)$value;
                 break;
-            case 'float':
+            case self::CAST_TYPE_FLOAT:
                 $value = (float)$value;
                 break;
-            case 'bool':
+            case self::CAST_TYPE_BOOL:
                 $value = (bool)$value;
                 break;
             default:
