@@ -15,6 +15,8 @@ use Simplon\Device\Device;
 
 abstract class ViewController extends Controller
 {
+    const UNKNOWN_USER_AGENT = 'unknown';
+
     /**
      * @var FlashMessage
      */
@@ -58,7 +60,7 @@ abstract class ViewController extends Controller
     public function redirect(string $url, int $code = 301): ResponseViewData
     {
         return new ResponseViewData(
-            $this->getResponse()->withStatus($code)->withHeader('Location', $url)
+            $this->getResponse()->withStatus($code)->withHeader('Location', (string)$url)
         );
     }
 
@@ -117,7 +119,7 @@ abstract class ViewController extends Controller
      */
     protected function getUserAgent(): string
     {
-        return $_SERVER['HTTP_USER_AGENT'];
+        return isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : self::UNKNOWN_USER_AGENT;
     }
 
     /**
