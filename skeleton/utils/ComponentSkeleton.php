@@ -127,22 +127,6 @@ class ComponentSkeleton
                 if ($withView)
                 {
                     $output->writeln('Creating file... ' .
-                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Registry.php.dist')
-                                    ->withDestination($pathApp . '/' . $name)
-                                    ->withFileName('{name}Registry.php')
-                                    ->withParams($params)
-                                    ->build()
-                    );
-
-                    $output->writeln('Creating file... ' .
-                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Routes.php.dist')
-                                    ->withDestination($pathApp . '/' . $name)
-                                    ->withFileName('{name}Routes.php')
-                                    ->withParams($params)
-                                    ->build()
-                    );
-
-                    $output->writeln('Creating file... ' .
                         TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/BaseViewController.php.dist')
                                     ->withDestination($pathApp . '/' . $name . '/Controllers')
                                     ->withFileName('BaseViewController.php')
@@ -182,35 +166,47 @@ class ComponentSkeleton
                                     ->build()
                     );
 
-                    foreach (explode(',', $withView) as $viewItem)
-                    {
-                        $viewItem = str_replace(' ', '', ucwords($viewItem));
-                        $params = array_merge($params, ['view' => $viewItem]);
+                    $params['view'] = ucwords($withView);
 
-                        $output->writeln('Creating file... ' .
-                            TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/ViewController.php.dist')
-                                        ->withDestination($pathApp . '/' . $name . '/Controllers')
-                                        ->withFileName('{view}ViewController.php')
-                                        ->withParams($params)
-                                        ->build()
-                        );
+                    $output->writeln('Creating file... ' .
+                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Registry.php.dist')
+                                    ->withDestination($pathApp . '/' . $name)
+                                    ->withFileName('{name}Registry.php')
+                                    ->withParams($params)
+                                    ->build()
+                    );
 
-                        $output->writeln('Creating file... ' .
-                            TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Views/Foo/FooView.php.dist')
-                                        ->withDestination($pathApp . '/' . $name . '/Views/{view}')
-                                        ->withFileName('{view}View.php')
-                                        ->withParams($params)
-                                        ->build()
-                        );
+                    $output->writeln('Creating file... ' .
+                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Routes.php.dist')
+                                    ->withDestination($pathApp . '/' . $name)
+                                    ->withFileName('{name}Routes.php')
+                                    ->withParams($params)
+                                    ->build()
+                    );
 
-                        $output->writeln('Creating file... ' .
-                            TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Views/Foo/FooTemplate.phtml.dist')
-                                        ->withDestination($pathApp . '/' . $name . '/Views/{view}')
-                                        ->withFileName('{view}Template.phtml')
-                                        ->withParams($params)
-                                        ->build()
-                        );
-                    }
+                    $output->writeln('Creating file... ' .
+                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/ViewController.php.dist')
+                                    ->withDestination($pathApp . '/' . $name . '/Controllers')
+                                    ->withFileName('{view}ViewController.php')
+                                    ->withParams($params)
+                                    ->build()
+                    );
+
+                    $output->writeln('Creating file... ' .
+                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Views/Foo/FooView.php.dist')
+                                    ->withDestination($pathApp . '/' . $name . '/Views/{view}')
+                                    ->withFileName('{view}View.php')
+                                    ->withParams($params)
+                                    ->build()
+                    );
+
+                    $output->writeln('Creating file... ' .
+                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-view/Views/Foo/FooTemplate.phtml.dist')
+                                    ->withDestination($pathApp . '/' . $name . '/Views/{view}')
+                                    ->withFileName('{view}Template.phtml')
+                                    ->withParams($params)
+                                    ->build()
+                    );
                 }
             }
         };
