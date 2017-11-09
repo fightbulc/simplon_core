@@ -35,8 +35,8 @@ class {name}Registry extends Registry
      */
     public function getRoutes(): ?RoutesCollection
     {
-        return $this->buildRoutesCollection()->addRoute(
-            $this->buildRoute({name}Routes::PATTERN_FOO, {view}ViewController::class)
-        );
+        return $this->buildRoutesCollection()
+            ->addRoute($this->buildRoute({name}Routes::PATTERN_FOO, {view}ViewController::class))
+            ;
     }
 }

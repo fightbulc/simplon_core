@@ -3,18 +3,17 @@
 namespace {namespace};
 
 use Simplon\Core\Utils\Routing\Routes;
+use Simplon\Url\Url;
 
 class {name}Routes extends Routes
 {
     const PATTERN_FOO = '/view/bar';
 
     /**
-     * @return string
+     * @return Url
      */
-    public static function toBar(): string
+    public static function toBar(): Url
     {
-        return self::toString(
-            self::render(self::PATTERN_FOO)
-        );
+        return self::render(self::PATTERN_FOO);
     }
 }

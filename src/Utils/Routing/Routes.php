@@ -64,14 +64,4 @@ abstract class Routes
     {
         return null;
     }
-
-    /**
-     * @param Url $url
-     *
-     * @return string
-     */
-    protected static function toString(Url $url): string
-    {
-        return $url->__toString();
-    }
 }
