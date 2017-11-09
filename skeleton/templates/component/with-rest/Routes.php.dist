@@ -8,12 +8,4 @@ use Simplon\Url\Url;
 class {name}Routes extends Routes
 {
     const PATTERN_FOO = '/rest/bar';
-
-    /**
-     * @return Url
-     */
-    public static function toBar(): Url
-    {
-        return self::render(self::PATTERN_FOO);
-    }
 }
