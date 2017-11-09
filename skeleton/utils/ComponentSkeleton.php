@@ -87,6 +87,16 @@ class ComponentSkeleton
 
                 if ($withRest)
                 {
+                    $params['rest'] = $withRest;
+
+                    $output->writeln('Creating file... ' .
+                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-rest/BaseRestController.php.dist')
+                                    ->withDestination($pathApp . '/' . $name . '/Controllers')
+                                    ->withFileName('BaseRestController.php')
+                                    ->withParams($params)
+                                    ->build()
+                    );
+
                     $output->writeln('Creating file... ' .
                         TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-rest/Registry.php.dist')
                                     ->withDestination($pathApp . '/' . $name)
@@ -104,25 +114,12 @@ class ComponentSkeleton
                     );
 
                     $output->writeln('Creating file... ' .
-                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-rest/BaseRestController.php.dist')
+                        TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-rest/RestController.php.dist')
                                     ->withDestination($pathApp . '/' . $name . '/Controllers')
-                                    ->withFileName('BaseRestController.php')
+                                    ->withFileName('{rest}RestController.php')
                                     ->withParams($params)
                                     ->build()
                     );
-
-                    foreach(explode(',', $withRest) as $restItem)
-                    {
-                        $restItem = str_replace(' ', '', ucwords($restItem));
-
-                        $output->writeln('Creating file... ' .
-                            TemplateUtil::createFrom($pathSkeleton . '/templates/component/with-rest/RestController.php.dist')
-                                        ->withDestination($pathApp . '/' . $name . '/Controllers')
-                                        ->withFileName('{rest}RestController.php')
-                                        ->withParams(array_merge($params, ['rest' => $restItem]))
-                                        ->build()
-                        );
-                    }
                 }
 
                 // ######################################
@@ -185,7 +182,7 @@ class ComponentSkeleton
                                     ->build()
                     );
 
-                    foreach(explode(',', $withView) as $viewItem)
+                    foreach (explode(',', $withView) as $viewItem)
                     {
                         $viewItem = str_replace(' ', '', ucwords($viewItem));
                         $params = array_merge($params, ['view' => $viewItem]);
