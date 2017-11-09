@@ -6,11 +6,13 @@ use Simplon\Core\CoreContext;
 
 class AppContext extends CoreContext
 {
+    const GLOBAL_NAMESPACE = '{name}';
+
     /**
      * @return string
      */
     protected function getCookieStorageNameSpace(): string
     {
-        return '{name}';
+        return self::GLOBAL_NAMESPACE;
     }
 }
