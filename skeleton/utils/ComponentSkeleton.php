@@ -40,7 +40,7 @@ class ComponentSkeleton
                 if (!file_exists($folder))
                 {
                     echo "Creating folder... " . $prefix . '/' . $name . "\n";
-                    mkdir($folder);
+                    mkdir($folder, 0777, true);
                 }
 
                 $output->writeln('Creating file... ' .
