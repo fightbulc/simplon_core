@@ -3,7 +3,6 @@
 namespace {namespace};
 
 use Simplon\Core\Utils\Routing\Routes;
-use Simplon\Url\Url;
 
 class {name}Routes extends Routes
 {
