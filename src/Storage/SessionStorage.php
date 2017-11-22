@@ -3,9 +3,9 @@
 namespace Simplon\Core\Storage;
 
 use Simplon\Core\Interfaces\SessionHandlerInterface;
-use Simplon\Core\Interfaces\SessionStorageInterface;
+use Simplon\Interfaces\StorageInterface;
 
-class SessionStorage implements SessionStorageInterface
+class SessionStorage implements StorageInterface
 {
     /**
      * @param int $sessionTimeoutSeconds

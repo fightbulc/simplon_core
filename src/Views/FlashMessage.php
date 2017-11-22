@@ -2,7 +2,7 @@
 
 namespace Simplon\Core\Views;
 
-use Simplon\Core\Interfaces\SessionStorageInterface;
+use Simplon\Interfaces\StorageInterface;
 
 class FlashMessage
 {
@@ -13,16 +13,16 @@ class FlashMessage
     const TYPE_ERROR = 'error';
 
     /**
-     * @var SessionStorageInterface
+     * @var StorageInterface
      */
-    private $sessionStore;
+    private $storage;
 
     /**
-     * @param SessionStorageInterface $sessionStorage
+     * @param StorageInterface $storage
      */
-    public function __construct(SessionStorageInterface $sessionStorage)
+    public function __construct(StorageInterface $storage)
     {
-        $this->sessionStore = $sessionStorage;
+        $this->storage = $storage;
     }
 
     /**
@@ -30,7 +30,7 @@ class FlashMessage
      */
     public function hasFlash(): bool
     {
-        return $this->getSessionStore()->has(self::SESSION_KEY);
+        return $this->getStorage()->has(self::SESSION_KEY);
     }
 
     /**
@@ -50,10 +50,10 @@ class FlashMessage
         }
 
         // fetch message
-        $flash = $this->getSessionStore()->get(self::SESSION_KEY);
+        $flash = $this->getStorage()->get(self::SESSION_KEY);
 
         // remove from session
-        $this->getSessionStore()->del(self::SESSION_KEY);
+        $this->getStorage()->del(self::SESSION_KEY);
 
         if ($flash === null)
         {
@@ -131,16 +131,16 @@ class FlashMessage
      */
     private function setFlash(string $message, $type = null): self
     {
-        $this->getSessionStore()->set(self::SESSION_KEY, ['message' => $message, 'type' => $type]);
+        $this->getStorage()->set(self::SESSION_KEY, ['message' => $message, 'type' => $type]);
 
         return $this;
     }
 
     /**
-     * @return SessionStorageInterface
+     * @return StorageInterface
      */
-    private function getSessionStore(): SessionStorageInterface
+    private function getStorage(): StorageInterface
     {
-        return $this->sessionStore;
+        return $this->storage;
     }
 }

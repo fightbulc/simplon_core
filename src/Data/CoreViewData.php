@@ -4,10 +4,9 @@ namespace Simplon\Core\Data;
 
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
-use Simplon\Helper\Data\Data;
 use Simplon\Locale\Locale;
 
-class CoreViewData extends Data
+class CoreViewData
 {
     /**
      * @var Locale
