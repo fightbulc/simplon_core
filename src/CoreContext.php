@@ -19,6 +19,7 @@ abstract class CoreContext
     const APP_ENV_REVIEW = 'review';
     const APP_ENV_STAGE = 'stage';
     const APP_ENV_PRODUCTION = 'production';
+    const COOKIE_NAMESPACE = 'CORE';
 
     /**
      * @var Config
@@ -195,6 +196,6 @@ abstract class CoreContext
      */
     protected function getCookieStorageNameSpace(): string
     {
-        return 'CORE';
+        return self::COOKIE_NAMESPACE;
     }
 }

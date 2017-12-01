@@ -2,7 +2,6 @@
 
 namespace Simplon\Core\Controllers;
 
-use Doctrine\Common\Cache\CacheProvider;
 use Psr\Http\Message\ResponseInterface;
 use Simplon\Core\Components\Context;
 use Simplon\Core\CoreContext;
@@ -15,8 +14,6 @@ use Simplon\Device\Device;
 
 abstract class ViewController extends Controller
 {
-    const UNKNOWN_USER_AGENT = 'unknown';
-
     /**
      * @var FlashMessage
      */
@@ -108,25 +105,17 @@ abstract class ViewController extends Controller
     {
         if (!$this->device)
         {
-            $this->device = new Device($this->getUserAgent(), $this->getCacheProvider());
+            $this->device = new Device($this->getUserAgent());
         }
 
         return $this->device;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    protected function getUserAgent(): string
+    protected function getUserAgent(): ?string
     {
-        return isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : self::UNKNOWN_USER_AGENT;
-    }
-
-    /**
-     * @return CacheProvider|null
-     */
-    protected function getCacheProvider(): ?CacheProvider
-    {
-        return null;
+        return $_SERVER['HTTP_USER_AGENT'] ?? null;
     }
 }
