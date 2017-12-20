@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "90624ec05ed33bc667aa0c42e3d8a8a8",
+    "content-hash": "30b42785a9fe64abf343596d2c5ffed8",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -1773,16 +1773,16 @@
         },
         {
             "name": "simplon/device",
-            "version": "0.0.5",
+            "version": "0.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_device.git",
-                "reference": "2fae5518e330e361946db4d86550a3f21e29c875"
+                "reference": "dd3da408d2877199d2d35ea9bef47e3a9d63b8d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_device/zipball/2fae5518e330e361946db4d86550a3f21e29c875",
-                "reference": "2fae5518e330e361946db4d86550a3f21e29c875",
+                "url": "https://api.github.com/repos/fightbulc/simplon_device/zipball/dd3da408d2877199d2d35ea9bef47e3a9d63b8d8",
+                "reference": "dd3da408d2877199d2d35ea9bef47e3a9d63b8d8",
                 "shasum": ""
             },
             "require": {
@@ -1816,7 +1816,7 @@
                 "detection",
                 "device"
             ],
-            "time": "2017-10-26T06:01:47+00:00"
+            "time": "2017-12-20T11:25:00+00:00"
         },
         {
             "name": "simplon/form",
@@ -1918,16 +1918,16 @@
         },
         {
             "name": "simplon/http",
-            "version": "dev-master",
+            "version": "0.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_http.git",
-                "reference": "f78d755d8735acab77b8682ed4940eada7d6026d"
+                "reference": "9277d2d8da3fd9765eb1f862939f76d8f7b981d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_http/zipball/f78d755d8735acab77b8682ed4940eada7d6026d",
-                "reference": "f78d755d8735acab77b8682ed4940eada7d6026d",
+                "url": "https://api.github.com/repos/fightbulc/simplon_http/zipball/9277d2d8da3fd9765eb1f862939f76d8f7b981d1",
+                "reference": "9277d2d8da3fd9765eb1f862939f76d8f7b981d1",
                 "shasum": ""
             },
             "require": {
@@ -1960,7 +1960,7 @@
                 "http",
                 "psr7"
             ],
-            "time": "2017-12-19T17:26:52+00:00"
+            "time": "2017-12-19T19:38:13+00:00"
         },
         {
             "name": "simplon/interfaces",
@@ -2623,9 +2623,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "simplon/http": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
