@@ -18,6 +18,8 @@ use Zend\Diactoros\Response;
 class ExceptionMiddleware implements MiddlewareInterface
 {
     const DEFAULT_HTTP_STATUS = 500;
+    const VERBOSITY_MIN = 0;
+    const VERBOSITY_MAX = 1;
 
     /**
      * @var HandlerInterface
@@ -33,10 +35,16 @@ class ExceptionMiddleware implements MiddlewareInterface
     protected $errorRedirectUrl;
 
     /**
+     * @var int
+     */
+    protected $verbosity;
+
+    /**
      * @param HandlerInterface $handler
      * @param bool $isProduction
+     * @param int $verbosity
      */
-    public function __construct(?HandlerInterface $handler = null, bool $isProduction = false)
+    public function __construct(?HandlerInterface $handler = null, bool $isProduction = false, int $verbosity = self::VERBOSITY_MIN)
     {
         if (!$handler)
         {
@@ -44,7 +52,8 @@ class ExceptionMiddleware implements MiddlewareInterface
         }
 
         $this->isProduction = $isProduction;
-        $this->handler = $handler;
+        $this->handler      = $handler;
+        $this->verbosity    = $verbosity;
     }
 
     /**
@@ -264,16 +273,13 @@ class ExceptionMiddleware implements MiddlewareInterface
             'http_status' => $response->getStatusCode(),
             'env'         => $env,
             'message'     => $e->getMessage(),
-            'source'      => [
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ],
+            'source'      => sprintf('%s:%s'. $e->getFile(), $e->getLine()),
             'trace'       => $e->getTrace(),
             'url'         => [
                 'raw'   => $currentUrl->__toString(),
                 'host'  => $currentUrl->getHost(),
                 'path'  => $currentUrl->getPath(),
-                'query' => $currentUrl->getAllQueryParams(),
+                'query' => $this->getQueryParametersFromUrl($currentUrl),
             ],
             'timestamp'   => (new Moment())->format(),
         ];
@@ -286,7 +292,7 @@ class ExceptionMiddleware implements MiddlewareInterface
                 'raw'   => $refererUrl->__toString(),
                 'host'  => $refererUrl->getHost(),
                 'path'  => $refererUrl->getPath(),
-                'query' => $refererUrl->getAllQueryParams(),
+                'query' => $this->getQueryParametersFromUrl($refererUrl),
             ];
         }
 
@@ -309,5 +315,16 @@ class ExceptionMiddleware implements MiddlewareInterface
     private function getHandler(): HandlerInterface
     {
         return $this->handler;
+    }
+
+    /**
+     * Get URL query params as string or array depending on the verbosity level set
+     *
+     * @param Url $url
+     * @return array|string
+     */
+    private function getQueryParametersFromUrl(Url $url)
+    {
+        return $this->verbosity > self::VERBOSITY_MIN ? $url->getAllQueryParams() : json_encode($url->getAllQueryParams());
     }
 }
