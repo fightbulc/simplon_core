@@ -18,6 +18,8 @@ use Zend\Diactoros\Response;
 class ExceptionMiddleware implements MiddlewareInterface
 {
     const DEFAULT_HTTP_STATUS = 500;
+    const VERBOSITY_MIN = 0;
+    const VERBOSITY_MAX = 1;
 
     /**
      * @var HandlerInterface
@@ -33,10 +35,15 @@ class ExceptionMiddleware implements MiddlewareInterface
     protected $errorRedirectUrl;
 
     /**
+     * @var int
+     */
+    protected $verbosity;
+
+    /**
      * @param HandlerInterface $handler
      * @param bool $isProduction
      */
-    public function __construct(?HandlerInterface $handler = null, bool $isProduction = false)
+    public function __construct(?HandlerInterface $handler = null, bool $isProduction = false, int $verbosity = self::VERBOSITY_MIN)
     {
         if (!$handler)
         {
@@ -44,7 +51,8 @@ class ExceptionMiddleware implements MiddlewareInterface
         }
 
         $this->isProduction = $isProduction;
-        $this->handler = $handler;
+        $this->handler      = $handler;
+        $this->verbosity    = $verbosity;
     }
 
     /**
@@ -270,7 +278,9 @@ class ExceptionMiddleware implements MiddlewareInterface
                 'raw'   => $currentUrl->__toString(),
                 'host'  => $currentUrl->getHost(),
                 'path'  => $currentUrl->getPath(),
-                'query' => json_encode($currentUrl->getAllQueryParams()),
+                'query' => $this->verbosity > self::VERBOSITY_MIN
+                        ? json_encode($currentUrl->getAllQueryParams())
+                        : $currentUrl->getAllQueryParams()
             ],
             'timestamp'   => (new Moment())->format(),
         ];
@@ -283,7 +293,9 @@ class ExceptionMiddleware implements MiddlewareInterface
                 'raw'   => $refererUrl->__toString(),
                 'host'  => $refererUrl->getHost(),
                 'path'  => $refererUrl->getPath(),
-                'query' => json_encode($refererUrl->getAllQueryParams()),
+                'query' => $this->verbosity > self::VERBOSITY_MIN
+                        ? json_encode($refererUrl->getAllQueryParams())
+                        : $refererUrl->getAllQueryParams(),
             ];
         }
 
