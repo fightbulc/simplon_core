@@ -273,7 +273,6 @@ class ExceptionMiddleware implements MiddlewareInterface
             'http_status' => $response->getStatusCode(),
             'env'         => $env,
             'message'     => $e->getMessage(),
-            'source'      => sprintf('%s:%s' . $e->getFile(), $e->getLine()),
             'trace'       => $e->getTrace(),
             'url'         => [
                 'raw'   => $currentUrl->__toString(),
@@ -283,6 +282,11 @@ class ExceptionMiddleware implements MiddlewareInterface
             ],
             'timestamp'   => (new Moment())->format(),
         ];
+
+        if ($e->getFile() && $e->getLine())
+        {
+            $data['source'] = sprintf('%s:%s' . $e->getFile(), $e->getLine());
+        }
 
         if (!empty($_SERVER['HTTP_REFERER']))
         {
