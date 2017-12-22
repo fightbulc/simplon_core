@@ -42,6 +42,7 @@ class ExceptionMiddleware implements MiddlewareInterface
     /**
      * @param HandlerInterface $handler
      * @param bool $isProduction
+     * @param int $verbosity
      */
     public function __construct(?HandlerInterface $handler = null, bool $isProduction = false, int $verbosity = self::VERBOSITY_MIN)
     {
@@ -316,6 +317,12 @@ class ExceptionMiddleware implements MiddlewareInterface
         return $this->handler;
     }
 
+    /**
+     * Get URL query params as string or array depending on the verbosity level set
+     *
+     * @param Url $url
+     * @return array|string
+     */
     private function getQueryParametersFromUrl(Url $url)
     {
         return $this->verbosity > self::VERBOSITY_MIN ? $url->getAllQueryParams() : json_encode($url->getAllQueryParams());
