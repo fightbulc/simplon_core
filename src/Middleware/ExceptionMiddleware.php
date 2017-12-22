@@ -278,9 +278,7 @@ class ExceptionMiddleware implements MiddlewareInterface
                 'raw'   => $currentUrl->__toString(),
                 'host'  => $currentUrl->getHost(),
                 'path'  => $currentUrl->getPath(),
-                'query' => $this->verbosity > self::VERBOSITY_MIN
-                        ? json_encode($currentUrl->getAllQueryParams())
-                        : $currentUrl->getAllQueryParams()
+                'query' => $this->getQueryParametersFromUrl($currentUrl),
             ],
             'timestamp'   => (new Moment())->format(),
         ];
@@ -293,9 +291,7 @@ class ExceptionMiddleware implements MiddlewareInterface
                 'raw'   => $refererUrl->__toString(),
                 'host'  => $refererUrl->getHost(),
                 'path'  => $refererUrl->getPath(),
-                'query' => $this->verbosity > self::VERBOSITY_MIN
-                        ? json_encode($refererUrl->getAllQueryParams())
-                        : $refererUrl->getAllQueryParams(),
+                'query' => $this->getQueryParametersFromUrl($refererUrl),
             ];
         }
 
@@ -318,5 +314,10 @@ class ExceptionMiddleware implements MiddlewareInterface
     private function getHandler(): HandlerInterface
     {
         return $this->handler;
+    }
+
+    private function getQueryParametersFromUrl(Url $url)
+    {
+        return $this->verbosity > self::VERBOSITY_MIN ? $url->getAllQueryParams() : json_encode($url->getAllQueryParams());
     }
 }
