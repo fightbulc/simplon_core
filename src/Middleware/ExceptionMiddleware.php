@@ -264,16 +264,13 @@ class ExceptionMiddleware implements MiddlewareInterface
             'http_status' => $response->getStatusCode(),
             'env'         => $env,
             'message'     => $e->getMessage(),
-            'source'      => [
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ],
+            'source'      => sprintf('%s:%s'. $e->getFile(), $e->getLine()),
             'trace'       => $e->getTrace(),
             'url'         => [
                 'raw'   => $currentUrl->__toString(),
                 'host'  => $currentUrl->getHost(),
                 'path'  => $currentUrl->getPath(),
-                'query' => $currentUrl->getAllQueryParams(),
+                'query' => json_encode($currentUrl->getAllQueryParams()),
             ],
             'timestamp'   => (new Moment())->format(),
         ];
@@ -286,7 +283,7 @@ class ExceptionMiddleware implements MiddlewareInterface
                 'raw'   => $refererUrl->__toString(),
                 'host'  => $refererUrl->getHost(),
                 'path'  => $refererUrl->getPath(),
-                'query' => $refererUrl->getAllQueryParams(),
+                'query' => json_encode($refererUrl->getAllQueryParams()),
             ];
         }
 
