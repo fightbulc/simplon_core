@@ -285,7 +285,7 @@ class ExceptionMiddleware implements MiddlewareInterface
 
         if ($e->getFile() && $e->getLine())
         {
-            $data['source'] = sprintf('%s:%s' . $e->getFile(), $e->getLine());
+            $data['source'] = sprintf('%s:%s', $e->getFile(), $e->getLine());
         }
 
         if (!empty($_SERVER['HTTP_REFERER']))
