@@ -52,8 +52,8 @@ class ExceptionMiddleware implements MiddlewareInterface
         }
 
         $this->isProduction = $isProduction;
-        $this->handler      = $handler;
-        $this->verbosity    = $verbosity;
+        $this->handler = $handler;
+        $this->verbosity = $verbosity;
     }
 
     /**
@@ -273,7 +273,7 @@ class ExceptionMiddleware implements MiddlewareInterface
             'http_status' => $response->getStatusCode(),
             'env'         => $env,
             'message'     => $e->getMessage(),
-            'source'      => sprintf('%s:%s'. $e->getFile(), $e->getLine()),
+            'source'      => sprintf('%s:%s' . $e->getFile(), $e->getLine()),
             'trace'       => $e->getTrace(),
             'url'         => [
                 'raw'   => $currentUrl->__toString(),
@@ -321,10 +321,18 @@ class ExceptionMiddleware implements MiddlewareInterface
      * Get URL query params as string or array depending on the verbosity level set
      *
      * @param Url $url
+     *
      * @return array|string
      */
     private function getQueryParametersFromUrl(Url $url)
     {
-        return $this->verbosity > self::VERBOSITY_MIN ? $url->getAllQueryParams() : json_encode($url->getAllQueryParams());
+        $params = $url->getAllQueryParams();
+
+        if (empty($params))
+        {
+            $params = [];
+        }
+
+        return $this->verbosity > self::VERBOSITY_MIN ? $params : json_encode($params);
     }
 }
