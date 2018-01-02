@@ -116,6 +116,7 @@ abstract class CoreContext
         $instanceData = InstanceData::create(Locale::class);
 
         $instanceData
+            ->setCacheName(Locale::class . '-' . md5(json_encode($paths)))
             ->addParam($this->getLocaleFileReader($paths))
             ->addParam([LocaleMiddleware::getLocaleCode()])
             ->setAfterCallback(function (Locale $locale) {
