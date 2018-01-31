@@ -25,6 +25,10 @@ class RouteMiddleware
      * @var string
      */
     private $allowedRouteChars = '\w+-=%/';
+    /**
+     * @var string|null
+     */
+    private $module;
 
     /**
      * @param ComponentsCollection $components
@@ -34,6 +38,18 @@ class RouteMiddleware
     {
         $this->components = $components;
         $this->fallbackRoute = $fallbackRoute;
+    }
+
+    /**
+     * @param string $module
+     *
+     * @return RouteMiddleware
+     */
+    public function setModule(string $module): self
+    {
+        $this->module = $module;
+
+        return $this;
     }
 
     /**
@@ -54,8 +70,6 @@ class RouteMiddleware
      * @param callable|null $next
      *
      * @return ResponseInterface
-     * @throws ClientException
-     * @throws ServerException
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?callable $next = null): ResponseInterface
     {
@@ -112,8 +126,15 @@ class RouteMiddleware
     }
 
     /**
+     * @return null|string
+     */
+    private function getModule(): ?string
+    {
+        return $this->module;
+    }
+
+    /**
      * @return array
-     * @throws ServerException
      */
     private function buildRouteMetaData(): array
     {
@@ -123,9 +144,19 @@ class RouteMiddleware
         {
             if ($component instanceof RegistryInterface)
             {
-                if ($component->getRoutes())
+                if ($routesCollection = $component->getRoutes())
                 {
-                    foreach ($component->getRoutes()->getRoutes() as $route)
+                    //
+                    // for certain modules we dont want all component routes exposed:
+                    // e.g. app.yourapp.com should not share the routes with api.yourapp.com since
+                    //
+
+                    if ($this->getModule() && !$routesCollection->isEnabledModule($this->getModule()))
+                    {
+                        continue;
+                    }
+
+                    foreach ($routesCollection->getRoutes() as $route)
                     {
                         foreach ($route->getMethodsAllowed() as $method)
                         {

@@ -15,11 +15,12 @@ use Simplon\Locale\Readers\PhpFileReader;
 abstract class CoreContext
 {
     const APP_PATH = __DIR__ . '/../../../../src';
+    const COOKIE_NAMESPACE = 'CORE';
+
     const APP_ENV_DEV = 'dev';
     const APP_ENV_REVIEW = 'review';
     const APP_ENV_STAGE = 'stage';
     const APP_ENV_PRODUCTION = 'production';
-    const COOKIE_NAMESPACE = 'CORE';
 
     /**
      * @var Config

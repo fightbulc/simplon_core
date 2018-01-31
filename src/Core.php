@@ -32,6 +32,8 @@ class Core
     /**
      * @param ComponentsCollection $components
      * @param MiddlewareCollection $middleware
+     *
+     * @throws Utils\Exceptions\ServerException
      */
     public function run(ComponentsCollection $components, MiddlewareCollection $middleware): void
     {

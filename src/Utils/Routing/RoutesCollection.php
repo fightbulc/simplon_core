@@ -10,6 +10,36 @@ class RoutesCollection
      * @var Route[]
      */
     protected $routes = [];
+    /**
+     * @var array
+     */
+    private $enabledModules;
+
+    /**
+     * @param array $enabledModules
+     */
+    public function __construct(array $enabledModules = [])
+    {
+        $this->enabledModules = $enabledModules;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnabledModules(): array
+    {
+        return $this->enabledModules;
+    }
+
+    /**
+     * @param string $module
+     *
+     * @return bool
+     */
+    public function isEnabledModule(string $module): bool
+    {
+        return isset($this->enabledModules[$module]);
+    }
 
     /**
      * @return Route[]
