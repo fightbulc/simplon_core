@@ -38,11 +38,13 @@ abstract class Registry implements RegistryInterface
     }
 
     /**
+     * @param array $enabledModules
+     *
      * @return RoutesCollection
      */
-    public function buildRoutesCollection(): RoutesCollection
+    public function buildRoutesCollection(array $enabledModules = []): RoutesCollection
     {
-        return new RoutesCollection();
+        return new RoutesCollection($enabledModules);
     }
 
     /**
