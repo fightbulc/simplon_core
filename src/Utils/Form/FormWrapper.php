@@ -35,7 +35,7 @@ class FormWrapper
 
         if (!$this->validator->hasBeenSubmitted())
         {
-            $this->getFields()->applyInitialData($initialData);
+            $this->getFields()->applyBuildData($initialData, $requestData);
         }
     }
 
