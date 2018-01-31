@@ -38,7 +38,7 @@ class RoutesCollection
      */
     public function isEnabledModule(string $module): bool
     {
-        return isset($this->enabledModules[$module]);
+        return in_array($module, $this->enabledModules);
     }
 
     /**
