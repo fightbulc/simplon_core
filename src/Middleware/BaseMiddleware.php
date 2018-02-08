@@ -3,7 +3,7 @@
 namespace Simplon\Core\Middleware;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Simplon\Core\Interfaces\MiddlewareInterface;
+use Simplon\Interfaces\MiddlewareInterface;
 
 abstract class BaseMiddleware implements MiddlewareInterface
 {

@@ -12,6 +12,7 @@ use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Utils\Config;
 use Simplon\Core\Utils\Form\BaseForm;
 use Simplon\Core\Utils\Form\FormWrapper;
+use Simplon\Form\FormError;
 use Simplon\Locale\Locale;
 
 abstract class Controller implements ControllerInterface
@@ -58,6 +59,7 @@ abstract class Controller implements ControllerInterface
 
     /**
      * @return Config
+     * @throws \ReflectionException
      */
     public function getConfig(): Config
     {
@@ -72,6 +74,7 @@ abstract class Controller implements ControllerInterface
 
     /**
      * @return Locale
+     * @throws \ReflectionException
      */
     public function getLocale(): Locale
     {
@@ -106,6 +109,7 @@ abstract class Controller implements ControllerInterface
      * @param array $initialData
      *
      * @return FormWrapper
+     * @throws FormError
      */
     public function buildFormWrapper(BaseForm $form, array $initialData = []): FormWrapper
     {

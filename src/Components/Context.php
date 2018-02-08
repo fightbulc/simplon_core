@@ -35,6 +35,7 @@ abstract class Context
 
     /**
      * @return null|Config
+     * @throws \ReflectionException
      */
     public function getConfig(): ?Config
     {
@@ -43,6 +44,7 @@ abstract class Context
 
     /**
      * @return null|Locale
+     * @throws \ReflectionException
      */
     public function getLocale(): ?Locale
     {
@@ -51,6 +53,7 @@ abstract class Context
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
     protected function getComponentDir(): string
     {

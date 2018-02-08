@@ -104,7 +104,6 @@ class Events
      * @param callable $callback
      *
      * @return Events
-     * @throws ServerException
      */
     public function addOffer(string $event, callable $callback): self
     {

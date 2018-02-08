@@ -63,6 +63,7 @@ abstract class ViewController extends Controller
 
     /**
      * @return CoreViewData
+     * @throws \Exception
      */
     public function getCoreViewData(): CoreViewData
     {
@@ -100,6 +101,7 @@ abstract class ViewController extends Controller
 
     /**
      * @return Device
+     * @throws \Exception
      */
     public function getDevice(): Device
     {
