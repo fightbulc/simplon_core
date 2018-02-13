@@ -2,29 +2,10 @@
 
 namespace Simplon\Core\Storage;
 
+use Simplon\Url\Url;
+
 class CookieStorage
 {
-    /**
-     * @var string
-     */
-    private $namespace;
-
-    /**
-     * @param string $namespace
-     */
-    public function __construct(string $namespace)
-    {
-        $this->namespace = $namespace;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNamespace(): string
-    {
-        return $this->namespace;
-    }
-
     /**
      * @param string $key
      *
@@ -32,45 +13,40 @@ class CookieStorage
      */
     public function has(string $key): bool
     {
-        return empty($_COOKIE[$this->getKeyWithNamespace($key)]) === false;
+        return empty($_COOKIE[$key]) === false;
     }
 
     /**
-     * @param string $key
-     * @param mixed $fallback
+     * @param string      $key
+     * @param string|null $fallback
      *
-     * @return array|null
+     * @return string|null
      */
-    public function get(string $key, $fallback = null): ?array
+    public function get(string $key, $fallback = null): ?string
     {
         if ($this->has($key))
         {
-            $value = $_COOKIE[$this->getKeyWithNamespace($key)];
-
-            return json_decode($value, true);
+            return $_COOKIE[$key];
         }
 
         return $fallback;
     }
 
     /**
-     * @param string $key
-     * @param array $val
+     * @param string   $key
+     * @param string   $val
      * @param int|null $expiresAt
      *
      * @return CookieStorage
      */
-    public function set(string $key, array $val, int $expiresAt = null): self
+    public function set(string $key, string $val, int $expiresAt = null): self
     {
         if ($expiresAt === null)
         {
             $expiresAt = time() + 60 * 60 * 24 * 30; // 30 days
         }
 
-        $key = $this->getKeyWithNamespace($key);
-        $val = json_encode($val);
-
-        setcookie($key, $val, $expiresAt, '/', '', false, true);
+        setcookie($key, $val, $expiresAt, '/', '.' . $this->getHost());
         $_COOKIE[$key] = $val;
 
         return $this;
@@ -81,18 +57,15 @@ class CookieStorage
      */
     public function del(string $key)
     {
-        $key = $this->getKeyWithNamespace($key);
         unset($_COOKIE[$key]);
-        setcookie($key, '', time() - 3600);
+        setcookie($key, null, -1, '/', '.' . $this->getHost());
     }
 
     /**
-     * @param string $key
-     *
      * @return string
      */
-    private function getKeyWithNamespace(string $key): string
+    private function getHost(): string
     {
-        return $this->namespace . ':' . $key;
+        return (new Url(Url::getCurrentUrl()))->withoutSubDomain()->getHost();
     }
 }

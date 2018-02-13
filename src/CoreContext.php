@@ -15,7 +15,6 @@ use Simplon\Locale\Readers\PhpFileReader;
 abstract class CoreContext
 {
     const APP_PATH = __DIR__ . '/../../../../src';
-    const COOKIE_NAMESPACE = 'CORE';
 
     const APP_ENV_DEV = 'dev';
     const APP_ENV_REVIEW = 'review';
@@ -95,7 +94,7 @@ abstract class CoreContext
      */
     public function getCookieStorage(): CookieStorage
     {
-        $instanceData = InstanceData::create(CookieStorage::class)->addParam($this->getCookieStorageNameSpace());
+        $instanceData = InstanceData::create(CookieStorage::class);
 
         return Instances::cache($instanceData);
     }
@@ -120,7 +119,8 @@ abstract class CoreContext
             ->setCacheName(Locale::class . '-' . md5(json_encode($paths)))
             ->addParam($this->getLocaleFileReader($paths))
             ->addParam([LocaleMiddleware::getLocaleCode()])
-            ->setAfterCallback(function (Locale $locale) {
+            ->setAfterCallback(function (Locale $locale)
+            {
                 return $locale->setLocale(LocaleMiddleware::getLocaleCode());
             })
         ;
@@ -191,13 +191,5 @@ abstract class CoreContext
         }
 
         return $config;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getCookieStorageNameSpace(): string
-    {
-        return self::COOKIE_NAMESPACE;
     }
 }
