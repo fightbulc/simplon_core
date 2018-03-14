@@ -38,7 +38,7 @@ class LocaleMiddleware extends BaseMiddleware
     }
 
     /**
-     * @param array $locales
+     * @param array  $locales
      * @param string $fallback
      */
     public function __construct(array $locales = [self::DEFAULT_LOCALE_CODE], string $fallback = self::DEFAULT_LOCALE_CODE)
@@ -63,14 +63,14 @@ class LocaleMiddleware extends BaseMiddleware
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param callable|null $next
+     * @param ResponseInterface      $response
+     * @param callable|null          $next
      *
      * @return ResponseInterface
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?callable $next = null): ResponseInterface
     {
-        if (preg_match('/\/(\w{2}\-\w{2}|\w{2})\/*/', $request->getUri()->getPath(), $match))
+        if (preg_match('/^\/(\w{2}\-\w{2}|\w{2})\/*/', $request->getUri()->getPath(), $match))
         {
             if (in_array($match[1], $this->locales))
             {

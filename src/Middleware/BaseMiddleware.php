@@ -38,7 +38,7 @@ abstract class BaseMiddleware implements MiddlewareInterface
 
     /**
      * @param ServerRequestInterface $request
-     * @param string $uriPart
+     * @param string                 $uriPart
      *
      * @return ServerRequestInterface
      */
@@ -50,7 +50,7 @@ abstract class BaseMiddleware implements MiddlewareInterface
         }
 
         return $request->withUri(
-            $request->getUri()->withPath(str_replace($uriPart, '', $request->getUri()->getPath()))
+            $request->getUri()->withPath(preg_replace('#^' . $uriPart . '#', '', $request->getUri()->getPath()))
         );
     }
 }
