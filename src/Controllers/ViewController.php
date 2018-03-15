@@ -9,6 +9,7 @@ use Simplon\Core\Data\CoreViewData;
 use Simplon\Core\Data\ResponseViewData;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ViewInterface;
+use Simplon\Core\Utils\CoreDevice;
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
 
@@ -107,7 +108,7 @@ abstract class ViewController extends Controller
     {
         if (!$this->device)
         {
-            $this->device = new Device($this->getUserAgent());
+            $this->device = new CoreDevice($this->getUserAgent());
         }
 
         return $this->device;
