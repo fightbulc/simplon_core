@@ -69,7 +69,7 @@ class CoreDevice extends Device
      */
     protected function testForGooglebotSmartphone(string $agent): self
     {
-        $this->isGooglebotSmartphone = $agent === 'Googlebot Smartphone';
+        $this->isGooglebotSmartphone = stripos($agent, 'Googlebot Smartphone') !== false;
 
         return $this;
     }
