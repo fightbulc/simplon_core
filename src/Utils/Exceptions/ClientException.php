@@ -34,7 +34,7 @@ class ClientException extends ErrorException
     /**
      * @param array $privateData
      *
-     * @return $this
+     * @return ClientException
      */
     public function setPrivateData(array $privateData)
     {
@@ -46,7 +46,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function cannotUnderstandRequest(array $data = [])
     {
@@ -60,7 +60,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function requestUnauthorized(array $data = [])
     {
@@ -74,7 +74,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function paymentRequired(array $data = [])
     {
@@ -88,7 +88,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function requestForbidden(array $data = [])
     {
@@ -102,7 +102,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function contentNotFound(array $data = [])
     {
@@ -116,7 +116,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function requestMethodNotAllowed(array $data = [])
     {
@@ -130,7 +130,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function contentConflict(array $data = [])
     {
@@ -144,7 +144,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function contentHasBeenDeleted(array $data = [])
     {
@@ -158,7 +158,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function requestHasInvalidData(array $data = [])
     {
@@ -172,7 +172,7 @@ class ClientException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ClientException
      */
     public function tooManyRequests(array $data = [])
     {

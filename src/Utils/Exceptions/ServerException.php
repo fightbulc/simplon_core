@@ -9,7 +9,7 @@ class ServerException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ServerException
      */
     public function internalError(array $data = [])
     {
@@ -23,7 +23,7 @@ class ServerException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ServerException
      */
     public function invalidResponseGateway(array $data = [])
     {
@@ -37,7 +37,7 @@ class ServerException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ServerException
      */
     public function timeoutGateway(array $data = [])
     {
@@ -51,7 +51,7 @@ class ServerException extends ErrorException
     /**
      * @param array $data
      *
-     * @return $this
+     * @return ServerException
      */
     public function serviceUnavailable(array $data = [])
     {
