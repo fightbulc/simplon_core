@@ -320,7 +320,7 @@ abstract class View implements ViewInterface
      */
     protected function renderPartial(string $path, array $data = []): string
     {
-        return $this->getRenderer()->renderPhtml($path, $data, true);
+        return $this->getRenderer()->renderPhtml($path, $data);
     }
 
     /**

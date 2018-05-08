@@ -2139,16 +2139,16 @@
         },
         {
             "name": "simplon/template",
-            "version": "0.8.3",
+            "version": "0.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_template.git",
-                "reference": "7b21dff10743a23c42df28e58129ec2e93e8b43a"
+                "reference": "71142c2ba8f508cee2d23e331dbeccdc51e8bad6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_template/zipball/7b21dff10743a23c42df28e58129ec2e93e8b43a",
-                "reference": "7b21dff10743a23c42df28e58129ec2e93e8b43a",
+                "url": "https://api.github.com/repos/fightbulc/simplon_template/zipball/71142c2ba8f508cee2d23e331dbeccdc51e8bad6",
+                "reference": "71142c2ba8f508cee2d23e331dbeccdc51e8bad6",
                 "shasum": ""
             },
             "require": {
@@ -2182,7 +2182,7 @@
                 "phtml",
                 "templates"
             ],
-            "time": "2017-03-03T21:19:47+00:00"
+            "time": "2018-05-08T15:50:13+00:00"
         },
         {
             "name": "simplon/url",
