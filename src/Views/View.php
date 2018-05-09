@@ -5,6 +5,7 @@ namespace Simplon\Core\Views;
 use Simplon\Core\Data\CoreViewData;
 use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Device\Device;
+use Simplon\Device\DeviceInterface;
 use Simplon\Form\View\FormView;
 use Simplon\Locale\Locale;
 use Simplon\Phtml\Phtml;
@@ -110,9 +111,9 @@ abstract class View implements ViewInterface
     }
 
     /**
-     * @return Device
+     * @return DeviceInterface
      */
-    public function getDevice(): Device
+    public function getDevice(): DeviceInterface
     {
         return $this->coreViewData->getDevice();
     }

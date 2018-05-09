@@ -100,10 +100,11 @@ class Events
     }
 
     /**
-     * @param string $event
+     * @param string   $event
      * @param callable $callback
      *
      * @return Events
+     * @throws ServerException
      */
     public function addOffer(string $event, callable $callback): self
     {

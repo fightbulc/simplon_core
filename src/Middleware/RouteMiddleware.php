@@ -66,10 +66,12 @@ class RouteMiddleware
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param callable|null $next
+     * @param ResponseInterface      $response
+     * @param callable|null          $next
      *
      * @return ResponseInterface
+     * @throws ClientException
+     * @throws ServerException
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, ?callable $next = null): ResponseInterface
     {
@@ -135,6 +137,7 @@ class RouteMiddleware
 
     /**
      * @return array
+     * @throws ServerException
      */
     private function buildRouteMetaData(): array
     {

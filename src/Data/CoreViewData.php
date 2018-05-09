@@ -3,7 +3,7 @@
 namespace Simplon\Core\Data;
 
 use Simplon\Core\Views\FlashMessage;
-use Simplon\Device\Device;
+use Simplon\Device\DeviceInterface;
 use Simplon\Locale\Locale;
 
 class CoreViewData
@@ -17,16 +17,16 @@ class CoreViewData
      */
     private $flashMessage;
     /**
-     * @var Device
+     * @var DeviceInterface
      */
     private $device;
 
     /**
-     * @param Locale $locale
-     * @param FlashMessage $flashMessage
-     * @param Device $device
+     * @param Locale          $locale
+     * @param FlashMessage    $flashMessage
+     * @param DeviceInterface $device
      */
-    public function __construct(Locale $locale, FlashMessage $flashMessage, Device $device)
+    public function __construct(Locale $locale, FlashMessage $flashMessage, DeviceInterface $device)
     {
         $this->locale = $locale;
         $this->flashMessage = $flashMessage;
@@ -50,9 +50,9 @@ class CoreViewData
     }
 
     /**
-     * @return Device
+     * @return DeviceInterface
      */
-    public function getDevice(): Device
+    public function getDevice(): DeviceInterface
     {
         return $this->device;
     }

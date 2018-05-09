@@ -9,9 +9,9 @@ use Simplon\Core\Data\CoreViewData;
 use Simplon\Core\Data\ResponseViewData;
 use Simplon\Core\Interfaces\RegistryInterface;
 use Simplon\Core\Interfaces\ViewInterface;
-use Simplon\Core\Utils\CoreDevice;
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
+use Simplon\Device\DeviceInterface;
 
 abstract class ViewController extends Controller
 {
@@ -20,7 +20,7 @@ abstract class ViewController extends Controller
      */
     protected $flashMessage;
     /**
-     * @var Device
+     * @var DeviceInterface
      */
     protected $device;
 
@@ -32,7 +32,7 @@ abstract class ViewController extends Controller
     abstract public function __invoke(array $params): ResponseViewData;
 
     /**
-     * @param ViewInterface $view
+     * @param ViewInterface          $view
      * @param null|ResponseInterface $response
      *
      * @return ResponseViewData
@@ -51,7 +51,7 @@ abstract class ViewController extends Controller
 
     /**
      * @param string $url
-     * @param int $code
+     * @param int    $code
      *
      * @return ResponseViewData
      */
@@ -101,14 +101,14 @@ abstract class ViewController extends Controller
     }
 
     /**
-     * @return Device
+     * @return DeviceInterface
      * @throws \Exception
      */
-    public function getDevice(): Device
+    public function getDevice(): DeviceInterface
     {
         if (!$this->device)
         {
-            $this->device = new CoreDevice($this->getUserAgent());
+            $this->device = new Device($this->getUserAgent());
         }
 
         return $this->device;

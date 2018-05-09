@@ -32,7 +32,7 @@
     "simplon/form": "^2.5",
     "simplon/url": "^0.4",
     "simplon/template": "^0.8",
-    "simplon/device": "^0.0",
+    "simplon/device": "^0.1",
     "simplon/helper": "^1.0",
     "simplon/interfaces": "^0.0",
     "simplon/http": "^0.0",

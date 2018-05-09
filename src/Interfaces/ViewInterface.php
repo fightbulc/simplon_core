@@ -4,7 +4,7 @@ namespace Simplon\Core\Interfaces;
 
 use Simplon\Core\Data\CoreViewData;
 use Simplon\Core\Views\FlashMessage;
-use Simplon\Device\Device;
+use Simplon\Device\DeviceInterface;
 use Simplon\Locale\Locale;
 
 interface ViewInterface
@@ -40,9 +40,9 @@ interface ViewInterface
     public function getFlashMessage(): FlashMessage;
 
     /**
-     * @return Device
+     * @return DeviceInterface
      */
-    public function getDevice(): Device;
+    public function getDevice(): DeviceInterface;
 
     /**
      * @return string
