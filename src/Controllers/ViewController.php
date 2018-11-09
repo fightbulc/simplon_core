@@ -12,6 +12,7 @@ use Simplon\Core\Interfaces\ViewInterface;
 use Simplon\Core\Views\FlashMessage;
 use Simplon\Device\Device;
 use Simplon\Device\DeviceInterface;
+use Simplon\Interfaces\StorageInterface;
 
 abstract class ViewController extends Controller
 {
@@ -84,17 +85,8 @@ abstract class ViewController extends Controller
     {
         if (!$this->flashMessage)
         {
-            /** @var RegistryInterface $registry */
-            $registry = $this->getRegistry();
-
-            /** @var Context $context */
-            $context = $registry->getContext();
-
-            /** @var CoreContext $appContext */
-            $appContext = $context->getAppContext();
-
             /** @noinspection PhpUndefinedMethodInspection */
-            $this->flashMessage = new FlashMessage($appContext->getSessionStorage());
+            $this->flashMessage = new FlashMessage($this->getSessionStorage());
         }
 
         return $this->flashMessage;
@@ -109,6 +101,11 @@ abstract class ViewController extends Controller
         if (!$this->device)
         {
             $this->device = new Device($this->getUserAgent());
+
+            if (getenv('NO_DEVICE_CACHE') === false)
+            {
+                $this->device->setStorage($this->getSessionStorage()); // to cache computed results
+            }
         }
 
         return $this->device;
@@ -120,5 +117,22 @@ abstract class ViewController extends Controller
     protected function getUserAgent(): ?string
     {
         return $_SERVER['HTTP_USER_AGENT'] ?? null;
+    }
+
+    /**
+     * @return StorageInterface
+     */
+    private function getSessionStorage(): StorageInterface
+    {
+        /** @var RegistryInterface $registry */
+        $registry = $this->getRegistry();
+
+        /** @var Context $context */
+        $context = $registry->getContext();
+
+        /** @var CoreContext $appContext */
+        $appContext = $context->getAppContext();
+
+        return $appContext->getSessionStorage();
     }
 }
