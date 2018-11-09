@@ -102,7 +102,7 @@ abstract class ViewController extends Controller
         {
             $this->device = new Device($this->getUserAgent());
 
-            if (getenv('NO_DEVICE_CACHE') === false)
+            if (getenv('USE_DEVICE_SESSION') === true)
             {
                 $this->device->setStorage($this->getSessionStorage()); // to cache computed results
             }
