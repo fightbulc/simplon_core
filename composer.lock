@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ab589256f95d7c9f36be4f81dfad4b6",
+    "content-hash": "769c308a7f370746824174087b1b03db",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -118,16 +118,16 @@
         },
         {
             "name": "fig/http-message-util",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message-util.git",
-                "reference": "20b2c280cb6914b7b83089720df44e490f4b42f0"
+                "reference": "35b19404371b31b3a43823c755398c48c9966db4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message-util/zipball/20b2c280cb6914b7b83089720df44e490f4b42f0",
-                "reference": "20b2c280cb6914b7b83089720df44e490f4b42f0",
+                "url": "https://api.github.com/repos/php-fig/http-message-util/zipball/35b19404371b31b3a43823c755398c48c9966db4",
+                "reference": "35b19404371b31b3a43823c755398c48c9966db4",
                 "shasum": ""
             },
             "require": {
@@ -164,7 +164,7 @@
                 "request",
                 "response"
             ],
-            "time": "2017-02-09T16:10:21+00:00"
+            "time": "2018-11-19T16:19:58+00:00"
         },
         {
             "name": "fightbulc/moment",
@@ -1305,16 +1305,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
                 "shasum": ""
             },
             "require": {
@@ -1348,7 +1348,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "relay/relay",
@@ -1397,16 +1397,16 @@
         },
         {
             "name": "simplon/component_form",
-            "version": "0.2.2",
+            "version": "0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_component_form.git",
-                "reference": "04713e5027a93b0cccb3ecfec2843b44ee4f2ea3"
+                "reference": "86b535e8fc33c5e525b9455bea885b59d5d4c107"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_component_form/zipball/04713e5027a93b0cccb3ecfec2843b44ee4f2ea3",
-                "reference": "04713e5027a93b0cccb3ecfec2843b44ee4f2ea3",
+                "url": "https://api.github.com/repos/fightbulc/simplon_component_form/zipball/86b535e8fc33c5e525b9455bea885b59d5d4c107",
+                "reference": "86b535e8fc33c5e525b9455bea885b59d5d4c107",
                 "shasum": ""
             },
             "require": {
@@ -1438,7 +1438,7 @@
                 }
             ],
             "description": "Assets required for simplon/form",
-            "time": "2018-01-31T09:39:08+00:00"
+            "time": "2018-11-20T11:31:18+00:00"
         },
         {
             "name": "simplon/component_semanticui",
@@ -1690,16 +1690,16 @@
         },
         {
             "name": "simplon/device",
-            "version": "0.2.0",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_device.git",
-                "reference": "b93d40207d937d937728dd9e6f92461f3c02cc09"
+                "reference": "e2cd54be26eedfc7e9131004c1882f7c90a0eb23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_device/zipball/b93d40207d937d937728dd9e6f92461f3c02cc09",
-                "reference": "b93d40207d937d937728dd9e6f92461f3c02cc09",
+                "url": "https://api.github.com/repos/fightbulc/simplon_device/zipball/e2cd54be26eedfc7e9131004c1882f7c90a0eb23",
+                "reference": "e2cd54be26eedfc7e9131004c1882f7c90a0eb23",
                 "shasum": ""
             },
             "require": {
@@ -1734,7 +1734,7 @@
                 "detection",
                 "device"
             ],
-            "time": "2018-11-09T07:50:17+00:00"
+            "time": "2018-11-21T13:24:20+00:00"
         },
         {
             "name": "simplon/form",
