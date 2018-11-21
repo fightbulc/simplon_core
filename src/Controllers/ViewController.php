@@ -101,11 +101,6 @@ abstract class ViewController extends Controller
         if (!$this->device)
         {
             $this->device = new Device($this->getUserAgent());
-
-            if (getenv('USE_DEVICE_SESSION') === true)
-            {
-                $this->device->setStorage($this->getSessionStorage()); // to cache computed results
-            }
         }
 
         return $this->device;
