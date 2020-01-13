@@ -19,6 +19,7 @@ abstract class CoreContext
     const APP_ENV_DEV = 'dev';
     const APP_ENV_REVIEW = 'review';
     const APP_ENV_STAGE = 'stage';
+    const APP_ENV_PROD = 'production';
     const APP_ENV_PRODUCTION = 'production';
 
     /**
