@@ -39,7 +39,7 @@ abstract class CoreContext
         return [
             self::APP_ENV_REVIEW,
             self::APP_ENV_STAGE,
-            self::APP_ENV_PRODUCTION,
+            self::APP_ENV_PROD,
         ];
     }
 
@@ -176,7 +176,7 @@ abstract class CoreContext
 
             foreach ($this->getRemoteEnvs() as $env)
             {
-                if (getenv('APP_ENV') === $env)
+                if (strpos($env, getenv('APP_ENV')) !== false)
                 {
                     $envFilePath = $path . '/' . $env . '.php';
 
