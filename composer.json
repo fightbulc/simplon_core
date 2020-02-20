@@ -27,7 +27,7 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.2",
     "simplon/locale": "^0.4",
     "simplon/form": "^2.5",
     "simplon/url": "^0.6",
