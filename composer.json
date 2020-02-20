@@ -30,7 +30,7 @@
     "php": ">=7.1",
     "simplon/locale": "^0.4",
     "simplon/form": "^2.5",
-    "simplon/url": "^0.5",
+    "simplon/url": "^0.6",
     "simplon/template": "^0.8",
     "simplon/device": "^0.3",
     "simplon/helper": "^1.0",
