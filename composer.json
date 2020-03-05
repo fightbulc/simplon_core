@@ -40,7 +40,7 @@
     "filp/whoops": "^2.1",
     "mnapoli/silly": "1.6.*",
     "spatie/array-to-xml": "^2.7",
-    "laminas/laminas-diactoros": "^2.2"
+    "zendframework/zend-diactoros": "^2.2"
   },
   "config": {
     "component-dir": "public/assets/vendor"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0454138fae5de2ddf0a60629741f6a55",
+    "content-hash": "0c3924151859c163986d39f385f40536",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -170,16 +170,16 @@
         },
         {
             "name": "fightbulc/moment",
-            "version": "1.30.1",
+            "version": "1.32.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/moment.php.git",
-                "reference": "3a18b0b512feed55b7c50f67633fd98c93abc22a"
+                "reference": "16b63d5d0e545615daf19c6a8b24786cb170172f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/3a18b0b512feed55b7c50f67633fd98c93abc22a",
-                "reference": "3a18b0b512feed55b7c50f67633fd98c93abc22a",
+                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/16b63d5d0e545615daf19c6a8b24786cb170172f",
+                "reference": "16b63d5d0e545615daf19c6a8b24786cb170172f",
                 "shasum": ""
             },
             "require": {
@@ -219,7 +219,7 @@
                 "translation",
                 "validate"
             ],
-            "time": "2020-01-24T08:50:01+00:00"
+            "time": "2020-03-04T06:31:17+00:00"
         },
         {
             "name": "filp/whoops",
@@ -473,16 +473,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.93",
+            "version": "v1.2.94",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "608ec84bdf85fa8200c0f36f455483698b450ecd"
+                "reference": "fbd4c12741583fb9d8f0bcbf65248a34eed68fc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/608ec84bdf85fa8200c0f36f455483698b450ecd",
-                "reference": "608ec84bdf85fa8200c0f36f455483698b450ecd",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/fbd4c12741583fb9d8f0bcbf65248a34eed68fc9",
+                "reference": "fbd4c12741583fb9d8f0bcbf65248a34eed68fc9",
                 "shasum": ""
             },
             "require": {
@@ -518,7 +518,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2020-02-16T12:34:48+00:00"
+            "time": "2020-02-20T21:42:59+00:00"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -2023,20 +2023,21 @@
         },
         {
             "name": "simplon/helper",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/simplon_helper.git",
-                "reference": "50b9078a5c2fb35a57e9cdcf48bf60142a8964ee"
+                "reference": "053e7cdb4dc589ad4a773cb039a9b6830e9bb293"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/simplon_helper/zipball/50b9078a5c2fb35a57e9cdcf48bf60142a8964ee",
-                "reference": "50b9078a5c2fb35a57e9cdcf48bf60142a8964ee",
+                "url": "https://api.github.com/repos/fightbulc/simplon_helper/zipball/053e7cdb4dc589ad4a773cb039a9b6830e9bb293",
+                "reference": "053e7cdb4dc589ad4a773cb039a9b6830e9bb293",
                 "shasum": ""
             },
             "require": {
                 "dusank/knapsack": "^10.0",
+                "ext-json": "*",
                 "php": ">=7.1"
             },
             "type": "library",
@@ -2063,7 +2064,7 @@
                 "passwords",
                 "tokens"
             ],
-            "time": "2017-08-16T11:03:50+00:00"
+            "time": "2020-02-21T14:19:38+00:00"
         },
         {
             "name": "simplon/http",
@@ -2437,16 +2438,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.4.37",
+            "version": "v3.4.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "7c5bdd346f9d90a2d22d4e1fe61e02dc19b98f12"
+                "reference": "6827023c5872bea44b29d145de693b21981cf4cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/7c5bdd346f9d90a2d22d4e1fe61e02dc19b98f12",
-                "reference": "7c5bdd346f9d90a2d22d4e1fe61e02dc19b98f12",
+                "url": "https://api.github.com/repos/symfony/console/zipball/6827023c5872bea44b29d145de693b21981cf4cd",
+                "reference": "6827023c5872bea44b29d145de693b21981cf4cd",
                 "shasum": ""
             },
             "require": {
@@ -2505,20 +2506,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-10T07:52:48+00:00"
+            "time": "2020-02-15T13:27:16+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v4.4.4",
+            "version": "v4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "20236471058bbaa9907382500fc14005c84601f0"
+                "reference": "a980d87a659648980d89193fd8b7a7ca89d97d21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/20236471058bbaa9907382500fc14005c84601f0",
-                "reference": "20236471058bbaa9907382500fc14005c84601f0",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/a980d87a659648980d89193fd8b7a7ca89d97d21",
+                "reference": "a980d87a659648980d89193fd8b7a7ca89d97d21",
                 "shasum": ""
             },
             "require": {
@@ -2561,11 +2562,11 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-25T12:44:29+00:00"
+            "time": "2020-02-23T14:41:43+00:00"
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v5.0.4",
+            "version": "v5.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
@@ -2678,16 +2679,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.4.37",
+            "version": "v3.4.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "5b9d2bcffe4678911a4c941c00b7c161252cf09a"
+                "reference": "b03b02dcea26ba4c65c16a73bab4f00c186b13da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/5b9d2bcffe4678911a4c941c00b7c161252cf09a",
-                "reference": "5b9d2bcffe4678911a4c941c00b7c161252cf09a",
+                "url": "https://api.github.com/repos/symfony/process/zipball/b03b02dcea26ba4c65c16a73bab4f00c186b13da",
+                "reference": "b03b02dcea26ba4c65c16a73bab4f00c186b13da",
                 "shasum": ""
             },
             "require": {
@@ -2723,7 +2724,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-01T11:03:25+00:00"
+            "time": "2020-02-04T08:04:52+00:00"
         }
     ],
     "packages-dev": [],
